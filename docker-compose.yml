@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  # The Sherlock Database (Postgres + Vector Support)
+  db:
+    image: ankane/pgvector:latest
+    container_name: sherlock_db
+    environment:
+      POSTGRES_USER: sherlock
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: sherlock_memory
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -23,20 +23,9 @@ class ChatResponse(BaseModel):
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(request: ChatRequest):
-    """
-    LangGraph-powered chat endpoint.
-    Uses thread_id as a persistent case file.
-    """
-
-    # New case if no thread_id
+  
     thread_id = request.thread_id or str(uuid.uuid4())
 
-    # LangGraph config
-    # config = {
-    #     "configurable": {
-    #         "thread_id": thread_id
-    #     }
-    # }
     config: RunnableConfig = {
     "configurable": {
         "thread_id": thread_id
@@ -44,7 +33,6 @@ async def chat_endpoint(request: ChatRequest):
     }
     user_message = HumanMessage(content=request.message)
 
-    # Run agent
     result = agent_graph.invoke(
         {"messages": [user_message]},
         config=config

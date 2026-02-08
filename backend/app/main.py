@@ -3,19 +3,66 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
+
+import json
+import time
+
 load_dotenv()
 
 import uvicorn
 
 from app.agent import checkpointer
 from app.api.chat import router as chat_router
+from app.api.upload import router as upload_router
+
+
+DEBUG_LOG_PATH = "/Users/rajaryan/Desktop/Projects/ML/bakerStreet221B.ai/bakerStreet221B.ai-1/.cursor/debug.log"
+
+
+def _agent_debug_log(payload: dict) -> None:
+    """
+    Append a single NDJSON debug entry to the shared debug log.
+    Never raises to avoid impacting main control flow.
+    """
+    try:
+        with open(DEBUG_LOG_PATH, "a") as f:
+            f.write(json.dumps(payload) + "\n")
+    except Exception:
+        # Best-effort only; ignore all logging errors
+        pass
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # ---------- Startup ----------
     print("Initializing LangGraph persistence...")
+
+    # region agent log
+    _agent_debug_log({
+        "sessionId": "debug-session",
+        "runId": "initial",
+        "hypothesisId": "H5",
+        "location": "app/main.py:lifespan:before_checkpointer_setup",
+        "message": "About to call checkpointer.setup()",
+        "data": {},
+        "timestamp": time.time(),
+    })
+    # endregion
+
     checkpointer.setup()
+
+    # region agent log
+    _agent_debug_log({
+        "sessionId": "debug-session",
+        "runId": "initial",
+        "hypothesisId": "H5",
+        "location": "app/main.py:lifespan:after_checkpointer_setup",
+        "message": "Finished checkpointer.setup()",
+        "data": {},
+        "timestamp": time.time(),
+    })
+    # endregion
+
     print("Persistence ready.")
 
     yield  # App runs while server is alive
@@ -54,6 +101,7 @@ async def root():
 # API Routes
 # --------------------------------------------------
 app.include_router(chat_router, prefix="")
+app.include_router(upload_router, prefix="")
 
 # --------------------------------------------------
 # Local dev entrypoint

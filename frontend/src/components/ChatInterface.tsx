@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -8,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Send, Mic, MicOff, Brain, User, Loader2 } from "lucide-react";
+import { Send, Mic, MicOff, Brain, User, Loader2, Paperclip } from "lucide-react";
 
 interface Message {
   id: string;
@@ -33,6 +34,7 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
   const [isRecording, setIsRecording] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   /* ---------------- Hydration-safe init ---------------- */
   useEffect(() => {
@@ -48,7 +50,7 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
     ]);
   }, []);
 
-  /* ---------------- ChatGPT-style auto scroll ---------------- */
+  /* ---------------- Auto scroll ---------------- */
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -123,6 +125,55 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
     }
   };
 
+  /* ---------------- FILE UPLOAD ---------------- */
+  const handleUploadClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("case_id", threadId ?? activeCase ?? "default-case");
+
+    try {
+      const res = await fetch(`${BACKEND_URL}/upload`, {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          role: "agent",
+          content: `📄 Document "${data.filename}" ingested (${data.chunks} chunks).`,
+          type: "analysis",
+          timestamp: new Date(),
+        },
+      ]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          role: "agent",
+          content: "⚠️ Failed to upload document.",
+          type: "text",
+          timestamp: new Date(),
+        },
+      ]);
+    }
+
+    e.target.value = "";
+  };
+
   return (
     <Card className="flex flex-col h-full min-h-0 bg-linear-to-br from-slate-900/40 to-amber-950/40 border-amber-900/50">
       <CardHeader className="border-b border-amber-900/30">
@@ -134,16 +185,14 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
 
       <CardContent className="flex flex-col flex-1 min-h-0 p-0">
         {/* ---------------- Messages ---------------- */}
-        <div
-          ref={scrollRef}
-          className="flex-1 overflow-y-auto px-8 py-6"
-        >
+        <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 py-6">
           <div className="mx-auto max-w-3xl space-y-6">
             {messages.map((m) => (
               <div
                 key={m.id}
-                className={`flex ${m.role === "user" ? "justify-end" : "justify-start"
-                  }`}
+                className={`flex ${
+                  m.role === "user" ? "justify-end" : "justify-start"
+                }`}
               >
                 {m.role === "agent" && (
                   <Brain className="mr-3 mt-1 w-6 h-6 text-amber-500" />
@@ -178,10 +227,26 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
           </div>
         </div>
 
-        {/* ---------------- INPUT BAR (FIXED) ---------------- */}
-        {/* Input Bar */}
+        {/* ---------------- INPUT BAR ---------------- */}
         <div className="border-t border-amber-900/30 bg-transparent px-4 py-3">
           <div className="mx-auto max-w-3xl flex items-center gap-3">
+            {/* 📎 Upload Button */}
+            <button
+              onClick={handleUploadClick}
+              className="flex h-9 w-9 items-center justify-center rounded-md text-amber-400 hover:bg-amber-900/30 transition"
+              title="Upload document"
+            >
+              <Paperclip size={18} />
+            </button>
+
+            {/* Hidden file input */}
+            <input
+              type="file"
+              accept=".pdf,.txt,.doc,.docx"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className="hidden"
+            />
 
             {/* Mic Button */}
             <button
@@ -191,21 +256,13 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
               {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
             </button>
 
-            {/* Textarea ONLY (no blue container) */}
+            {/* Textarea */}
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Present your clues, Watson…"
               rows={1}
-              className="
-        flex-1 resize-none
-        bg-transparent
-        text-white
-        placeholder:text-slate-400
-        focus:outline-none
-        leading-6
-        py-2
-      "
+              className="flex-1 resize-none bg-transparent text-white placeholder:text-slate-400 focus:outline-none leading-6 py-2"
               onKeyDown={(e) => {
                 if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
@@ -219,19 +276,10 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
             <button
               onClick={handleSendMessage}
               disabled={!input.trim() || isProcessing}
-              className="
-        flex h-9 w-9 items-center justify-center
-        rounded-md
-        bg-amber-600
-        text-black
-        hover:bg-amber-500
-        disabled:opacity-50
-        transition
-      "
+              className="flex h-9 w-9 items-center justify-center rounded-md bg-amber-600 text-black hover:bg-amber-500 disabled:opacity-50 transition"
             >
               <Send size={18} />
             </button>
-
           </div>
         </div>
       </CardContent>

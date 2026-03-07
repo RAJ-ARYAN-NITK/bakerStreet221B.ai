@@ -9,11 +9,23 @@ import time
 
 load_dotenv()
 
+from app.database import Base, engine
+
+# ============================
+# 🔴 REQUIRED MODEL IMPORTS
+# Without this → messages table NOT created
+# ============================
+from app.models.case import Case          # ← ADDED
+from app.models.message import Message    # ← ADDED
+# ============================
+
 import uvicorn
 
 from app.agent import checkpointer
 from app.api.chat import router as chat_router
 from app.api.upload import router as upload_router
+from app.api.cases import router as cases_router 
+from app.api.messages import router as messages_router   # ← ADD
 
 
 DEBUG_LOG_PATH = "/Users/rajaryan/Desktop/Projects/ML/bakerStreet221B.ai/bakerStreet221B.ai-1/.cursor/debug.log"
@@ -28,7 +40,6 @@ def _agent_debug_log(payload: dict) -> None:
         with open(DEBUG_LOG_PATH, "a") as f:
             f.write(json.dumps(payload) + "\n")
     except Exception:
-        # Best-effort only; ignore all logging errors
         pass
 
 
@@ -37,7 +48,13 @@ async def lifespan(app: FastAPI):
     # ---------- Startup ----------
     print("Initializing LangGraph persistence...")
 
-    # region agent log
+    # ============================
+    # 🔴 THIS NOW CREATES ALL TABLES
+    # INCLUDING "messages"
+    # ============================
+    Base.metadata.create_all(bind=engine)
+    # ============================
+
     _agent_debug_log({
         "sessionId": "debug-session",
         "runId": "initial",
@@ -47,11 +64,9 @@ async def lifespan(app: FastAPI):
         "data": {},
         "timestamp": time.time(),
     })
-    # endregion
 
     checkpointer.setup()
 
-    # region agent log
     _agent_debug_log({
         "sessionId": "debug-session",
         "runId": "initial",
@@ -61,14 +76,13 @@ async def lifespan(app: FastAPI):
         "data": {},
         "timestamp": time.time(),
     })
-    # endregion
 
     print("Persistence ready.")
 
-    yield  # App runs while server is alive
+    yield
 
-    # ---------- Shutdown (optional cleanup) ----------
     print("Shutting down BakerStreet221B API...")
+
 
 app = FastAPI(
     title="BakerStreet221B API",
@@ -87,6 +101,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # --------------------------------------------------
 # Health check
 # --------------------------------------------------
@@ -97,11 +112,15 @@ async def root():
         "message": "BakerStreet221B API is running"
     }
 
+
 # --------------------------------------------------
 # API Routes
 # --------------------------------------------------
 app.include_router(chat_router, prefix="")
 app.include_router(upload_router, prefix="")
+app.include_router(cases_router)
+app.include_router(messages_router)   # ← ADD
+
 
 # --------------------------------------------------
 # Local dev entrypoint

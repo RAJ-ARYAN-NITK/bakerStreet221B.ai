@@ -211,19 +211,121 @@
 //     </div>
 //   );
 // }
+// 'use client';
+
+// import React, { useState } from 'react';
+// import { CaseBoard } from '@/components/CaseBoard';
+// import { ChatInterface } from '@/components/ChatInterface';
+// import { Header } from '@/components/Header';
+
+// export default function Home() {
+//   const [activeCase, setActiveCase] = useState<string | null>(null);
+
+//   return (
+//     <div className="h-screen flex flex-col bg-linear-to-br from-slate-900 via-amber-950 to-slate-900 overflow-hidden">
+//       {/* Background */}
+//       <div className="absolute inset-0 opacity-10 pointer-events-none">
+//         <div
+//           className="absolute inset-0"
+//           style={{
+//             backgroundImage: `url("data:image/svg+xml,...")`,
+//           }}
+//         />
+//       </div>
+
+//       <div className="relative z-10 flex flex-col h-full overflow-hidden">
+//         <Header />
+
+//         {/* 🔒 Height-locked content */}
+//         <div className="flex-1 overflow-hidden px-4 py-6">
+//           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full overflow-hidden">
+//             <div className="lg:col-span-1 overflow-hidden">
+//               <CaseBoard activeCase={activeCase} onCaseSelect={setActiveCase} />
+//             </div>
+
+//             <section className="lg:col-span-2 flex flex-col overflow-hidden min-h-0">
+//               <ChatInterface activeCase={activeCase} />
+//             </section>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+// 'use client';
+
+// import React, { useState } from 'react';
+// import { CaseBoard } from '@/components/CaseBoard';
+// import { ChatInterface } from '@/components/ChatInterface';
+// import { Header } from '@/components/Header';
+
+// export default function Home() {
+//   // 🔴 THIS STATE IS CORRECT — keep it
+//   const [activeCase, setActiveCase] = useState<string | null>(null);
+
+//   return (
+//     <div className="h-screen flex flex-col bg-linear-to-br from-slate-900 via-amber-950 to-slate-900 overflow-hidden">
+      
+//       {/* Background */}
+//       <div className="absolute inset-0 opacity-10 pointer-events-none">
+//         <div
+//           className="absolute inset-0"
+//           style={{
+//             backgroundImage: `url("data:image/svg+xml,...")`,
+//           }}
+//         />
+//       </div>
+
+//       <div className="relative z-10 flex flex-col h-full overflow-hidden">
+//         <Header />
+
+//         {/* 🔴 IMPORTANT: content must allow children to grow */}
+//         <div className="flex-1 overflow-hidden px-4 py-6">
+          
+//           {/* 🔴 CHANGE 1: ensure grid takes full height */}
+//           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full min-h-0">
+            
+//             {/* LEFT PANEL */}
+//             <div className="lg:col-span-1 overflow-hidden min-h-0">
+              
+//               {/* 🔴 CHANGE 2: prop name must match CaseBoard */}
+//               <CaseBoard
+//                 activeCase={activeCase}
+//                 onCaseSelect={setActiveCase}   // ← THIS drives chat visibility
+//               />
+//             </div>
+
+//             {/* RIGHT CHAT PANEL */}
+//             <section className="lg:col-span-2 flex flex-col overflow-hidden min-h-0">
+              
+//               {/* 🔴 CHANGE 3: ensure ChatInterface fills height */}
+//               <div className="flex-1 min-h-0">
+//                 <ChatInterface activeCase={activeCase} />
+//               </div>
+
+//             </section>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 'use client';
 
 import React, { useState } from 'react';
-import { CaseBoard } from '@/components/CaseBoard';
+import { CaseSidebar } from '@/components/ui/CaseSidebar';   // ✅ REAL sidebar
+// /Users/rajaryan/Desktop/Projects/ML/bakerStreet221B.ai/bakerStreet221B.ai-1/frontend/src/components/ui/CaseSidebar.tsx
 import { ChatInterface } from '@/components/ChatInterface';
 import { Header } from '@/components/Header';
 
 export default function Home() {
+  // ✅ controls which investigation is open
   const [activeCase, setActiveCase] = useState<string | null>(null);
 
   return (
     <div className="h-screen flex flex-col bg-linear-to-br from-slate-900 via-amber-950 to-slate-900 overflow-hidden">
-      {/* Background */}
+      
+      {/* Background texture */}
       <div className="absolute inset-0 opacity-10 pointer-events-none">
         <div
           className="absolute inset-0"
@@ -236,16 +338,27 @@ export default function Home() {
       <div className="relative z-10 flex flex-col h-full overflow-hidden">
         <Header />
 
-        {/* 🔒 Height-locked content */}
+        {/* Main content */}
         <div className="flex-1 overflow-hidden px-4 py-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full overflow-hidden">
-            <div className="lg:col-span-1 overflow-hidden">
-              <CaseBoard activeCase={activeCase} onCaseSelect={setActiveCase} />
+          
+          {/* ✅ 2-column layout (sidebar + chat) */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full min-h-0">
+            
+            {/* LEFT — REAL CASE SIDEBAR */}
+            <div className="lg:col-span-1 min-h-0">
+              <CaseSidebar
+                activeCase={activeCase}
+                setActiveCase={setActiveCase}
+              />
             </div>
 
-            <section className="lg:col-span-2 flex flex-col overflow-hidden min-h-0">
-              <ChatInterface activeCase={activeCase} />
+            {/* RIGHT — CHAT */}
+            <section className="lg:col-span-2 flex flex-col min-h-0 overflow-hidden">
+              <div className="flex-1 min-h-0">
+                <ChatInterface activeCase={activeCase} />
+              </div>
             </section>
+
           </div>
         </div>
       </div>

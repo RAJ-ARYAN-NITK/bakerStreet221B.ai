@@ -1,0 +1,76 @@
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1771319301.2182121}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1771319301.222809}
+{"stage": "after_user_text", "messages_count": 3, "user_text_preview": "tell me about the crystal structure of the ceramics", "timestamp": 1771319359.927039}
+{"stage": "after_retrieve_evidence", "case_id": "a9486cc5-42d4-4eb2-b5f6-0b8fb64e4f9e", "evidence_count": 0, "timestamp": 1771319360.158916}
+{"stage": "no_evidence_refusal", "case_id": "a9486cc5-42d4-4eb2-b5f6-0b8fb64e4f9e", "timestamp": 1771319360.159138}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1771323163.4318771}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1771323163.4356291}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1771323168.950182}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1771323168.95247}
+{"stage": "after_user_text", "user_text_preview": "tell me about the crystal structure of the ceramics", "timestamp": 1771323176.162504}
+{"stage": "case_id_extracted", "case_id": "default-case", "timestamp": 1771323176.163605}
+{"stage": "after_retrieve_evidence", "case_id": "default-case", "evidence_count": 0, "timestamp": 1771323176.517809}
+{"stage": "before_llm", "case_id": "default-case", "has_evidence": false, "timestamp": 1771323176.518193}
+{"stage": "after_llm", "response_preview": "An intriguing subject, my dear fellow.  While I have no specific case file information on ceramics, I can offer some gen", "timestamp": 1771323177.2658792}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1771323285.5107598}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1771323285.514658}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1771323290.711145}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1771323290.7133288}
+{"stage": "after_user_text", "user_text_preview": "tell me something about BaTiO3", "timestamp": 1771323302.7764502}
+{"stage": "case_id_extracted", "case_id": "56af0f43-cfcd-4fef-affd-5a879151495f", "timestamp": 1771323302.777177}
+{"stage": "after_retrieve_evidence", "case_id": "56af0f43-cfcd-4fef-affd-5a879151495f", "evidence_count": 0, "timestamp": 1771323303.1300821}
+{"stage": "before_llm", "case_id": "56af0f43-cfcd-4fef-affd-5a879151495f", "has_evidence": false, "timestamp": 1771323303.1305358}
+{"stage": "after_llm", "response_preview": "An interesting subject, my dear fellow. BaTiO3, or barium titanate, is a perovskite mineral. Its crystal structure exhib", "timestamp": 1771323304.1932101}
+{"stage": "after_user_text", "user_text_preview": "tell me something about batio3", "timestamp": 1771323350.507091}
+{"stage": "case_id_extracted", "case_id": "95be9b4e-21b7-4ead-82c3-426806e7fd84", "timestamp": 1771323350.50843}
+{"stage": "after_retrieve_evidence", "case_id": "95be9b4e-21b7-4ead-82c3-426806e7fd84", "evidence_count": 0, "timestamp": 1771323350.718517}
+{"stage": "before_llm", "case_id": "95be9b4e-21b7-4ead-82c3-426806e7fd84", "has_evidence": false, "timestamp": 1771323350.7187982}
+{"stage": "after_llm", "response_preview": "A most intriguing subject, Batio3.  Batio3, also known as Barium Tantalum Oxide, is a type of dielectric material. It is", "timestamp": 1771323351.260101}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1771329569.112283}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1771329569.1194189}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1771581013.467124}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1771581013.485943}
+{"stage": "after_user_text", "user_text_preview": "tell me something about the certificate what is this all about ?", "timestamp": 1771581046.020997}
+{"stage": "case_id_extracted", "case_id": "b7ec30e3-dd2b-41c6-bb85-188311b1bab5", "timestamp": 1771581046.024004}
+{"stage": "after_retrieve_evidence", "case_id": "b7ec30e3-dd2b-41c6-bb85-188311b1bab5", "evidence_count": 1, "timestamp": 1771581046.251772}
+{"stage": "before_llm", "case_id": "b7ec30e3-dd2b-41c6-bb85-188311b1bab5", "has_evidence": true, "timestamp": 1771581046.252058}
+{"stage": "after_llm", "response_preview": "An intriguing document, my dear fellow. The Course Completion Certificate appears to be a record of achievement for Raj ", "timestamp": 1771581046.890025}
+{"stage": "after_user_text", "user_text_preview": "what ur upto ?", "timestamp": 1771581064.569825}
+{"stage": "case_id_extracted", "case_id": "b7ec30e3-dd2b-41c6-bb85-188311b1bab5", "timestamp": 1771581064.570554}
+{"stage": "after_retrieve_evidence", "case_id": "b7ec30e3-dd2b-41c6-bb85-188311b1bab5", "evidence_count": 2, "timestamp": 1771581064.783138}
+{"stage": "before_llm", "case_id": "b7ec30e3-dd2b-41c6-bb85-188311b1bab5", "has_evidence": true, "timestamp": 1771581064.783413}
+{"stage": "after_llm", "response_preview": "I'm investigating a Course Completion Certificate, specifically one belonging to Raj Aryan. The certificate indicates th", "timestamp": 1771581065.351732}
+{"stage": "after_user_text", "user_text_preview": "tell me", "timestamp": 1771581181.969654}
+{"stage": "case_id_extracted", "case_id": "a892941f-e3c6-419e-b803-79532234e9ef", "timestamp": 1771581181.971288}
+{"stage": "after_retrieve_evidence", "case_id": "a892941f-e3c6-419e-b803-79532234e9ef", "evidence_count": 1, "timestamp": 1771581182.1524942}
+{"stage": "before_llm", "case_id": "a892941f-e3c6-419e-b803-79532234e9ef", "has_evidence": true, "timestamp": 1771581182.15275}
+{"stage": "after_llm", "response_preview": "An intriguing case, my dear fellow. Let us begin by examining the available evidence. \n\nWe have a Course Completion Cert", "timestamp": 1771581182.91455}
+{"stage": "after_user_text", "user_text_preview": "more about this ?", "timestamp": 1771581226.35407}
+{"stage": "case_id_extracted", "case_id": "a892941f-e3c6-419e-b803-79532234e9ef", "timestamp": 1771581226.3556008}
+{"stage": "after_retrieve_evidence", "case_id": "a892941f-e3c6-419e-b803-79532234e9ef", "evidence_count": 2, "timestamp": 1771581226.634041}
+{"stage": "before_llm", "case_id": "a892941f-e3c6-419e-b803-79532234e9ef", "has_evidence": true, "timestamp": 1771581226.6343381}
+{"stage": "after_llm", "response_preview": "A most intriguing case, my dear fellow. Let us begin by examining the Course Completion Certificate.\n\nFrom the certifica", "timestamp": 1771581227.273587}
+{"stage": "after_user_text", "user_text_preview": "what is matlab ?", "timestamp": 1771581768.213826}
+{"stage": "case_id_extracted", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1771581768.217052}
+{"stage": "after_retrieve_evidence", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "evidence_count": 0, "timestamp": 1771581768.423167}
+{"stage": "before_llm", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "has_evidence": false, "timestamp": 1771581768.423428}
+{"stage": "after_llm", "response_preview": "An interesting inquiry, my dear fellow. Based on my knowledge, MATLAB is a high-level programming language and software ", "timestamp": 1771581769.34455}
+{"stage": "after_user_text", "user_text_preview": "tell me about certificate", "timestamp": 1771581781.0821}
+{"stage": "case_id_extracted", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1771581781.083576}
+{"stage": "after_retrieve_evidence", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "evidence_count": 1, "timestamp": 1771581781.312327}
+{"stage": "before_llm", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "has_evidence": true, "timestamp": 1771581781.312931}
+{"stage": "after_llm", "response_preview": "A most intriguing topic, my dear fellow.  As I analyze the concept of a certificate, I note the following:\n\nA certificat", "timestamp": 1771581782.160876}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772875125.0848372}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772875125.094052}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772879121.6178079}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772879121.6225421}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772879686.274209}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772879686.281961}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772879692.59904}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772879692.6027782}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772879922.0183702}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772879922.023951}
+{"stage": "reason_node_start", "user_text": "yo", "iteration": 0, "timestamp": 1772880011.277694}
+{"stage": "reason_node_output", "thought": "A most...enigmatic greeting.  I must admit, I'm not quite sure what to make of it. However, as a man of reason and obser", "timestamp": 1772880011.985545}
+{"stage": "tool_execution", "query": "A most...enigmatic greeting.  I must admit, I'm not quite sure what to make of it. However, as a man", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1772880011.9877849}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1772880012.782478}

@@ -1,4 +1,597 @@
 
+// "use client";
+
+// import React, { useState, useRef, useEffect } from "react";
+// import {
+//   Card,
+//   CardContent,
+//   CardHeader,
+//   CardTitle,
+// } from "@/components/ui/card";
+// import { Badge } from "@/components/ui/badge";
+// import { Send, Mic, MicOff, Brain, User, Loader2, Paperclip } from "lucide-react";
+
+// interface Message {
+//   id: string;
+//   role: "user" | "agent";
+//   content: string;
+//   type: "text" | "analysis";
+//   timestamp: Date;
+// }
+
+// interface ChatInterfaceProps {
+//   activeCase: string | null;
+// }
+
+// const BACKEND_URL = "http://localhost:8000";
+
+// export function ChatInterface({ activeCase }: ChatInterfaceProps) {
+//   const [mounted, setMounted] = useState(false);
+//   const [messages, setMessages] = useState<Message[]>([]);
+//   const [input, setInput] = useState("");
+//   const [isProcessing, setIsProcessing] = useState(false);
+//   const [threadId, setThreadId] = useState<string | null>(null);
+//   const [isRecording, setIsRecording] = useState(false);
+
+//   const scrollRef = useRef<HTMLDivElement>(null);
+//   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+//   /* ---------------- Hydration-safe init ---------------- */
+//   useEffect(() => {
+//     setMounted(true);
+//     setMessages([
+//       {
+//         id: crypto.randomUUID(),
+//         role: "agent",
+//         content: "Good evening. I am Sherlock Holmes. Present your mystery.",
+//         type: "text",
+//         timestamp: new Date(),
+//       },
+//     ]);
+//   }, []);
+
+//   /* ---------------- Auto scroll ---------------- */
+//   useEffect(() => {
+//     const el = scrollRef.current;
+//     if (!el) return;
+
+//     const nearBottom =
+//       el.scrollHeight - el.scrollTop - el.clientHeight < 120;
+
+//     if (nearBottom) {
+//       requestAnimationFrame(() => {
+//         el.scrollTop = el.scrollHeight;
+//       });
+//     }
+//   }, [messages]);
+
+//   /* ---------------- SEND MESSAGE ---------------- */
+//   const handleSendMessage = async () => {
+//     if (!input.trim() || isProcessing) return;
+
+//     const userText = input.trim();
+//     setInput("");
+
+//     setMessages((prev) => [
+//       ...prev,
+//       {
+//         id: crypto.randomUUID(),
+//         role: "user",
+//         content: userText,
+//         type: "text",
+//         timestamp: new Date(),
+//       },
+//     ]);
+
+//     setIsProcessing(true);
+
+//     try {
+//       const res = await fetch(`${BACKEND_URL}/chat`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//           message: userText,
+//           thread_id: threadId,
+//           case_id: activeCase,
+//         }),
+//       });
+
+//       const data = await res.json();
+//       if (data.thread_id) setThreadId(data.thread_id);
+
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           id: crypto.randomUUID(),
+//           role: "agent",
+//           content: data.response ?? "I deduce nothing of value.",
+//           type: "analysis",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     } catch {
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           id: crypto.randomUUID(),
+//           role: "agent",
+//           content: "My connection to the mind palace is severed.",
+//           type: "text",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     } finally {
+//       setIsProcessing(false);
+//     }
+//   };
+
+//   /* ---------------- FILE UPLOAD ---------------- */
+//   const handleUploadClick = () => {
+//     fileInputRef.current?.click();
+//   };
+
+//   const handleFileChange = async (
+//     e: React.ChangeEvent<HTMLInputElement>
+//   ) => {
+//     const file = e.target.files?.[0];
+//     if (!file) return;
+
+//     const formData = new FormData();
+//     formData.append("file", file);
+//     formData.append("case_id", threadId ?? activeCase ?? "default-case");
+
+//     try {
+//       const res = await fetch(`${BACKEND_URL}/upload`, {
+//         method: "POST",
+//         body: formData,
+//       });
+
+//       const data = await res.json();
+
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           id: crypto.randomUUID(),
+//           role: "agent",
+//           content: `📄 Document "${data.filename}" ingested (${data.chunks} chunks).`,
+//           type: "analysis",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     } catch {
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           id: crypto.randomUUID(),
+//           role: "agent",
+//           content: "⚠️ Failed to upload document.",
+//           type: "text",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     }
+
+//     e.target.value = "";
+//   };
+
+//   return (
+//     <Card className="flex flex-col h-full min-h-0 bg-linear-to-br from-slate-900/40 to-amber-950/40 border-amber-900/50">
+//       <CardHeader className="border-b border-amber-900/30">
+//         <CardTitle className="text-amber-100 flex items-center gap-2">
+//           <Brain className="w-5 h-5 text-amber-500" />
+//           Detective Analysis Chamber
+//         </CardTitle>
+//       </CardHeader>
+
+//       <CardContent className="flex flex-col flex-1 min-h-0 p-0">
+//         {/* ---------------- Messages ---------------- */}
+//         <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 py-6">
+//           <div className="mx-auto max-w-3xl space-y-6">
+//             {messages.map((m) => (
+//               <div
+//                 key={m.id}
+//                 className={`flex ${
+//                   m.role === "user" ? "justify-end" : "justify-start"
+//                 }`}
+//               >
+//                 {m.role === "agent" && (
+//                   <Brain className="mr-3 mt-1 w-6 h-6 text-amber-500" />
+//                 )}
+
+//                 <div className="max-w-[75%] rounded-lg bg-slate-900/80 border border-amber-900/30 p-4">
+//                   {m.type === "analysis" && (
+//                     <Badge className="mb-2">Analysis</Badge>
+//                   )}
+//                   <p className="text-amber-100 whitespace-pre-wrap">
+//                     {m.content}
+//                   </p>
+//                   {mounted && (
+//                     <p className="mt-2 text-xs text-amber-700">
+//                       {m.timestamp.toLocaleTimeString()}
+//                     </p>
+//                   )}
+//                 </div>
+
+//                 {m.role === "user" && (
+//                   <User className="ml-3 mt-1 w-6 h-6 text-slate-300" />
+//                 )}
+//               </div>
+//             ))}
+
+//             {isProcessing && (
+//               <div className="flex items-center gap-2 text-amber-300">
+//                 <Loader2 className="animate-spin" />
+//                 Sherlock is deducing…
+//               </div>
+//             )}
+//           </div>
+//         </div>
+
+//         {/* ---------------- INPUT BAR ---------------- */}
+//         <div className="border-t border-amber-900/30 bg-transparent px-4 py-3">
+//           <div className="mx-auto max-w-3xl flex items-center gap-3">
+//             {/* 📎 Upload Button */}
+//             <button
+//               onClick={handleUploadClick}
+//               className="flex h-9 w-9 items-center justify-center rounded-md text-amber-400 hover:bg-amber-900/30 transition"
+//               title="Upload document"
+//             >
+//               <Paperclip size={18} />
+//             </button>
+
+//             {/* Hidden file input */}
+//             <input
+//               type="file"
+//               accept=".pdf,.txt,.doc,.docx"
+//               ref={fileInputRef}
+//               onChange={handleFileChange}
+//               className="hidden"
+//             />
+
+//             {/* Mic Button */}
+//             <button
+//               onClick={() => setIsRecording(!isRecording)}
+//               className="flex h-9 w-9 items-center justify-center rounded-md text-amber-400 hover:bg-amber-900/30 transition"
+//             >
+//               {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
+//             </button>
+
+//             {/* Textarea */}
+//             <textarea
+//               value={input}
+//               onChange={(e) => setInput(e.target.value)}
+//               placeholder="Present your clues, Watson…"
+//               rows={1}
+//               className="flex-1 resize-none bg-transparent text-white placeholder:text-slate-400 focus:outline-none leading-6 py-2"
+//               onKeyDown={(e) => {
+//                 if (e.key === "Enter" && !e.shiftKey) {
+//                   e.preventDefault();
+//                   handleSendMessage();
+//                 }
+//               }}
+//               disabled={isProcessing}
+//             />
+
+//             {/* Send Button */}
+//             <button
+//               onClick={handleSendMessage}
+//               disabled={!input.trim() || isProcessing}
+//               className="flex h-9 w-9 items-center justify-center rounded-md bg-amber-600 text-black hover:bg-amber-500 disabled:opacity-50 transition"
+//             >
+//               <Send size={18} />
+//             </button>
+//           </div>
+//         </div>
+//       </CardContent>
+//     </Card>
+//   );
+// }
+
+
+
+// "use client";
+
+// import React, { useState, useRef, useEffect } from "react";
+// import {
+//   Card,
+//   CardContent,
+//   CardHeader,
+//   CardTitle,
+// } from "@/components/ui/card";
+// import { Badge } from "@/components/ui/badge";
+// import { Send, Mic, MicOff, Brain, User, Loader2, Paperclip } from "lucide-react";
+
+// interface Message {
+//   id: string;
+//   role: "user" | "agent";
+//   content: string;
+//   type: "text" | "analysis";
+//   timestamp: Date;
+// }
+
+// interface ChatInterfaceProps {
+//   activeCase: string | null;
+// }
+
+// const BACKEND_URL = "http://localhost:8000";
+
+// export function ChatInterface({ activeCase }: ChatInterfaceProps) {
+//   const [mounted, setMounted] = useState(false);
+//   const [messages, setMessages] = useState<Message[]>([]);
+//   const [input, setInput] = useState("");
+//   const [isProcessing, setIsProcessing] = useState(false);
+
+//   // ⭐ CHANGED: threadId now persists per case in localStorage (ChatGPT‑like behavior)
+//   const [threadId, setThreadId] = useState<string | null>(null);
+
+//   const [isRecording, setIsRecording] = useState(false);
+
+//   const scrollRef = useRef<HTMLDivElement>(null);
+//   const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+//   /* ---------------- Hydration-safe init ---------------- */
+//   useEffect(() => {
+//     setMounted(true);
+
+//     // ⭐ NEW: restore threadId for this case from localStorage
+//     if (activeCase) {
+//       const savedThread = localStorage.getItem(`thread_${activeCase}`);
+//       if (savedThread) setThreadId(savedThread);
+//     }
+
+//     setMessages([
+//       {
+//         id: crypto.randomUUID(),
+//         role: "agent",
+//         content: "Good evening. I am Sherlock Holmes. Present your mystery.",
+//         type: "text",
+//         timestamp: new Date(),
+//       },
+//     ]);
+//   }, [activeCase]); // ⭐ CHANGED: depend on activeCase
+
+//   /* ---------------- Auto scroll ---------------- */
+//   useEffect(() => {
+//     const el = scrollRef.current;
+//     if (!el) return;
+
+//     const nearBottom =
+//       el.scrollHeight - el.scrollTop - el.clientHeight < 120;
+
+//     if (nearBottom) {
+//       requestAnimationFrame(() => {
+//         el.scrollTop = el.scrollHeight;
+//       });
+//     }
+//   }, [messages]);
+
+//   /* ---------------- SEND MESSAGE ---------------- */
+//   const handleSendMessage = async () => {
+//     if (!input.trim() || isProcessing || !activeCase) return; // ⭐ CHANGED: require active case
+
+//     const userText = input.trim();
+//     setInput("");
+
+//     setMessages((prev) => [
+//       ...prev,
+//       {
+//         id: crypto.randomUUID(),
+//         role: "user",
+//         content: userText,
+//         type: "text",
+//         timestamp: new Date(),
+//       },
+//     ]);
+
+//     setIsProcessing(true);
+
+//     try {
+//       const res = await fetch(`${BACKEND_URL}/chat`, {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({
+//           message: userText,
+//           thread_id: threadId,
+//           case_id: activeCase, // ⭐ IMPORTANT: always send case_id
+//         }),
+//       });
+
+//       const data = await res.json();
+
+//       // ⭐ NEW: persist returned thread_id per case
+//       if (data.thread_id && activeCase) {
+//         setThreadId(data.thread_id);
+//         localStorage.setItem(`thread_${activeCase}`, data.thread_id);
+//       }
+
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           id: crypto.randomUUID(),
+//           role: "agent",
+//           content: data.response ?? "I deduce nothing of value.",
+//           type: "analysis",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     } catch {
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           id: crypto.randomUUID(),
+//           role: "agent",
+//           content: "My connection to the mind palace is severed.",
+//           type: "text",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     } finally {
+//       setIsProcessing(false);
+//     }
+//   };
+
+//   /* ---------------- FILE UPLOAD ---------------- */
+//   const handleUploadClick = () => {
+//     fileInputRef.current?.click();
+//   };
+
+//   const handleFileChange = async (
+//     e: React.ChangeEvent<HTMLInputElement>
+//   ) => {
+//     const file = e.target.files?.[0];
+//     if (!file || !activeCase) return; // ⭐ CHANGED: require active case
+
+//     const formData = new FormData();
+//     formData.append("file", file);
+//     formData.append("case_id", activeCase); // ⭐ FIXED: NEVER use threadId for ingestion
+
+//     try {
+//       const res = await fetch(`${BACKEND_URL}/upload`, {
+//         method: "POST",
+//         body: formData,
+//       });
+
+//       const data = await res.json();
+
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           id: crypto.randomUUID(),
+//           role: "agent",
+//           content: `📄 Document "${data.filename}" ingested (${data.chunks} chunks).`,
+//           type: "analysis",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     } catch {
+//       setMessages((prev) => [
+//         ...prev,
+//         {
+//           id: crypto.randomUUID(),
+//           role: "agent",
+//           content: "⚠️ Failed to upload document.",
+//           type: "text",
+//           timestamp: new Date(),
+//         },
+//       ]);
+//     }
+
+//     e.target.value = "";
+//   };
+
+//   return (
+//     <Card className="flex flex-col h-full min-h-0 bg-linear-to-br from-slate-900/40 to-amber-950/40 border-amber-900/50">
+//       <CardHeader className="border-b border-amber-900/30">
+//         <CardTitle className="text-amber-100 flex items-center gap-2">
+//           <Brain className="w-5 h-5 text-amber-500" />
+//           Detective Analysis Chamber
+//         </CardTitle>
+//       </CardHeader>
+
+//       <CardContent className="flex flex-col flex-1 min-h-0 p-0">
+//         {/* ---------------- Messages ---------------- */}
+//         <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 py-6">
+//           <div className="mx-auto max-w-3xl space-y-6">
+//             {messages.map((m) => (
+//               <div
+//                 key={m.id}
+//                 className={`flex ${
+//                   m.role === "user" ? "justify-end" : "justify-start"
+//                 }`}
+//               >
+//                 {m.role === "agent" && (
+//                   <Brain className="mr-3 mt-1 w-6 h-6 text-amber-500" />
+//                 )}
+
+//                 <div className="max-w-[75%] rounded-lg bg-slate-900/80 border border-amber-900/30 p-4">
+//                   {m.type === "analysis" && (
+//                     <Badge className="mb-2">Analysis</Badge>
+//                   )}
+//                   <p className="text-amber-100 whitespace-pre-wrap">
+//                     {m.content}
+//                   </p>
+//                   {mounted && (
+//                     <p className="mt-2 text-xs text-amber-700">
+//                       {m.timestamp.toLocaleTimeString()}
+//                     </p>
+//                   )}
+//                 </div>
+
+//                 {m.role === "user" && (
+//                   <User className="ml-3 mt-1 w-6 h-6 text-slate-300" />
+//                 )}
+//               </div>
+//             ))}
+
+//             {isProcessing && (
+//               <div className="flex items-center gap-2 text-amber-300">
+//                 <Loader2 className="animate-spin" />
+//                 Sherlock is deducing…
+//               </div>
+//             )}
+//           </div>
+//         </div>
+
+//         {/* ---------------- INPUT BAR ---------------- */}
+//         <div className="border-t border-amber-900/30 bg-transparent px-4 py-3">
+//           <div className="mx-auto max-w-3xl flex items-center gap-3">
+//             {/* 📎 Upload Button */}
+//             <button
+//               onClick={handleUploadClick}
+//               className="flex h-9 w-9 items-center justify-center rounded-md text-amber-400 hover:bg-amber-900/30 transition"
+//               title="Upload document"
+//             >
+//               <Paperclip size={18} />
+//             </button>
+
+//             {/* Hidden file input */}
+//             <input
+//               type="file"
+//               accept=".pdf,.txt,.doc,.docx"
+//               ref={fileInputRef}
+//               onChange={handleFileChange}
+//               className="hidden"
+//             />
+
+//             {/* Mic Button (Phase 6 placeholder) */}
+//             <button
+//               onClick={() => setIsRecording(!isRecording)}
+//               className="flex h-9 w-9 items-center justify-center rounded-md text-amber-400 hover:bg-amber-900/30 transition"
+//             >
+//               {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
+//             </button>
+
+//             {/* Textarea */}
+//             <textarea
+//               value={input}
+//               onChange={(e) => setInput(e.target.value)}
+//               placeholder={activeCase ? "Present your clues, Watson…" : "Select a case to begin…"} // ⭐ NEW UX
+//               rows={1}
+//               className="flex-1 resize-none bg-transparent text-white placeholder:text-slate-400 focus:outline-none leading-6 py-2"
+//               onKeyDown={(e) => {
+//                 if (e.key === "Enter" && !e.shiftKey) {
+//                   e.preventDefault();
+//                   handleSendMessage();
+//                 }
+//               }}
+//               disabled={isProcessing || !activeCase} // ⭐ CHANGED
+//             />
+
+//             {/* Send Button */}
+//             <button
+//               onClick={handleSendMessage}
+//               disabled={!input.trim() || isProcessing || !activeCase} // ⭐ CHANGED
+//               className="flex h-9 w-9 items-center justify-center rounded-md bg-amber-600 text-black hover:bg-amber-500 disabled:opacity-50 transition"
+//             >
+//               <Send size={18} />
+//             </button>
+//           </div>
+//         </div>
+//       </CardContent>
+//     </Card>
+//   );
+// }
+
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -36,38 +629,50 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  /* ---------------- Hydration-safe init ---------------- */
+  /* ---------------- LOAD HISTORY WHEN CASE CHANGES ---------------- */
   useEffect(() => {
     setMounted(true);
-    setMessages([
-      {
-        id: crypto.randomUUID(),
-        role: "agent",
-        content: "Good evening. I am Sherlock Holmes. Present your mystery.",
-        type: "text",
-        timestamp: new Date(),
-      },
-    ]);
-  }, []);
 
-  /* ---------------- Auto scroll ---------------- */
+    if (!activeCase) {
+      setMessages([]);
+      return;
+    }
+
+    const loadMessages = async () => {
+      try {
+        const res = await fetch(`${BACKEND_URL}/messages/${activeCase}`);
+        const data = await res.json();
+
+        setMessages(
+          data.map((m: any) => ({
+            id: crypto.randomUUID(),
+            role: m.role,
+            content: m.content,
+            type: m.role === "agent" ? "analysis" : "text",
+            timestamp: new Date(m.created_at),
+          }))
+        );
+
+        const savedThread = localStorage.getItem(`thread_${activeCase}`);
+        if (savedThread) setThreadId(savedThread);
+      } catch {
+        setMessages([]);
+      }
+    };
+
+    loadMessages();
+  }, [activeCase]);
+
+  /* ---------------- AUTO SCROLL ---------------- */
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-
-    const nearBottom =
-      el.scrollHeight - el.scrollTop - el.clientHeight < 120;
-
-    if (nearBottom) {
-      requestAnimationFrame(() => {
-        el.scrollTop = el.scrollHeight;
-      });
-    }
+    el.scrollTop = el.scrollHeight;
   }, [messages]);
 
   /* ---------------- SEND MESSAGE ---------------- */
   const handleSendMessage = async () => {
-    if (!input.trim() || isProcessing) return;
+    if (!input.trim() || isProcessing || !activeCase) return;
 
     const userText = input.trim();
     setInput("");
@@ -97,7 +702,11 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
       });
 
       const data = await res.json();
-      if (data.thread_id) setThreadId(data.thread_id);
+
+      if (data.thread_id && activeCase) {
+        setThreadId(data.thread_id);
+        localStorage.setItem(`thread_${activeCase}`, data.thread_id);
+      }
 
       setMessages((prev) => [
         ...prev,
@@ -126,26 +735,18 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
   };
 
   /* ---------------- FILE UPLOAD ---------------- */
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
-  };
+  const handleUploadClick = () => fileInputRef.current?.click();
 
-  const handleFileChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file) return;
+    if (!file || !activeCase) return;
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("case_id", threadId ?? activeCase ?? "default-case");
+    formData.append("case_id", activeCase);
 
     try {
-      const res = await fetch(`${BACKEND_URL}/upload`, {
-        method: "POST",
-        body: formData,
-      });
-
+      const res = await fetch(`${BACKEND_URL}/upload`, { method: "POST", body: formData });
       const data = await res.json();
 
       setMessages((prev) => [
@@ -174,6 +775,16 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
     e.target.value = "";
   };
 
+  /* ---------------- EMPTY STATE ---------------- */
+  if (!activeCase) {
+    return (
+      <div className="flex-1 flex items-center justify-center text-amber-400">
+        Select or create a case to begin.
+      </div>
+    );
+  }
+
+  /* ---------------- UI ---------------- */
   return (
     <Card className="flex flex-col h-full min-h-0 bg-linear-to-br from-slate-900/40 to-amber-950/40 border-amber-900/50">
       <CardHeader className="border-b border-amber-900/30">
@@ -184,37 +795,19 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
       </CardHeader>
 
       <CardContent className="flex flex-col flex-1 min-h-0 p-0">
-        {/* ---------------- Messages ---------------- */}
         <div ref={scrollRef} className="flex-1 overflow-y-auto px-8 py-6">
           <div className="mx-auto max-w-3xl space-y-6">
             {messages.map((m) => (
-              <div
-                key={m.id}
-                className={`flex ${
-                  m.role === "user" ? "justify-end" : "justify-start"
-                }`}
-              >
-                {m.role === "agent" && (
-                  <Brain className="mr-3 mt-1 w-6 h-6 text-amber-500" />
-                )}
+              <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
+                {m.role === "agent" && <Brain className="mr-3 mt-1 w-6 h-6 text-amber-500" />}
 
                 <div className="max-w-[75%] rounded-lg bg-slate-900/80 border border-amber-900/30 p-4">
-                  {m.type === "analysis" && (
-                    <Badge className="mb-2">Analysis</Badge>
-                  )}
-                  <p className="text-amber-100 whitespace-pre-wrap">
-                    {m.content}
-                  </p>
-                  {mounted && (
-                    <p className="mt-2 text-xs text-amber-700">
-                      {m.timestamp.toLocaleTimeString()}
-                    </p>
-                  )}
+                  {m.type === "analysis" && <Badge className="mb-2">Analysis</Badge>}
+                  <p className="text-amber-100 whitespace-pre-wrap">{m.content}</p>
+                  {mounted && <p className="mt-2 text-xs text-amber-700">{m.timestamp.toLocaleTimeString()}</p>}
                 </div>
 
-                {m.role === "user" && (
-                  <User className="ml-3 mt-1 w-6 h-6 text-slate-300" />
-                )}
+                {m.role === "user" && <User className="ml-3 mt-1 w-6 h-6 text-slate-300" />}
               </div>
             ))}
 
@@ -227,60 +820,27 @@ export function ChatInterface({ activeCase }: ChatInterfaceProps) {
           </div>
         </div>
 
-        {/* ---------------- INPUT BAR ---------------- */}
-        <div className="border-t border-amber-900/30 bg-transparent px-4 py-3">
-          <div className="mx-auto max-w-3xl flex items-center gap-3">
-            {/* 📎 Upload Button */}
-            <button
-              onClick={handleUploadClick}
-              className="flex h-9 w-9 items-center justify-center rounded-md text-amber-400 hover:bg-amber-900/30 transition"
-              title="Upload document"
-            >
-              <Paperclip size={18} />
-            </button>
+        <div className="border-t border-amber-900/30 px-4 py-3 flex gap-2">
+          <button onClick={handleUploadClick} className="text-amber-400 hover:bg-amber-900/30 p-2 rounded">
+            <Paperclip size={18} />
+          </button>
 
-            {/* Hidden file input */}
-            <input
-              type="file"
-              accept=".pdf,.txt,.doc,.docx"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              className="hidden"
-            />
+          <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" />
 
-            {/* Mic Button */}
-            <button
-              onClick={() => setIsRecording(!isRecording)}
-              className="flex h-9 w-9 items-center justify-center rounded-md text-amber-400 hover:bg-amber-900/30 transition"
-            >
-              {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
-            </button>
+          <button onClick={() => setIsRecording(!isRecording)} className="text-amber-400 hover:bg-amber-900/30 p-2 rounded">
+            {isRecording ? <MicOff size={18} /> : <Mic size={18} />}
+          </button>
 
-            {/* Textarea */}
-            <textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Present your clues, Watson…"
-              rows={1}
-              className="flex-1 resize-none bg-transparent text-white placeholder:text-slate-400 focus:outline-none leading-6 py-2"
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSendMessage();
-                }
-              }}
-              disabled={isProcessing}
-            />
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            className="flex-1 bg-transparent border border-amber-900/30 rounded-lg px-3 py-2 text-white"
+            placeholder="Ask Sherlock..."
+          />
 
-            {/* Send Button */}
-            <button
-              onClick={handleSendMessage}
-              disabled={!input.trim() || isProcessing}
-              className="flex h-9 w-9 items-center justify-center rounded-md bg-amber-600 text-black hover:bg-amber-500 disabled:opacity-50 transition"
-            >
-              <Send size={18} />
-            </button>
-          </div>
+          <button onClick={handleSendMessage} className="bg-amber-600 hover:bg-amber-500 text-black px-4 rounded-lg">
+            <Send size={16} />
+          </button>
         </div>
       </CardContent>
     </Card>

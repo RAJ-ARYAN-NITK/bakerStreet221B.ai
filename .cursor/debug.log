@@ -74,3 +74,873 @@
 {"stage": "reason_node_output", "thought": "A most...enigmatic greeting.  I must admit, I'm not quite sure what to make of it. However, as a man of reason and obser", "timestamp": 1772880011.985545}
 {"stage": "tool_execution", "query": "A most...enigmatic greeting.  I must admit, I'm not quite sure what to make of it. However, as a man", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1772880011.9877849}
 {"stage": "tool_results", "results_count": 0, "timestamp": 1772880012.782478}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772889620.3965251}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772889620.4015}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772889627.397402}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772889627.400081}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772889936.7887208}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772889936.7928}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772889942.063641}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772889942.066154}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772890052.248468}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772890052.252238}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772890057.7763069}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772890057.7790048}
+{"stage": "reason_node_start", "user_text": "yo nigga", "iteration": 0, "timestamp": 1772890087.8272572}
+{"stage": "reason_node_output", "thought": "An...unusual greeting. As Sherlock Holmes, I shall remain objective and focus on the task at hand.\n\nGiven the lack of re", "timestamp": 1772890088.6459992}
+{"stage": "tool_execution", "query": "yo nigga", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1772890088.648552}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1772890089.07441}
+{"stage": "reason_node_start", "user_text": "tell me about certificate", "iteration": 0, "timestamp": 1772890101.610399}
+{"stage": "reason_node_output", "thought": "An intriguing subject - the certificate. To proceed, I must gather more information.\n\nFirst, I must ask: What type of ce", "timestamp": 1772890101.983979}
+{"stage": "tool_execution", "query": "tell me about certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1772890101.98527}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1772890102.214207}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772890144.160386}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772890144.1640031}
+{"stage": "reason_node_start", "user_text": "tell me about certificate", "iteration": 0, "timestamp": 1772890147.7872908}
+{"stage": "reason_node_output", "thought": "A certificate, you say?  To proceed, I need more context. \n\n1. What type of certificate are we discussing? (e.g., academ", "timestamp": 1772890148.314218}
+{"stage": "tool_execution", "query": "tell me about certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1772890148.3163168}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1772890148.6716669}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772891184.484307}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772891184.4887328}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772891346.1973162}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772891346.2015529}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772891351.509873}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772891351.512764}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772891444.6944818}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772891444.69733}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772891538.708964}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772891538.7121549}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772891548.4887328}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772891548.491394}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772891557.2683241}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772891557.2726982}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772891971.959488}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772891971.963846}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772891977.5292768}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772891977.532982}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772892155.597645}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772892155.602509}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772892184.676118}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772892184.678947}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:before_invoke", "message": "Calling agent_graph.invoke", "data": {"thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d"}, "timestamp": 1772892237.536597}
+{"stage": "reason_node_start", "user_text": "ell me about certificate", "iteration": 0, "timestamp": 1772892237.575244}
+{"stage": "reason_node_output", "thought": "The mention of a 'certificate' could be related to the stolen documents from the victim's office. I need to investigate ", "selected_tool": "search_evidence", "timestamp": 1772892239.104156}
+{"stage": "tool_execution", "query": "certificate and stolen documents", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1772892239.106291}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1772892239.562675}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:after_invoke", "message": "agent_graph.invoke completed", "data": {"has_messages": true, "final_message_preview": "The mention of a 'certificate' could be related to the stolen documents from the victim's office. I need to investigate "}, "timestamp": 1772892239.568675}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:before_invoke", "message": "Calling agent_graph.invoke", "data": {"thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d"}, "timestamp": 1772892249.0926561}
+{"stage": "reason_node_start", "user_text": "what is matlab ?", "iteration": 0, "timestamp": 1772892249.11912}
+{"stage": "reason_node_output", "thought": "The query about MATLAB seems unrelated to the case at hand, but it may hold some hidden significance.", "selected_tool": "search_evidence", "timestamp": 1772892249.408205}
+{"stage": "tool_execution", "query": "MATLAB", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1772892249.409791}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1772892249.6364732}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:after_invoke", "message": "agent_graph.invoke completed", "data": {"has_messages": true, "final_message_preview": "The query about MATLAB seems unrelated to the case at hand, but it may hold some hidden significance."}, "timestamp": 1772892249.640924}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1772905014.790278}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1772905014.796726}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773317809.897434}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773317809.913461}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:before_invoke", "message": "Calling agent_graph.invoke", "data": {"thread_id": "517e25cb-ac12-44b0-93ed-87ed5156bf6b", "case_id": "test-case"}, "timestamp": 1773318304.505363}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 0, "timestamp": 1773318304.5606349}
+{"stage": "reason_node_output", "thought": "The certificate mentioned in the case might hold crucial information about the victim's identity, cause of death, or any", "selected_tool": "search_evidence", "timestamp": 1773318305.1461701}
+{"stage": "tool_execution", "query": "certificate", "case_id": "test-case", "timestamp": 1773318305.148371}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773318305.932661}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:after_invoke", "message": "agent_graph.invoke completed", "data": {"has_messages": true, "final_message_preview": "The certificate mentioned in the case might hold crucial information about the victim's identity, cause of death, or any"}, "timestamp": 1773318305.940792}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:before_invoke", "message": "Calling agent_graph.invoke", "data": {"thread_id": "186d278e-a3c4-4e0f-90f2-1609a7486de6", "case_id": "test-case"}, "timestamp": 1773318325.399413}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 0, "timestamp": 1773318325.440555}
+{"stage": "reason_node_output", "thought": "The certificate seems to be a crucial piece of evidence in this case, but I need to know more about it.", "selected_tool": "search_evidence", "timestamp": 1773318325.777837}
+{"stage": "tool_execution", "query": "certificate", "case_id": "test-case", "timestamp": 1773318325.778734}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773318325.9894452}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:after_invoke", "message": "agent_graph.invoke completed", "data": {"has_messages": true, "final_message_preview": "The certificate seems to be a crucial piece of evidence in this case, but I need to know more about it."}, "timestamp": 1773318325.996088}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:before_invoke", "message": "Calling agent_graph.invoke", "data": {"thread_id": "5966f852-3093-4a29-8a72-b078f33eab14", "case_id": "a6e4e3c0-2b6d-4a9a-8f39-1c8b4d2c7f6d"}, "timestamp": 1773318497.5103061}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 0, "timestamp": 1773318497.544418}
+{"stage": "reason_node_output", "thought": "The certificate seems like a crucial piece of evidence, possibly a birth certificate, marriage certificate, or even a de", "selected_tool": "search_evidence", "timestamp": 1773318498.1754198}
+{"stage": "tool_execution", "query": "certificate and evidence", "case_id": "a6e4e3c0-2b6d-4a9a-8f39-1c8b4d2c7f6d", "timestamp": 1773318498.1768389}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773318498.4857202}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:after_invoke", "message": "agent_graph.invoke completed", "data": {"has_messages": true, "final_message_preview": "The certificate seems like a crucial piece of evidence, possibly a birth certificate, marriage certificate, or even a de"}, "timestamp": 1773318498.493176}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:before_invoke", "message": "Calling agent_graph.invoke", "data": {"thread_id": "115d4694-2f9d-4584-ae21-7bdefedd3860", "case_id": "b33000d1-5450-467b-9b34-6eb930e0357e"}, "timestamp": 1773318532.1863658}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 0, "timestamp": 1773318532.191381}
+{"stage": "reason_node_output", "thought": "The certificate seems to be a crucial piece of evidence, possibly related to the victim's identity or a valuable asset.", "selected_tool": "search_evidence", "timestamp": 1773318532.563607}
+{"stage": "tool_execution", "query": "certificate", "case_id": "b33000d1-5450-467b-9b34-6eb930e0357e", "timestamp": 1773318532.566221}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773318532.752766}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:after_invoke", "message": "agent_graph.invoke completed", "data": {"has_messages": true, "final_message_preview": "The certificate seems to be a crucial piece of evidence, possibly related to the victim's identity or a valuable asset."}, "timestamp": 1773318532.75903}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773319432.055552}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773319432.066782}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773319498.182573}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773319498.1861188}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:before_invoke", "message": "Calling agent_graph.invoke", "data": {"thread_id": "db9e8868-3cdd-4f4a-aa70-f56dd10185de", "case_id": "26c82186-cc16-4b8f-9466-b258523a4c7e"}, "timestamp": 1773319582.896977}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 0, "timestamp": 1773319582.913165}
+{"stage": "reason_node_output", "thought": "The certificate could be a crucial piece of evidence in this case, but I need to know more about it.", "selected_tool": "search_evidence", "timestamp": 1773319583.72784}
+{"stage": "tool_execution", "query": "certificate", "case_id": "26c82186-cc16-4b8f-9466-b258523a4c7e", "timestamp": 1773319583.7295942}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773319584.0766149}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 1, "timestamp": 1773319584.0776992}
+{"stage": "reason_node_output", "thought": "The certificate appears to be a vital piece of evidence, but its authenticity and contents are unknown. I must search th", "selected_tool": "search_evidence", "timestamp": 1773319584.331912}
+{"stage": "tool_execution", "query": "certificate", "case_id": "26c82186-cc16-4b8f-9466-b258523a4c7e", "timestamp": 1773319584.334288}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773319584.499825}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 2, "timestamp": 1773319584.500482}
+{"stage": "reason_node_output", "thought": "The certificate seems to be a crucial piece of evidence, but I need to verify its authenticity and contents. I'll search", "selected_tool": "search_evidence", "timestamp": 1773319584.736324}
+{"stage": "tool_execution", "query": "certificate authenticity and contents", "case_id": "26c82186-cc16-4b8f-9466-b258523a4c7e", "timestamp": 1773319584.737317}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773319584.902581}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 3, "timestamp": 1773319584.903371}
+{"stage": "reason_node_output", "thought": "The certificate seems to be a crucial piece of evidence, but I need to verify its authenticity and contents. I'll try se", "selected_tool": "search_evidence", "timestamp": 1773319585.182132}
+{"stage": "tool_execution", "query": "certificate authenticity and contents", "case_id": "26c82186-cc16-4b8f-9466-b258523a4c7e", "timestamp": 1773319585.184423}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773319585.346496}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 4, "timestamp": 1773319585.347232}
+{"stage": "reason_node_output", "thought": "I need to try a different approach to find information about the certificate, perhaps a more general query will yield re", "selected_tool": "search_evidence", "timestamp": 1773319585.618762}
+{"stage": "tool_execution", "query": "certificate", "case_id": "26c82186-cc16-4b8f-9466-b258523a4c7e", "timestamp": 1773319585.621311}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773319585.782238}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 5, "timestamp": 1773319585.782919}
+{"stage": "reason_node_output", "thought": "Perhaps a more general query will yield results, I'll try searching the evidence database with a broad keyword related t", "selected_tool": "search_evidence", "timestamp": 1773319586.008369}
+{"stage": "tool_execution", "query": "certificate", "case_id": "26c82186-cc16-4b8f-9466-b258523a4c7e", "timestamp": 1773319586.009113}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773319586.167042}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "CHAT_INVOKE_H1", "location": "app/api/chat.py:chat_endpoint:invoke_exception", "message": "Exception during agent_graph.invoke", "data": {"error_type": "GraphRecursionError", "error_str": "Recursion limit of 25 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/pytho"}, "timestamp": 1773319586.2118678}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773321338.724496}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773321338.7330308}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773321350.0284102}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773321350.03115}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773321355.239579}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773321355.2433898}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773321427.730379}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773321427.7379358}
+{"stage": "before_agent_invoke", "thread_id": "bc6685f8-0636-4b74-a832-2b51b7d4612c", "case_id": "cfcd3ab6-713b-4729-85bb-415638291008", "timestamp": 1773321568.711521}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 0, "timestamp": 1773321568.729045}
+{"stage": "reason_node_output", "thought": "The certificate is likely to be a crucial piece of evidence in this case. I must search the evidence to see if it has be", "selected_tool": "search_evidence", "timestamp": 1773321569.367719}
+{"stage": "tool_execution", "query": "certificate", "case_id": "cfcd3ab6-713b-4729-85bb-415638291008", "timestamp": 1773321569.369386}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773321569.768383}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 1, "timestamp": 1773321569.773974}
+{"stage": "reason_node_output", "thought": "The certificate is likely to be a crucial piece of evidence in this case, I must search the evidence to see if it has be", "selected_tool": "search_evidence", "timestamp": 1773321569.983362}
+{"stage": "tool_execution", "query": "certificate", "case_id": "cfcd3ab6-713b-4729-85bb-415638291008", "timestamp": 1773321569.9843898}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773321570.1448011}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 2, "timestamp": 1773321570.1454651}
+{"stage": "reason_node_output", "thought": "The certificate is likely to be a crucial piece of evidence in this case, I must use the search_evidence tool to see if ", "selected_tool": "search_evidence", "timestamp": 1773321570.3556328}
+{"stage": "tool_execution", "query": "certificate", "case_id": "cfcd3ab6-713b-4729-85bb-415638291008", "timestamp": 1773321570.358409}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773321570.51598}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 3, "timestamp": 1773321570.5166452}
+{"stage": "reason_node_output", "thought": "The certificate is a crucial piece of evidence, I must use the search_evidence tool to see if it has been found or if th", "selected_tool": "search_evidence", "timestamp": 1773321570.725009}
+{"stage": "tool_execution", "query": "certificate", "case_id": "cfcd3ab6-713b-4729-85bb-415638291008", "timestamp": 1773321570.726876}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773321570.887684}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 4, "timestamp": 1773321570.888337}
+{"stage": "reason_node_output", "thought": "The certificate is a crucial piece of evidence, I must use the search_evidence tool to see if it has been found or if th", "selected_tool": "search_evidence", "timestamp": 1773321571.19134}
+{"stage": "tool_execution", "query": "certificate", "case_id": "cfcd3ab6-713b-4729-85bb-415638291008", "timestamp": 1773321571.19236}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773321571.348961}
+{"stage": "agent_exception", "error_type": "GraphRecursionError", "error_str": "Recursion limit of 10 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/pytho", "timestamp": 1773321571.356985}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773322575.934562}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773322575.940599}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773322581.45176}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773322581.455036}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773323002.40146}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773323002.40895}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773323032.084553}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773323032.088049}
+{"stage": "before_agent_invoke", "thread_id": "9ad8630c-5beb-4cb7-bc17-c133f9be609d", "case_id": "phase8-test", "timestamp": 1773323065.421016}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 0, "timestamp": 1773323065.444339}
+{"stage": "reason_node_output", "thought": "Analyzing the certificate for any relevant information.", "selected_tool": "search_evidence", "timestamp": 1773323066.110471}
+{"stage": "tool_execution", "query": "certificate", "case_id": "phase8-test", "timestamp": 1773323066.112403}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323066.464318}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 1, "timestamp": 1773323066.465711}
+{"stage": "reason_node_output", "thought": "Examining the certificate for any hidden details or signatures.", "selected_tool": "search_evidence", "timestamp": 1773323066.6583}
+{"stage": "tool_execution", "query": "certificate", "case_id": "phase8-test", "timestamp": 1773323066.6591208}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323066.84171}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 2, "timestamp": 1773323066.8423722}
+{"stage": "reason_node_output", "thought": "Examining the certificate for any visible information.", "selected_tool": "search_evidence", "timestamp": 1773323067.089952}
+{"stage": "tool_execution", "query": "certificate", "case_id": "phase8-test", "timestamp": 1773323067.0909178}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323067.255113}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 3, "timestamp": 1773323067.2557921}
+{"stage": "reason_node_output", "thought": "Examining the certificate for any visible information.", "selected_tool": "search_evidence", "timestamp": 1773323067.445229}
+{"stage": "after_agent_invoke", "response_preview": "Examining the certificate for any visible information.", "timestamp": 1773323067.454775}
+{"stage": "before_agent_invoke", "thread_id": "5c30751a-613a-4892-8969-bd552f39090e", "case_id": "6230ce0b-f543-4a55-996f-b2020ae42ce8", "timestamp": 1773323101.18776}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 0, "timestamp": 1773323101.1949382}
+{"stage": "reason_node_output", "thought": "Examine the available evidence for any clues related to the certificate.", "selected_tool": "search_evidence", "timestamp": 1773323101.68692}
+{"stage": "tool_execution", "query": "certificate", "case_id": "6230ce0b-f543-4a55-996f-b2020ae42ce8", "timestamp": 1773323101.689791}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323101.87565}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 1, "timestamp": 1773323101.876543}
+{"stage": "reason_node_output", "thought": "Examine the available evidence for any clues related to the certificate.", "selected_tool": "search_evidence", "timestamp": 1773323102.084296}
+{"stage": "tool_execution", "query": "certificate", "case_id": "6230ce0b-f543-4a55-996f-b2020ae42ce8", "timestamp": 1773323102.085092}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323102.244118}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 2, "timestamp": 1773323102.2450078}
+{"stage": "reason_node_output", "thought": "Consider searching the available evidence for any clues related to the certificate.", "selected_tool": "search_evidence", "timestamp": 1773323102.532282}
+{"stage": "tool_execution", "query": "certificate", "case_id": "6230ce0b-f543-4a55-996f-b2020ae42ce8", "timestamp": 1773323102.534582}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323102.6867998}
+{"stage": "reason_node_start", "user_text": "tell me about the certificate", "iteration": 3, "timestamp": 1773323102.6875641}
+{"stage": "reason_node_output", "thought": "It appears that the certificate is still a mystery, but I must consider the possibility that it may be hidden or disguis", "selected_tool": "search_evidence", "timestamp": 1773323103.049719}
+{"stage": "after_agent_invoke", "response_preview": "It appears that the certificate is still a mystery, but I must consider the possibility that it may be hidden or disguis", "timestamp": 1773323103.060406}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773323277.165049}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773323277.170642}
+{"stage": "before_agent_invoke", "thread_id": "81a6c619-c804-4c13-b086-bb682fc8c665", "case_id": "f952d4ce-57e7-4801-ae04-5b5e8bee734b", "timestamp": 1773323328.099068}
+{"stage": "reason_node_start", "user_text": "add evidence: the certificate was issued by MIT in 2022", "iteration": 0, "timestamp": 1773323328.118028}
+{"stage": "reason_node_output", "thought": "Considering the certificate was issued by MIT in 2022, this could be a crucial piece of evidence.", "selected_tool": "search_evidence", "timestamp": 1773323328.583504}
+{"stage": "tool_execution", "query": "MIT certificate 2022", "case_id": "f952d4ce-57e7-4801-ae04-5b5e8bee734b", "timestamp": 1773323328.585438}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323328.9316978}
+{"stage": "reason_node_start", "user_text": "add evidence: the certificate was issued by MIT in 2022", "iteration": 1, "timestamp": 1773323328.93265}
+{"stage": "reason_node_output", "thought": "Considering the certificate was issued by MIT in 2022, this could be a crucial piece of evidence.", "selected_tool": "search_evidence", "timestamp": 1773323329.155334}
+{"stage": "tool_execution", "query": "MIT certificate 2022", "case_id": "f952d4ce-57e7-4801-ae04-5b5e8bee734b", "timestamp": 1773323329.1564999}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323329.311202}
+{"stage": "reason_node_start", "user_text": "add evidence: the certificate was issued by MIT in 2022", "iteration": 2, "timestamp": 1773323329.3119528}
+{"stage": "reason_node_output", "thought": "Considering the certificate was issued by MIT in 2022, this could be a crucial piece of evidence.", "selected_tool": "search_evidence", "timestamp": 1773323329.5359511}
+{"stage": "tool_execution", "query": "MIT certificate issued in 2022", "case_id": "f952d4ce-57e7-4801-ae04-5b5e8bee734b", "timestamp": 1773323329.538205}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323329.695553}
+{"stage": "reason_node_start", "user_text": "add evidence: the certificate was issued by MIT in 2022", "iteration": 3, "timestamp": 1773323329.696227}
+{"stage": "reason_node_output", "thought": "Considering the certificate was issued by MIT in 2022, this could be a crucial piece of evidence.", "selected_tool": "search_evidence", "timestamp": 1773323329.943459}
+{"stage": "after_agent_invoke", "response_preview": "Considering the certificate was issued by MIT in 2022, this could be a crucial piece of evidence.", "timestamp": 1773323329.9542432}
+{"stage": "before_agent_invoke", "thread_id": "f47dabdb-993c-4318-8ffb-699c2c1bfac3", "case_id": "81a6c619-c804-4c13-b086-bb682fc8c665", "timestamp": 1773323366.520607}
+{"stage": "reason_node_start", "user_text": "what certificate do we have", "iteration": 0, "timestamp": 1773323366.540193}
+{"stage": "reason_node_output", "thought": "Examining the case files for any relevant certificates.", "selected_tool": "search_evidence", "timestamp": 1773323366.870625}
+{"stage": "tool_execution", "query": "certificate", "case_id": "81a6c619-c804-4c13-b086-bb682fc8c665", "timestamp": 1773323366.872958}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323367.0857139}
+{"stage": "reason_node_start", "user_text": "what certificate do we have", "iteration": 1, "timestamp": 1773323367.086578}
+{"stage": "reason_node_output", "thought": "Examining the case files for any relevant certificates.", "selected_tool": "search_evidence", "timestamp": 1773323367.2853608}
+{"stage": "tool_execution", "query": "certificate", "case_id": "81a6c619-c804-4c13-b086-bb682fc8c665", "timestamp": 1773323367.286191}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323367.460845}
+{"stage": "reason_node_start", "user_text": "what certificate do we have", "iteration": 2, "timestamp": 1773323367.461523}
+{"stage": "reason_node_output", "thought": "Searching the case files for certificates.", "selected_tool": "search_evidence", "timestamp": 1773323367.687312}
+{"stage": "tool_execution", "query": "certificate", "case_id": "81a6c619-c804-4c13-b086-bb682fc8c665", "timestamp": 1773323367.688221}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323367.846369}
+{"stage": "reason_node_start", "user_text": "what certificate do we have", "iteration": 3, "timestamp": 1773323367.8469892}
+{"stage": "reason_node_output", "thought": "No certificates have been found yet, let's try searching again.", "selected_tool": "search_evidence", "timestamp": 1773323368.119977}
+{"stage": "after_agent_invoke", "response_preview": "No certificates have been found yet, let's try searching again.", "timestamp": 1773323368.126305}
+{"stage": "before_agent_invoke", "thread_id": "5cf0d336-5a3f-495d-823a-662930ab20a6", "case_id": "81a6c619-c804-4c13-b086-bb682fc8c665", "timestamp": 1773323409.8125849}
+{"stage": "reason_node_start", "user_text": "what certificate do we have", "iteration": 0, "timestamp": 1773323409.831191}
+{"stage": "reason_node_output", "thought": "Examining the case for any relevant certificates.", "selected_tool": "search_evidence", "timestamp": 1773323410.4131231}
+{"stage": "tool_execution", "query": "certificates", "case_id": "81a6c619-c804-4c13-b086-bb682fc8c665", "timestamp": 1773323410.41545}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323410.620793}
+{"stage": "reason_node_start", "user_text": "what certificate do we have", "iteration": 1, "timestamp": 1773323410.6216881}
+{"stage": "reason_node_output", "thought": "Looking for any relevant certificates that might be connected to the case.", "selected_tool": "search_evidence", "timestamp": 1773323410.810175}
+{"stage": "tool_execution", "query": "certificate", "case_id": "81a6c619-c804-4c13-b086-bb682fc8c665", "timestamp": 1773323410.810991}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323410.971935}
+{"stage": "reason_node_start", "user_text": "what certificate do we have", "iteration": 2, "timestamp": 1773323410.97279}
+{"stage": "reason_node_output", "thought": "Looking for any relevant certificates that might be connected to the case.", "selected_tool": "search_evidence", "timestamp": 1773323411.232702}
+{"stage": "tool_execution", "query": "certificate", "case_id": "81a6c619-c804-4c13-b086-bb682fc8c665", "timestamp": 1773323411.2354271}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323411.413287}
+{"stage": "reason_node_start", "user_text": "what certificate do we have", "iteration": 3, "timestamp": 1773323411.414211}
+{"stage": "reason_node_output", "thought": "Looking through the case files for any relevant certificates that might be connected to the case.", "selected_tool": "search_evidence", "timestamp": 1773323411.6805801}
+{"stage": "after_agent_invoke", "response_preview": "Looking through the case files for any relevant certificates that might be connected to the case.", "timestamp": 1773323411.690866}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773323440.689402}
+{"stage": "reason_node_start", "user_text": "tell me something about the certificate", "iteration": 0, "timestamp": 1773323440.7155478}
+{"stage": "reason_node_output", "thought": "The certificate seems to be a crucial piece of evidence in this case. I must examine it closely.", "selected_tool": "search_evidence", "timestamp": 1773323441.242151}
+{"stage": "tool_execution", "query": "certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773323441.24455}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323441.4588978}
+{"stage": "reason_node_start", "user_text": "tell me something about the certificate", "iteration": 1, "timestamp": 1773323441.459869}
+{"stage": "reason_node_output", "thought": "The certificate appears to be a formal document, possibly issued by a government agency or educational institution.", "selected_tool": "search_evidence", "timestamp": 1773323441.737725}
+{"stage": "tool_execution", "query": "certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773323441.7388642}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323441.891812}
+{"stage": "reason_node_start", "user_text": "tell me something about the certificate", "iteration": 2, "timestamp": 1773323441.89248}
+{"stage": "reason_node_output", "thought": "The certificate may be a diploma or a license, but I need to examine it more closely to determine its authenticity.", "selected_tool": "search_evidence", "timestamp": 1773323442.131466}
+{"stage": "tool_execution", "query": "certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773323442.133676}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773323442.286039}
+{"stage": "reason_node_start", "user_text": "tell me something about the certificate", "iteration": 3, "timestamp": 1773323442.286707}
+{"stage": "reason_node_output", "thought": "The certificate appears to be a formal document, possibly issued by a government agency or educational institution. I mu", "selected_tool": "search_evidence", "timestamp": 1773323442.674757}
+{"stage": "after_agent_invoke", "response_preview": "The certificate appears to be a formal document, possibly issued by a government agency or educational institution. I mu", "timestamp": 1773323442.686399}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773323454.430179}
+{"stage": "reason_node_start", "user_text": "describe the contents", "iteration": 0, "timestamp": 1773323454.437572}
+{"stage": "reason_node_output", "thought": "Initial observation of the crime scene and victim's belongings.", "selected_tool": "search_evidence", "timestamp": 1773323454.835546}
+{"stage": "tool_execution", "query": "victim's belongings, crime scene", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773323454.8387809}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773323455.037608}
+{"stage": "reason_node_start", "user_text": "describe the contents", "iteration": 1, "timestamp": 1773323455.0382998}
+{"stage": "reason_node_output", "thought": "Examining the retrieved evidence item, a certificate, to gather more information.", "selected_tool": "search_evidence", "timestamp": 1773323455.2981272}
+{"stage": "tool_execution", "query": "certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773323455.3007941}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773323455.459527}
+{"stage": "reason_node_start", "user_text": "describe the contents", "iteration": 2, "timestamp": 1773323455.460503}
+{"stage": "reason_node_output", "thought": "Examining the certificate retrieved from the crime scene to gather more information.", "selected_tool": "search_evidence", "timestamp": 1773323455.783048}
+{"stage": "tool_execution", "query": "certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773323455.785246}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773323455.937674}
+{"stage": "reason_node_start", "user_text": "describe the contents", "iteration": 3, "timestamp": 1773323455.9383612}
+{"stage": "reason_node_output", "thought": "Analyzing the retrieved certificate to gather more information.", "selected_tool": "search_evidence", "timestamp": 1773323456.1789172}
+{"stage": "after_agent_invoke", "response_preview": "Analyzing the retrieved certificate to gather more information.", "timestamp": 1773323456.193124}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773323476.771389}
+{"stage": "reason_node_start", "user_text": "okay so what's the result ?", "iteration": 0, "timestamp": 1773323476.804087}
+{"stage": "reason_node_output", "thought": "Reviewing the case files, I have found some crucial evidence.", "selected_tool": "search_evidence", "timestamp": 1773323477.251334}
+{"stage": "tool_execution", "query": "fingerprints at the crime scene", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773323477.256661}
+{"stage": "tool_results", "results_count": 2, "timestamp": 1773323477.456224}
+{"stage": "reason_node_start", "user_text": "okay so what's the result ?", "iteration": 1, "timestamp": 1773323477.4572659}
+{"stage": "reason_node_output", "thought": "Analyzing the retrieved evidence items.", "selected_tool": "search_evidence", "timestamp": 1773323477.69296}
+{"stage": "tool_execution", "query": "describe the contents and tell me something about the certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773323477.695343}
+{"stage": "tool_results", "results_count": 2, "timestamp": 1773323477.85752}
+{"stage": "reason_node_start", "user_text": "okay so what's the result ?", "iteration": 2, "timestamp": 1773323477.858197}
+{"stage": "reason_node_output", "thought": "Analyzing the retrieved evidence items to determine the case result.", "selected_tool": "final_answer", "timestamp": 1773323478.1806028}
+{"stage": "after_agent_invoke", "response_preview": "Analyzing the retrieved evidence items to determine the case result.", "timestamp": 1773323478.192184}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773324901.2712262}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773324901.278611}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773324946.0746639}
+{"stage": "reason_node_start", "user_text": "describe the contents", "iteration": 0, "timestamp": 1773324946.126828}
+{"stage": "reason_node_output", "thought": "Reviewing the case to understand the context of 'contents'.", "selected_tool": "search_evidence", "timestamp": 1773324947.992555}
+{"stage": "tool_execution", "query": "case summary", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773324947.9956942}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773324948.429195}
+{"stage": "reason_node_start", "user_text": "describe the contents", "iteration": 1, "timestamp": 1773324948.4311569}
+{"stage": "reason_node_output", "thought": "The contents are unknown, requiring analysis of available evidence.", "selected_tool": "final_answer", "timestamp": 1773324948.642561}
+{"stage": "after_agent_invoke", "response_preview": "No relevant evidence was found in the case records. Based on the available information, the certificate cannot be furthe", "timestamp": 1773324948.652985}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773324960.56945}
+{"stage": "reason_node_start", "user_text": "tell me something about the certificate 7:20:40 PM", "iteration": 0, "timestamp": 1773324960.590917}
+{"stage": "reason_node_output", "thought": "No information about the certificate is available in the investigation notes.", "selected_tool": "search_evidence", "timestamp": 1773324960.8958132}
+{"stage": "tool_execution", "query": "certificate 7:20:40 PM", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773324960.899094}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773324961.130337}
+{"stage": "reason_node_start", "user_text": "tell me something about the certificate 7:20:40 PM", "iteration": 1, "timestamp": 1773324961.131337}
+{"stage": "reason_node_output", "thought": "No information about the certificate is available in the investigation notes. I will analyze the available evidence.", "selected_tool": "search_evidence", "timestamp": 1773324961.3360782}
+{"stage": "tool_execution", "query": "certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773324961.338284}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773324961.513642}
+{"stage": "reason_node_start", "user_text": "tell me something about the certificate 7:20:40 PM", "iteration": 2, "timestamp": 1773324961.514304}
+{"stage": "reason_node_output", "thought": "There is no available information about the certificate in the investigation notes. I will analyze the available evidenc", "selected_tool": "search_evidence", "timestamp": 1773324961.700086}
+{"stage": "tool_execution", "query": "certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773324961.701565}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773324961.889378}
+{"stage": "after_agent_invoke", "response_preview": "tell me something about the certificate 7:20:40 PM", "timestamp": 1773324961.895663}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773324970.550168}
+{"stage": "reason_node_start", "user_text": "what is matlab ?", "iteration": 0, "timestamp": 1773324970.560684}
+{"stage": "reason_node_output", "thought": "Investigating 'Matlab' without prior knowledge. Checking available tools for relevant information.", "selected_tool": "search_evidence", "timestamp": 1773324970.915333}
+{"stage": "tool_execution", "query": "Matlab definition", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773324970.918401}
+{"stage": "tool_results", "results_count": 2, "timestamp": 1773324971.1043231}
+{"stage": "reason_node_start", "user_text": "what is matlab ?", "iteration": 1, "timestamp": 1773324971.10527}
+{"stage": "reason_node_output", "thought": "Investigating 'Matlab' without prior knowledge. Checking available tools for relevant information.", "selected_tool": "search_evidence", "timestamp": 1773324971.279616}
+{"stage": "tool_execution", "query": "Matlab", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773324971.281014}
+{"stage": "tool_results", "results_count": 2, "timestamp": 1773324971.442688}
+{"stage": "reason_node_start", "user_text": "what is matlab ?", "iteration": 2, "timestamp": 1773324971.443406}
+{"stage": "reason_node_output", "thought": "Analyzing the available evidence to deduce the meaning of 'Matlab'.", "selected_tool": "search_evidence", "timestamp": 1773324971.633939}
+{"stage": "tool_execution", "query": "Matlab", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773324971.635629}
+{"stage": "tool_results", "results_count": 2, "timestamp": 1773324971.802156}
+{"stage": "after_agent_invoke", "response_preview": "what is matlab ?", "timestamp": 1773324971.8102}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773331406.430078}
+{"stage": "reason_node_start", "user_text": "tell me something about the circular", "iteration": 0, "timestamp": 1773331406.4608798}
+{"stage": "reason_node_output", "thought": "I recall a circular being mentioned in the investigation, but I don't have any specific details. Let me review the notes", "selected_tool": "search_evidence", "timestamp": 1773331407.058441}
+{"stage": "tool_execution", "query": "circular", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773331407.0611498}
+{"stage": "tool_results", "results_count": 4, "timestamp": 1773331407.2409751}
+{"stage": "reason_node_start", "user_text": "tell me something about the circular", "iteration": 1, "timestamp": 1773331407.241787}
+{"stage": "reason_node_output", "thought": "Reviewing the notes, I found a mention of a circular, but no specific details. I'll search the evidence for any relevant", "selected_tool": "search_evidence", "timestamp": 1773331407.449335}
+{"stage": "tool_execution", "query": "circular", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773331407.450092}
+{"stage": "tool_results", "results_count": 4, "timestamp": 1773331407.616522}
+{"stage": "reason_node_start", "user_text": "tell me something about the circular", "iteration": 2, "timestamp": 1773331407.617196}
+{"stage": "reason_node_output", "thought": "Reviewing the available evidence for any mention of the circular.", "selected_tool": "search_evidence", "timestamp": 1773331407.828606}
+{"stage": "tool_execution", "query": "circular", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773331407.8321369}
+{"stage": "tool_results", "results_count": 4, "timestamp": 1773331407.995755}
+{"stage": "after_agent_invoke", "response_preview": "tell me something about the circular", "timestamp": 1773331408.009078}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332317.2544398}
+{"stage": "reason_node_start", "user_text": "tell me something about the circular", "iteration": 0, "timestamp": 1773332317.334316}
+{"stage": "reason_node_output", "thought": "I have not yet encountered any information about a circular in the investigation notes.", "selected_tool": "search_evidence", "timestamp": 1773332318.913834}
+{"stage": "tool_execution", "query": "circular", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332318.917108}
+{"stage": "tool_results", "results_count": 5, "timestamp": 1773332319.2713542}
+{"stage": "reason_node_start", "user_text": "tell me something about the circular", "iteration": 1, "timestamp": 1773332319.272591}
+{"stage": "reason_node_output", "thought": "No information about a circular in the investigation notes.", "selected_tool": "search_evidence", "timestamp": 1773332319.478716}
+{"stage": "tool_execution", "query": "circular", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332319.479778}
+{"stage": "tool_results", "results_count": 5, "timestamp": 1773332319.663382}
+{"stage": "reason_node_start", "user_text": "tell me something about the circular", "iteration": 2, "timestamp": 1773332319.666144}
+{"stage": "reason_node_output", "thought": "No relevant information about a circular in the investigation notes, must search for related evidence.", "selected_tool": "search_evidence", "timestamp": 1773332319.970192}
+{"stage": "tool_execution", "query": "circular", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332319.9720352}
+{"stage": "tool_results", "results_count": 5, "timestamp": 1773332320.150681}
+{"stage": "after_agent_invoke", "response_preview": "tell me something about the circular", "timestamp": 1773332320.163362}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773332435.923166}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773332435.9304519}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773332606.097641}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773332606.1045702}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332611.038537}
+{"stage": "reason_node_start", "user_text": "tell me something about the circular", "iteration": 0, "timestamp": 1773332611.056038}
+{"stage": "reason_node_output", "thought": "The circular is a crucial piece of evidence in our investigation.", "selected_tool": "search_evidence", "timestamp": 1773332611.897551}
+{"stage": "tool_execution", "query": "circular", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332611.900233}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773332612.2605052}
+{"stage": "reason_node_start", "user_text": "tell me something about the circular", "iteration": 1, "timestamp": 1773332612.261985}
+{"stage": "reason_node_output", "thought": "The circular may hold key information, but we have no evidence to analyze.", "selected_tool": "search_evidence", "timestamp": 1773332612.693517}
+{"stage": "tool_execution", "query": "circular", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332612.6955369}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773332612.874191}
+{"stage": "reason_node_start", "user_text": "tell me something about the circular", "iteration": 2, "timestamp": 1773332612.874849}
+{"stage": "reason_node_output", "thought": "The circular remains a crucial piece of evidence, but we have no useful information to analyze.", "selected_tool": "final_answer", "timestamp": 1773332613.3086982}
+{"stage": "after_agent_invoke", "response_preview": "No relevant evidence was found in the case records. Based on the available information, the certificate cannot be furthe", "timestamp": 1773332613.31916}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332640.9548328}
+{"stage": "reason_node_start", "user_text": "what is matlab ?", "iteration": 0, "timestamp": 1773332640.998326}
+{"stage": "reason_node_output", "thought": "No direct evidence of 'Matlab' exists in the investigation notes.", "selected_tool": "search_evidence", "timestamp": 1773332641.4042492}
+{"stage": "tool_execution", "query": "Matlab", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332641.405619}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773332641.730377}
+{"stage": "reason_node_start", "user_text": "what is matlab ?", "iteration": 1, "timestamp": 1773332641.7313228}
+{"stage": "reason_node_output", "thought": "No direct evidence of 'Matlab' exists, but the retrieved evidence item mentions 'circular'.", "selected_tool": "search_evidence", "timestamp": 1773332641.979838}
+{"stage": "tool_execution", "query": "Matlab", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332641.983189}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773332642.14666}
+{"stage": "reason_node_start", "user_text": "what is matlab ?", "iteration": 2, "timestamp": 1773332642.1473222}
+{"stage": "reason_node_output", "thought": "No direct evidence of 'Matlab' exists, but the mention of 'circular' might be relevant.", "selected_tool": "search_evidence", "timestamp": 1773332642.591315}
+{"stage": "tool_execution", "query": "Matlab circular", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332642.5931818}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773332642.777627}
+{"stage": "after_agent_invoke", "response_preview": "After reviewing the available investigation notes, here is the conclusion.", "timestamp": 1773332642.790893}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332657.811483}
+{"stage": "reason_node_start", "user_text": "ok so give the conclusion ?", "iteration": 0, "timestamp": 1773332657.8476942}
+{"stage": "reason_node_output", "thought": "Based on the investigation, we have gathered sufficient evidence to draw a conclusion.", "selected_tool": "final_answer", "timestamp": 1773332658.260362}
+{"stage": "after_agent_invoke", "response_preview": "ok so give the conclusion ?", "timestamp": 1773332658.26936}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773332745.753977}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773332745.76737}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332774.5282931}
+{"stage": "reason_node_start", "user_text": "what is matlab ?", "iteration": 0, "timestamp": 1773332774.566761}
+{"stage": "reason_node_output", "thought": "Initial investigation into 'Matlab' reveals it may be a software or programming language.", "selected_tool": "search_evidence", "timestamp": 1773332775.280567}
+{"stage": "tool_execution", "query": "Matlab software", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332775.283226}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773332775.6798651}
+{"stage": "reason_node_start", "user_text": "what is matlab ?", "iteration": 1, "timestamp": 1773332775.681103}
+{"stage": "reason_node_output", "thought": "Further investigation into 'Matlab' is required.", "selected_tool": "search_evidence", "timestamp": 1773332776.0233421}
+{"stage": "tool_execution", "query": "Matlab software or programming language", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332776.02541}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773332776.2075179}
+{"stage": "reason_node_start", "user_text": "what is matlab ?", "iteration": 2, "timestamp": 1773332776.208212}
+{"stage": "reason_node_output", "thought": "Further investigation into 'Matlab' is required, as initial observations suggest it may be a software or programming lan", "selected_tool": "search_evidence", "timestamp": 1773332776.53124}
+{"stage": "tool_execution", "query": "Matlab software or programming language", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332776.533429}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773332776.700481}
+{"stage": "after_agent_invoke", "response_preview": "After reviewing the available investigation notes, here is the conclusion.", "timestamp": 1773332776.7149389}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332783.830428}
+{"stage": "reason_node_start", "user_text": "ok so give the conclusion ?", "iteration": 0, "timestamp": 1773332783.8680131}
+{"stage": "reason_node_output", "thought": "We have gathered sufficient evidence to form a conclusion.", "selected_tool": "final_answer", "timestamp": 1773332784.228984}
+{"stage": "after_agent_invoke", "response_preview": "Sherlock could not yet form a clear conclusion from the available notes.", "timestamp": 1773332784.2382689}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332810.666301}
+{"stage": "reason_node_start", "user_text": "read the payment status and give me a report on this", "iteration": 0, "timestamp": 1773332810.704167}
+{"stage": "reason_node_output", "thought": "Reviewing available notes for payment status.", "selected_tool": "search_evidence", "timestamp": 1773332811.244321}
+{"stage": "tool_execution", "query": "payment status", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332811.2471669}
+{"stage": "tool_results", "results_count": 3, "timestamp": 1773332811.47473}
+{"stage": "reason_node_start", "user_text": "read the payment status and give me a report on this", "iteration": 1, "timestamp": 1773332811.476053}
+{"stage": "reason_node_output", "thought": "Analyzing payment status from retrieved evidence.", "selected_tool": "search_evidence", "timestamp": 1773332811.6960928}
+{"stage": "tool_execution", "query": "successful transaction", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773332811.697711}
+{"stage": "tool_results", "results_count": 3, "timestamp": 1773332811.8702521}
+{"stage": "reason_node_start", "user_text": "read the payment status and give me a report on this", "iteration": 2, "timestamp": 1773332811.871354}
+{"stage": "reason_node_output", "thought": "Analyzing payment status from retrieved evidence.", "selected_tool": "final_answer", "timestamp": 1773332812.1738188}
+{"stage": "after_agent_invoke", "response_preview": "Sherlock could not yet form a clear conclusion from the available notes.", "timestamp": 1773332812.184531}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773332900.341346}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773332900.35781}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773333052.3716831}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773333052.3800561}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773334190.7116249}
+{"stage": "reason_node_start", "user_text": "read the payment status and give me a report on this", "iteration": 0, "timestamp": 1773334190.770695}
+{"stage": "reason_node_output", "thought": "Payment status is crucial to our investigation.", "selected_tool": "search_evidence", "timestamp": 1773334192.2551959}
+{"stage": "tool_execution", "query": "payment_status", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773334192.257706}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773334192.738711}
+{"stage": "reason_node_start", "user_text": "read the payment status and give me a report on this", "iteration": 1, "timestamp": 1773334192.740132}
+{"stage": "reason_node_output", "thought": "Payment status is crucial to our investigation. Let's start by searching for any relevant evidence.", "selected_tool": "search_evidence", "timestamp": 1773334192.958893}
+{"stage": "tool_execution", "query": "payment status", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773334192.961487}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773334193.131341}
+{"stage": "reason_node_start", "user_text": "read the payment status and give me a report on this", "iteration": 2, "timestamp": 1773334193.1320078}
+{"stage": "reason_node_output", "thought": "Payment status is crucial to our investigation. Let's try to find some relevant evidence.", "selected_tool": "search_evidence", "timestamp": 1773334193.321402}
+{"stage": "tool_execution", "query": "payment status", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773334193.322691}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773334193.4865339}
+{"stage": "agent_exception", "error_type": "GraphRecursionError", "error_str": "Recursion limit of 10 reached without hitting a stop condition. You can increase the limit by setting the `recursion_limit` config key.\nFor troubleshooting, visit: https://docs.langchain.com/oss/pytho", "timestamp": 1773334193.509025}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773334748.0906088}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773334748.0965571}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773334768.899821}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773334768.906585}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773334825.91772}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773334825.9216902}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773334858.9306052}
+{"stage": "reason_node_start", "user_text": "read the payment status and give me a report on this", "iteration": 0, "timestamp": 1773334858.977053}
+{"stage": "reason_node_output", "thought": "Reviewing payment status requires evidence.", "selected_tool": "search_evidence", "timestamp": 1773334859.500664}
+{"stage": "tool_execution", "query": "payment_status", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773334859.50384}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773334859.984604}
+{"stage": "after_agent_invoke", "response_preview": "No relevant evidence was found in the case records. Based on the available information, the certificate cannot be furthe", "timestamp": 1773334859.993595}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773334881.913119}
+{"stage": "reason_node_start", "user_text": "yo nigga", "iteration": 0, "timestamp": 1773334881.9297438}
+{"stage": "reason_node_output", "thought": "The user's greeting is informal and lacks context. I must consider possible implications and potential relevance to the ", "selected_tool": "search_evidence", "timestamp": 1773334882.4787369}
+{"stage": "tool_execution", "query": "user greeting", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773334882.481471}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773334882.690262}
+{"stage": "reason_node_start", "user_text": "yo nigga", "iteration": 1, "timestamp": 1773334882.691365}
+{"stage": "reason_node_output", "thought": "The user's informal greeting may be unrelated to the investigation, but the subsequent request for a payment status repo", "selected_tool": "search_evidence", "timestamp": 1773334882.996428}
+{"stage": "tool_execution", "query": "payment status report", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773334882.999285}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773334883.1679208}
+{"stage": "reason_node_start", "user_text": "yo nigga", "iteration": 2, "timestamp": 1773334883.1687}
+{"stage": "reason_node_output", "thought": "The user's informal greeting may be unrelated to the investigation, but the subsequent request for a payment status repo", "selected_tool": "search_evidence", "timestamp": 1773334883.4987159}
+{"stage": "tool_execution", "query": "payment status report relevance", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773334883.49975}
+{"stage": "tool_results", "results_count": 1, "timestamp": 1773334883.673356}
+{"stage": "after_agent_invoke", "response_preview": "After reviewing the available investigation notes, here is the conclusion.", "timestamp": 1773334883.687537}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773335928.3214889}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773335928.328415}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773335948.232331}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773335948.236288}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336161.5197902}
+{"stage": "reason_node_start", "user_text": "read the payment status and give me a report on this", "iteration": 0, "timestamp": 1773336161.56493}
+{"stage": "reason_node_output", "thought": "No payment status evidence exists yet.", "selected_tool": "search_evidence", "timestamp": 1773336162.606935}
+{"stage": "tool_execution", "query": "payment status", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336162.6098518}
+{"stage": "tool_results", "results_count": 0, "timestamp": 1773336163.008351}
+{"stage": "after_agent_invoke", "response_preview": "No relevant evidence was found in the case records.", "timestamp": 1773336163.017552}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336180.736771}
+{"stage": "reason_node_start", "user_text": "what is matlab ?", "iteration": 0, "timestamp": 1773336180.75045}
+{"stage": "reason_node_output", "thought": "No relevant evidence found, but I can provide a general answer.", "selected_tool": "final_answer", "timestamp": 1773336181.3205602}
+{"stage": "after_agent_invoke", "response_preview": "MATLAB is a high-level programming language and environment commonly used for numerical computation, data analysis, and ", "timestamp": 1773336181.3394299}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336194.523027}
+{"stage": "reason_node_start", "user_text": "explain in depth about it", "iteration": 0, "timestamp": 1773336194.535722}
+{"stage": "reason_node_output", "thought": "No evidence has been retrieved yet. To begin, I must have relevant information to analyze.", "selected_tool": "search_evidence", "timestamp": 1773336195.044181}
+{"stage": "tool_execution", "query": "all evidence related to the case", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336195.04862}
+{"stage": "tool_results", "results_count": 2, "timestamp": 1773336195.416224}
+{"stage": "reason_node_start", "user_text": "explain in depth about it", "iteration": 1, "timestamp": 1773336195.418696}
+{"stage": "reason_node_output", "thought": "Initial analysis suggests the two pieces of evidence are unrelated. However, I must analyze each to determine relevance.", "selected_tool": "search_evidence", "timestamp": 1773336195.739945}
+{"stage": "tool_execution", "query": "payment status", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336195.742081}
+{"stage": "tool_results", "results_count": 2, "timestamp": 1773336195.9730198}
+{"stage": "reason_node_start", "user_text": "explain in depth about it", "iteration": 2, "timestamp": 1773336195.974335}
+{"stage": "reason_node_output", "thought": "Analyzing the retrieved evidence, I notice two unrelated queries. 'read the payment status and give me a report on this'", "selected_tool": "final_answer", "timestamp": 1773336196.239851}
+{"stage": "after_agent_invoke", "response_preview": "matlab", "timestamp": 1773336196.256261}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336217.3552792}
+{"stage": "reason_node_start", "user_text": "yes about matlab only", "iteration": 0, "timestamp": 1773336217.380065}
+{"stage": "reason_node_output", "thought": "No relevant evidence has been retrieved. The investigation requires a query to proceed.", "selected_tool": "search_evidence", "timestamp": 1773336217.801379}
+{"stage": "tool_execution", "query": "Matlab", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336217.8041291}
+{"stage": "tool_results", "results_count": 3, "timestamp": 1773336218.030059}
+{"stage": "reason_node_start", "user_text": "yes about matlab only", "iteration": 1, "timestamp": 1773336218.0312378}
+{"stage": "reason_node_output", "thought": "The evidence suggests a query about MATLAB, but it lacks specific context.", "selected_tool": "search_evidence", "timestamp": 1773336218.3945112}
+{"stage": "tool_execution", "query": "MATLAB", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336218.396868}
+{"stage": "tool_results", "results_count": 3, "timestamp": 1773336218.569202}
+{"stage": "reason_node_start", "user_text": "yes about matlab only", "iteration": 2, "timestamp": 1773336218.5699341}
+{"stage": "reason_node_output", "thought": "The evidence suggests a query about MATLAB, but it lacks specific context. I must analyze the given evidence to deduce a", "selected_tool": "final_answer", "timestamp": 1773336219.106754}
+{"stage": "after_agent_invoke", "response_preview": "MATLAB is a high-level programming language and environment specifically designed for numerical computation and data ana", "timestamp": 1773336219.124319}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336242.24216}
+{"stage": "reason_node_start", "user_text": "tell me more about the certificate", "iteration": 0, "timestamp": 1773336242.2672992}
+{"stage": "reason_node_output", "thought": "The certificate appears to be a crucial piece of evidence, but we have no information about it yet.", "selected_tool": "search_evidence", "timestamp": 1773336242.711261}
+{"stage": "tool_execution", "query": "certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336242.713721}
+{"stage": "tool_results", "results_count": 4, "timestamp": 1773336242.9606621}
+{"stage": "reason_node_start", "user_text": "tell me more about the certificate", "iteration": 1, "timestamp": 1773336242.9617999}
+{"stage": "reason_node_output", "thought": "The certificate is mentioned, but we have no direct information about it yet.", "selected_tool": "search_evidence", "timestamp": 1773336243.3752651}
+{"stage": "tool_execution", "query": "certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336243.3783958}
+{"stage": "tool_results", "results_count": 4, "timestamp": 1773336243.556154}
+{"stage": "reason_node_start", "user_text": "tell me more about the certificate", "iteration": 2, "timestamp": 1773336243.556899}
+{"stage": "reason_node_output", "thought": "The certificate is mentioned in the investigation notes, but there is no direct information about it yet.", "selected_tool": "search_evidence", "timestamp": 1773336243.77488}
+{"stage": "tool_execution", "query": "certificate", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773336243.7762299}
+{"stage": "tool_results", "results_count": 4, "timestamp": 1773336243.9428558}
+{"stage": "reason_node_start", "user_text": "tell me more about the certificate", "iteration": 3, "timestamp": 1773336243.943588}
+{"stage": "reason_node_output", "thought": "The certificate is mentioned in the investigation notes, but there is no direct information about it yet. I will analyze", "selected_tool": "search_evidence", "timestamp": 1773336244.4005902}
+{"stage": "after_agent_invoke", "response_preview": "Sherlock could not yet form a clear conclusion from the available notes.", "timestamp": 1773336244.4104111}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773337479.178782}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773337479.186841}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773337484.82948}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773337484.83374}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773337505.9418392}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773337505.945676}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773338023.2746282}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773338023.2823129}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773338069.508071}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773338069.514097}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773338080.5279639}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773338080.552264}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773338081.032128}
+{"stage": "after_agent_invoke", "response_preview": "What is Matlab?", "timestamp": 1773338081.050158}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773338099.433074}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773338099.442448}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773338099.804503}
+{"stage": "after_agent_invoke", "response_preview": "What is the certificate in question, and what is its relevance to the case?", "timestamp": 1773338099.821172}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773338123.353554}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773338123.374482}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773338123.7491431}
+{"stage": "after_agent_invoke", "response_preview": "What is the Matlab programming language?", "timestamp": 1773338123.7659678}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773384460.242694}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773384460.4286048}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773384460.925477}
+{"stage": "after_agent_invoke", "response_preview": "What is a phase diagram in the context of physics or chemistry?", "timestamp": 1773384460.9398348}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773384468.8691368}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773384468.907091}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773384469.446296}
+{"stage": "after_agent_invoke", "response_preview": "Please provide the first piece of evidence or information related to the case.", "timestamp": 1773384469.465921}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773384480.893377}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773384480.929046}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773384481.302069}
+{"stage": "after_agent_invoke", "response_preview": "Please provide the initial case details or evidence retrieved.", "timestamp": 1773384481.3163662}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773385639.7473621}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773385639.808216}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773385640.201349}
+{"stage": "after_agent_invoke", "response_preview": "What information do you have about the payment?", "timestamp": 1773385640.217508}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773385648.9770792}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773385648.983679}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773385649.5266318}
+{"stage": "after_agent_invoke", "response_preview": "Please upload the document or provide the necessary information for me to start the investigation.", "timestamp": 1773385649.549611}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386768.929724}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386768.9427352}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386776.243402}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386776.251932}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386830.55532}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386830.5864499}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386836.3505762}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386836.3542001}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386842.2718852}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386842.275397}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386850.004278}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386850.009163}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386855.1674082}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386855.1703281}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386868.06967}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386868.0772102}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386873.271637}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386873.275821}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386885.606005}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386885.614591}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386892.1281059}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386892.1318662}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773386907.02436}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773386907.03009}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773386939.861111}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773386939.9183419}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773386940.6751602}
+{"stage": "after_agent_invoke", "response_preview": "Please provide the document to investigate.", "timestamp": 1773386940.6954958}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773387022.399144}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773387022.430613}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773387023.004322}
+{"stage": "after_agent_invoke", "response_preview": "Please provide the document and any other relevant information about the payment.", "timestamp": 1773387023.022146}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773388927.938984}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773388927.948985}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773388936.652382}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773388936.659948}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773388991.255307}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773388991.2685802}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "217ad2ef-586f-4bd9-9382-f36628a18e7d", "timestamp": 1773389023.802474}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773389023.87022}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773389024.686848}
+{"stage": "after_agent_invoke", "response_preview": "Please provide any information about the payment, such as the payment method or the amount involved.", "timestamp": 1773389024.709715}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "d0d3a522-bf62-465c-a821-c690ec6ebb4c", "timestamp": 1773389046.648745}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773389046.6853251}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773389047.1359308}
+{"stage": "after_agent_invoke", "response_preview": "What is the current payment status?", "timestamp": 1773389047.154237}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "d0d3a522-bf62-465c-a821-c690ec6ebb4c", "timestamp": 1773389050.2159328}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773389050.222718}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773389050.538256}
+{"stage": "after_agent_invoke", "response_preview": "Please provide the first piece of evidence related to the case.", "timestamp": 1773389050.5556018}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773389132.11986}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773389132.130089}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773389290.458415}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773389290.4724019}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "ec5fb5fe-de8a-4450-9e07-ec14236ce651", "timestamp": 1773389304.020403}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773389304.112131}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773389304.983215}
+{"stage": "after_agent_invoke", "response_preview": "What is the current payment status?", "timestamp": 1773389305.0035698}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773389332.857704}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773389332.868947}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773389349.11033}
+{"stage": "reason_node_start", "iteration": 0, "timestamp": 1773389349.155902}
+{"stage": "reason_node_output", "tool": "ask_user", "timestamp": 1773389349.663007}
+{"stage": "after_agent_invoke", "response_preview": "Has the payment status been discovered or recorded?", "timestamp": 1773389349.678247}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773390237.741142}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773390237.750821}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773390245.957382}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773390245.965822}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773390251.723163}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773390251.731146}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773390292.0529401}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773390292.060318}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773390336.767713}
+{"stage": "after_agent_invoke", "response_preview": "The payment status cannot be confirmed from the available records.", "timestamp": 1773390337.792303}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773393475.885025}
+{"stage": "after_agent_invoke", "response_preview": "The document contains details about a payment certificate submitted for verification, but the payment status cannot be c", "timestamp": 1773393477.327574}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773393500.10658}
+{"stage": "after_agent_invoke", "response_preview": "The payment amount tried to be made was INR 45,000.", "timestamp": 1773393500.890046}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773404902.675272}
+{"stage": "after_agent_invoke", "response_preview": "Based on the evidence, the following questions are relevant to the case: Is the certificate authentic or forged? Can the", "timestamp": 1773404904.055768}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773405620.965791}
+{"stage": "after_agent_invoke", "response_preview": "Do you have access to external banking records that may contain information about the transaction ID or payment status?", "timestamp": 1773405622.395796}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773405628.4874182}
+{"stage": "after_agent_invoke", "response_preview": "Could you please clarify what you mean by 'no'?", "timestamp": 1773405629.134351}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773405641.729695}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide any additional information about the payment, such as the date it was attempted or any other relevant de", "timestamp": 1773405642.4523149}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773405649.0488498}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide the user's response to the suggested investigation questions, particularly the one regarding the authent", "timestamp": 1773405649.7781792}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773408058.525523}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773408058.537545}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773408341.213931}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773408341.223166}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773408346.8226}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773408346.826489}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773408355.210242}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773408355.214386}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773408390.2351518}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773408390.242917}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773408395.6515148}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773408395.6552188}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773408416.538923}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773408416.543784}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773408421.753524}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773408421.7568672}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773408455.087011}
+{"stage": "after_agent_invoke", "response_preview": "The document contains details about a payment certificate submitted for verification, including a certificate ID, issuer", "timestamp": 1773408456.286399}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773408465.864983}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide the transaction reference number or any other information that might be present in the external banking ", "timestamp": 1773408466.74426}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773409632.975142}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773409632.9854872}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773410292.5666611}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773410292.576509}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773410383.89785}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773410383.906034}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773410390.132201}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773410390.139664}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773410396.178693}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773410396.182894}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773410508.098721}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773410508.1082702}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773410513.88225}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773410513.88604}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773410635.5222552}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773410635.5364301}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773410643.285994}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773410643.291446}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773410649.1819892}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773410649.188757}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773410654.8917818}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773410654.895565}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773410753.652624}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773410753.662431}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773411812.429845}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773411812.441047}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773416698.84631}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773416698.870267}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "3a3ab011-baf4-4d2b-8904-7de57cba096b", "timestamp": 1773600317.016793}
+{"stage": "after_agent_invoke", "response_preview": "Raj Aryan Prasad has booked a ticket for travel from SMVT BENGALURU to HATIA on the 12836 SMVB HATIA EXP train.", "timestamp": 1773600318.3712482}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "3a3ab011-baf4-4d2b-8904-7de57cba096b", "timestamp": 1773600737.307861}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide more context or clarify what you mean by 'porosity' in relation to ceramics?", "timestamp": 1773600738.522557}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "3a3ab011-baf4-4d2b-8904-7de57cba096b", "timestamp": 1773600743.644951}
+{"stage": "after_agent_invoke", "response_preview": "Raj Aryan Prasad has booked a train ticket from SMVT Bengaluru to HATIA.", "timestamp": 1773600744.556521}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "3a3ab011-baf4-4d2b-8904-7de57cba096b", "timestamp": 1773600754.6282299}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide more context or information about the hallucinations you are experiencing?", "timestamp": 1773600760.655637}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773625738.808964}
+{"stage": "after_agent_invoke", "response_preview": "The ticket details are as follows: Name: RAJ ARYAN PRASAD, Age: 21, Gender: Male, Booking Status: WL/9, Current Status: ", "timestamp": 1773625740.1690938}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773625783.85323}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide more information about the certificate's authenticity or the banking records used to verify the payment?", "timestamp": 1773625784.5962088}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773625798.29473}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide the payment transaction records or external banking records to verify the payment status mentioned in th", "timestamp": 1773625798.9883242}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773625836.884856}
+{"stage": "after_agent_invoke", "response_preview": "Can you please clarify which payment status you are referring to, the one related to the sample certificate or something", "timestamp": 1773625838.3293152}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773625848.680331}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide the transaction reference number mentioned in the certificate, if any?", "timestamp": 1773625849.307919}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773625906.5276191}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide the bank statement or transaction records for the payment of INR 45,000 to verify the authenticity of th", "timestamp": 1773625907.359686}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773625918.637846}
+{"stage": "after_agent_invoke", "response_preview": "Can you please clarify what you are trying to do or what you are unable to do regarding the payment transaction?", "timestamp": 1773625920.3633761}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773625956.178933}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide any information about the payment method used, such as the bank name or account number?", "timestamp": 1773625956.824159}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773625987.4877498}
+{"stage": "after_agent_invoke", "response_preview": "Can you confirm whether the payment was made in cash or through an electronic transfer?", "timestamp": 1773625988.15029}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773625992.873579}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide more information about the payment, such as the date it was attempted or any other relevant details?", "timestamp": 1773625993.562696}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773625998.615233}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide more context or information about the payment status you are referring to?", "timestamp": 1773626000.374014}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773626047.502601}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide more information about the current case and the context in which this payment certificate was submitted ", "timestamp": 1773626048.435909}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "29d8984f-ba21-4e0b-aea7-bf9697907a4c", "timestamp": 1773626077.43377}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide more information about the National Trade Authority, specifically their verification process and any pot", "timestamp": 1773626078.191651}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "3a3ab011-baf4-4d2b-8904-7de57cba096b", "timestamp": 1773626128.100783}
+{"stage": "after_agent_invoke", "response_preview": "Can you please clarify what you mean by the 'crystal structure of ceramics'? Are you referring to the crystalline struct", "timestamp": 1773626129.041883}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "3a3ab011-baf4-4d2b-8904-7de57cba096b", "timestamp": 1773626134.7455192}
+{"stage": "after_agent_invoke", "response_preview": "The user's question is 'yes' and the evidence points to a train ticket booking for Raj Aryan Prasad. The ticket is for a", "timestamp": 1773626135.550977}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773669212.609539}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773669212.6275861}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "3a3ab011-baf4-4d2b-8904-7de57cba096b", "timestamp": 1773678913.311222}
+{"stage": "after_agent_invoke", "response_preview": "Can you provide more specific information about the type of ceramic or its composition, so I can better understand your ", "timestamp": 1773678915.244831}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "3a3ab011-baf4-4d2b-8904-7de57cba096b", "timestamp": 1773678920.753781}
+{"stage": "after_agent_invoke", "response_preview": "Could you please clarify what you are unable to do regarding Indian Railway e-ticketing?", "timestamp": 1773678921.565231}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773679489.700078}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773679489.713799}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773679592.391537}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773679592.400558}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773679597.969431}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773679597.9743528}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773679603.337236}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773679603.3412359}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773679682.137655}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773679682.147588}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773680455.420075}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773680455.431005}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773680466.783372}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773680466.7881951}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773680473.362041}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773680473.367058}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773680479.139245}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773680479.142922}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773680485.361899}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773680485.36556}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "3a3ab011-baf4-4d2b-8904-7de57cba096b", "timestamp": 1773680497.700856}
+{"stage": "after_agent_invoke", "response_preview": "None", "timestamp": 1773680498.670874}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "3a3ab011-baf4-4d2b-8904-7de57cba096b", "timestamp": 1773680511.9206002}
+{"stage": "after_agent_invoke", "response_preview": "Porosity is a physical property of ceramics that can be measured using various techniques, such as Archimedes' principle", "timestamp": 1773680512.5245728}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "3a3ab011-baf4-4d2b-8904-7de57cba096b", "timestamp": 1773680524.756928}
+{"stage": "after_agent_invoke", "response_preview": "Alumina (Al2O3) ceramic", "timestamp": 1773680525.399651}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773682591.930475}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773682591.940453}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "f56d63a8-96a2-45ec-94ca-4d1ccf01468d", "timestamp": 1773682816.9360378}
+{"stage": "after_agent_invoke", "response_preview": "An intriguing case, my dear fellow. It appears that we have a mystery on our hands, and the culprit is none other than t", "timestamp": 1773682818.2252722}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "f56d63a8-96a2-45ec-94ca-4d1ccf01468d", "timestamp": 1773682841.7111301}
+{"stage": "after_agent_invoke", "response_preview": "Porosity refers to the ability of a material to absorb or transmit fluids, such as water or air.", "timestamp": 1773682842.252419}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "f56d63a8-96a2-45ec-94ca-4d1ccf01468d", "timestamp": 1773682864.9292722}
+{"stage": "after_agent_invoke", "response_preview": "Porosity is a measure of the ability of a material to absorb or transmit fluids, such as water or air. It is defined as ", "timestamp": 1773682865.6016629}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "f56d63a8-96a2-45ec-94ca-4d1ccf01468d", "timestamp": 1773682899.173791}
+{"stage": "after_agent_invoke", "response_preview": "No, there are no documents uploaded related to the given context.", "timestamp": 1773682899.9408078}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773683172.427894}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773683172.4454222}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773683180.785711}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773683180.78979}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773683187.740362}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773683187.7590861}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773683193.575372}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773683193.581585}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773683703.797772}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773683703.82576}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773683710.5362828}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773683710.542645}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773683715.961428}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773683715.967038}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773683721.701665}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773683721.707755}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773683728.774166}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773683728.786741}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773683734.568118}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773683734.571869}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773683740.232223}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773683740.238508}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684132.301514}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684132.312911}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684137.381821}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684137.385016}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684163.2656908}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684163.275156}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684294.8743832}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684294.890014}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684303.733334}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684303.749334}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684311.602766}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684311.614544}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684364.49389}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684364.503871}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684370.4430988}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684370.4478521}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684376.00605}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684376.009231}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684381.149719}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684381.153335}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1773684473.448674}
+{"stage": "after_agent_invoke", "response_preview": "A glass is an amorphous solid with short-range order, whereas a crystal has long-range order. The structure of a glass i", "timestamp": 1773684474.635369}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1773684492.950677}
+{"stage": "after_agent_invoke", "response_preview": "Definition of Amorphous Solid", "timestamp": 1773684494.014605}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1773684498.624662}
+{"stage": "after_agent_invoke", "response_preview": "Tg is a range", "timestamp": 1773684499.356564}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684712.176189}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684712.18551}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684723.315379}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684723.3206022}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684857.294524}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684857.3171608}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684863.392722}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684863.3971741}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773684880.003496}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773684880.0076559}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1773684894.139335}
+{"stage": "after_agent_invoke", "response_preview": "A glass and a crystal differ in their atomic order and phase transformation behavior. A glass is an amorphous solid that", "timestamp": 1773684895.706923}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1773684922.791123}
+{"stage": "after_agent_invoke", "response_preview": "In the Na2O-SiO2 system, the addition of Na2O leads to the formation of different types of glass structures, including 3", "timestamp": 1773684924.08976}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1773684952.1566138}
+{"stage": "after_agent_invoke", "response_preview": "An amorphous solid is a material that exhibits the glass transition phenomenon and possesses no long-range atomic order.", "timestamp": 1773684953.274681}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1773684971.597724}
+{"stage": "after_agent_invoke", "response_preview": "I was unable to process the evidence properly. Please rephrase your question.", "timestamp": 1773684973.7559009}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1773755918.831184}
+{"stage": "after_agent_invoke", "response_preview": "I was unable to process the evidence properly. Please rephrase your question.", "timestamp": 1773755920.288801}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1773757567.495992}
+{"stage": "after_agent_invoke", "response_preview": "I was unable to process the evidence properly. Please rephrase your question.", "timestamp": 1773757568.703153}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773757732.228836}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773757732.24542}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773757739.3005152}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773757739.307652}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773757746.413447}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773757746.422674}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773758010.7623858}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773758010.774299}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773758018.05333}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773758018.059173}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773758026.2451992}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773758026.250141}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773758031.797794}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773758031.803194}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773758039.229246}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773758039.262638}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773758049.620981}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773758049.627342}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1773758052.524138}
+{"stage": "after_agent_invoke", "response_preview": "1. The document discusses the crystal structure of ceramics, specifically focusing on the differences between crystallin", "timestamp": 1773758053.9704509}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "ed1f24e4-8a7b-4177-a882-4d28afc94be7", "timestamp": 1773851921.188759}
+{"stage": "after_agent_invoke", "response_preview": "My dear fellow, I'm afraid I have no information to provide on your query. It appears there are no relevant documents in", "timestamp": 1773851922.429703}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "ed1f24e4-8a7b-4177-a882-4d28afc94be7", "timestamp": 1773852171.726283}
+{"stage": "after_agent_invoke", "response_preview": "The phone number 9955377331 is associated with Raj Aryan Prasad, a student of Metallurgical and Materials Engineering at", "timestamp": 1773852172.954902}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "ed1f24e4-8a7b-4177-a882-4d28afc94be7", "timestamp": 1773852232.69053}
+{"stage": "after_agent_invoke", "response_preview": "The phone number 9955377331 is associated with Raj Aryan Prasad, the student in question. However, without further inves", "timestamp": 1773852233.685675}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "ed1f24e4-8a7b-4177-a882-4d28afc94be7", "timestamp": 1773852307.859642}
+{"stage": "after_agent_invoke", "response_preview": "The mention of the branch in the note suggests that it might be a crucial piece of information. Upon further investigati", "timestamp": 1773852308.966613}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773852414.777338}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773852414.790693}

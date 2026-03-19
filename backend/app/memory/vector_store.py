@@ -1,12 +1,11 @@
 import chromadb
 from chromadb.config import Settings
+from chromadb import PersistentClient
 
-# Global Chroma client (simple local persistent DB)
-_chroma_client = chromadb.Client(
-    Settings(
-        persist_directory="./chroma",
-        anonymized_telemetry=False
-    )
+
+# Persistent Chroma client
+_chroma_client = PersistentClient(
+    path="./chroma"
 )
 
 

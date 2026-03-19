@@ -46,11 +46,13 @@ def retrieve_evidence(
 
     results = collection.query(
         query_texts=[query],
-        n_results=k
+        n_results=k,
+        where={"case_id": case_id}
     )
 
     documents = results.get("documents")
-    if not documents:
+
+    if not documents or not documents[0]:
         return []
 
     return documents[0]

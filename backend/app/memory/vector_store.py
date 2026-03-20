@@ -1,12 +1,31 @@
+import os
 import chromadb
-from chromadb.config import Settings
-from chromadb import PersistentClient
+
+# --------------------------------------------------
+# Cloud in production, local in development
+# --------------------------------------------------
+
+def get_chroma_client():
+    api_key = os.getenv("CHROMA_API_KEY")
+
+    if api_key:
+        # ── Production: Chroma Cloud ──────────────────
+        return chromadb.HttpClient(
+            ssl=True,
+            host="api.trychroma.com",
+            tenant=os.getenv("CHROMA_TENANT") or "",
+            database=os.getenv("CHROMA_DATABASE") or "",
+            headers={
+                "x-chroma-token": api_key
+            }
+        )
+    else:
+        # ── Local development: persistent local client ─
+        return chromadb.PersistentClient(path="./chroma")
 
 
-# Persistent Chroma client
-_chroma_client = PersistentClient(
-    path="./chroma"
-)
+# Single client instance shared across the app
+_chroma_client = get_chroma_client()
 
 
 def get_case_collection(case_id: str):

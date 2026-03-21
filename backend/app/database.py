@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./sherlock.db")
+DATABASE_URL = os.getenv("DATABASE_URL") or "sqlite:///./sherlock.db"
 
 
 if DATABASE_URL.startswith("postgres://"):

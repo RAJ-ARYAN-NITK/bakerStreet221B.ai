@@ -962,3 +962,11 @@
 {"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773997649.3734028}
 {"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1773999805.9744442}
 {"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1773999805.988312}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1774030575.639748}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1774030575.658123}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1774030635.319396}
+{"stage": "after_agent_invoke", "response_preview": "My dear fellow, I'm afraid I have no information on \"ba2+.\" It appears to be a chemical notation, but without further co", "timestamp": 1774030640.18909}
+{"stage": "before_agent_invoke", "thread_id": "b3ccec0d-251a-4bb1-ad19-f6a06b9ab084", "case_id": "77ff76c3-d7c8-4f3c-b705-71fd08f9e0ae", "timestamp": 1774030659.813948}
+{"stage": "after_agent_invoke", "response_preview": "**Ba2+** is a **barium ion**, specifically the divalent cation of barium. It is a positively charged ion with a +2 charg", "timestamp": 1774030661.301111}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:before_checkpointer_setup", "message": "About to call checkpointer.setup()", "data": {}, "timestamp": 1774090214.14611}
+{"sessionId": "debug-session", "runId": "initial", "hypothesisId": "H5", "location": "app/main.py:lifespan:after_checkpointer_setup", "message": "Finished checkpointer.setup()", "data": {}, "timestamp": 1774090214.159206}

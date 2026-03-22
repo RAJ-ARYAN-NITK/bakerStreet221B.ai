@@ -1,41 +1,28 @@
-
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from dotenv import load_dotenv
-
 import json
 import time
+import os
 
 load_dotenv()
 
 from app.database import Base, engine
-
-# ============================
-# 🔴 REQUIRED MODEL IMPORTS
-# Without this → messages table NOT created
-# ============================
-from app.models.case import Case          # ← ADDED
-from app.models.message import Message    # ← ADDED
-# ============================
+from app.models.case import Case
+from app.models.message import Message
 
 import uvicorn
-
 from app.agent import checkpointer
 from app.api.chat import router as chat_router
 from app.api.upload import router as upload_router
-from app.api.cases import router as cases_router 
-from app.api.messages import router as messages_router   # ← ADD
+from app.api.cases import router as cases_router
+from app.api.messages import router as messages_router
 
 
-DEBUG_LOG_PATH = "/Users/rajaryan/Desktop/Projects/ML/bakerStreet221B.ai/bakerStreet221B.ai-1/.cursor/debug.log"
-
+DEBUG_LOG_PATH = os.getenv("DEBUG_LOG_PATH", "/tmp/debug.log")
 
 def _agent_debug_log(payload: dict) -> None:
-    """
-    Append a single NDJSON debug entry to the shared debug log.
-    Never raises to avoid impacting main control flow.
-    """
     try:
         with open(DEBUG_LOG_PATH, "a") as f:
             f.write(json.dumps(payload) + "\n")
@@ -45,15 +32,8 @@ def _agent_debug_log(payload: dict) -> None:
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # ---------- Startup ----------
     print("Initializing LangGraph persistence...")
-
-    # ============================
-    # 🔴 THIS NOW CREATES ALL TABLES
-    # INCLUDING "messages"
-    # ============================
     Base.metadata.create_all(bind=engine)
-    # ============================
 
     _agent_debug_log({
         "sessionId": "debug-session",
@@ -78,9 +58,7 @@ async def lifespan(app: FastAPI):
     })
 
     print("Persistence ready.")
-
     yield
-
     print("Shutting down BakerStreet221B API...")
 
 
@@ -90,17 +68,23 @@ app = FastAPI(
 )
 
 
-# --------------------------------------------------
-# Middleware
-# --------------------------------------------------
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "https://baker-street221-b-ai.vercel.app",  
+    os.getenv("FRONTEND_URL", ""),               
+]
+
+# Remove empty strings
+ALLOWED_ORIGINS = [o for o in ALLOWED_ORIGINS if o]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 # --------------------------------------------------
 # Health check
@@ -112,15 +96,13 @@ async def root():
         "message": "BakerStreet221B API is running"
     }
 
-
 # --------------------------------------------------
 # API Routes
 # --------------------------------------------------
-app.include_router(chat_router, prefix="")
-app.include_router(upload_router, prefix="")
+app.include_router(chat_router,     prefix="")
+app.include_router(upload_router,   prefix="")
 app.include_router(cases_router)
-app.include_router(messages_router)   # ← ADD
-
+app.include_router(messages_router)
 
 # --------------------------------------------------
 # Local dev entrypoint

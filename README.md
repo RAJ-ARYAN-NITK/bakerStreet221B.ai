@@ -62,6 +62,7 @@ flowchart TD
     style Postgres fill:#1e293b,color:#f59e0b
     style Chroma fill:#1e293b,color:#f59e0b
 ```
+
 ---
 
 ## 🧠 ReAct Agent Flow
@@ -69,41 +70,41 @@ flowchart TD
 ```mermaid
 flowchart TD
     Start(["👤 User Query"])
-    
+
     Reason["🧠 REASON NODE
     Sherlock Analyzes Query"]
-    
+
     Decision{{"Sufficient
     Evidence?"}}
-    
+
     Search["🔍 TOOL NODE
     search_evidence"]
-    
+
     Chroma[("📦 ChromaDB Cloud
     Vector Store")]
-    
+
     Evidence["📋 Evidence Retrieved
     case_id filtered chunks"]
-    
+
     Analyze["🧠 REASON NODE
     Analyze Evidence"]
-    
+
     Enough{{"Can Answer
     Confidently?"}}
-    
+
     AskUser["❓ TOOL NODE
     ask_user
     Request Clarification"]
-    
+
     FinalAnswer["✅ TOOL NODE
     final_answer"]
-    
+
     UserReply(["👤 User Reply"])
     Response(["💬 Response to User"])
-    
+
     MaxIter{{"Iteration
     >= 6?"}}
-    
+
     Stop(["🛑 Safety Stop"])
 
     Start --> Reason
@@ -137,7 +138,8 @@ flowchart TD
     style FinalAnswer fill:#14532d,color:#86efac
     style Chroma fill:#312e81,color:#a5b4fc
     style Evidence fill:#312e81,color:#a5b4fc
-``'
+```
+
 ---
 
 ## 🛠️ Tech Stack
@@ -207,36 +209,36 @@ bakerStreet221B.ai/
 ├── backend/
 │   ├── app/
 │   │   ├── agent/
-│   │   │   ├── graph.py        # LangGraph workflow
-│   │   │   ├── nodes.py        # Reason + Tool nodes
-│   │   │   ├── state.py        # Agent state schema
+│   │   │   ├── graph.py          # LangGraph workflow
+│   │   │   ├── nodes.py          # Reason + Tool nodes
+│   │   │   ├── state.py          # Agent state schema
 │   │   │   └── investigations.py # Question generation
 │   │   ├── api/
-│   │   │   ├── chat.py         # Chat endpoint
-│   │   │   ├── upload.py       # Document upload
-│   │   │   ├── cases.py        # Case management
-│   │   │   └── messages.py     # Message history
+│   │   │   ├── chat.py           # Chat endpoint
+│   │   │   ├── upload.py         # Document upload
+│   │   │   ├── cases.py          # Case management
+│   │   │   └── messages.py       # Message history
 │   │   ├── documents/
-│   │   │   ├── ingest.py       # Document ingestion
-│   │   │   ├── loader.py       # PDF/DOCX loader
-│   │   │   └── chunker.py      # Text chunking
+│   │   │   ├── ingest.py         # Document ingestion
+│   │   │   ├── loader.py         # PDF/DOCX loader
+│   │   │   └── chunker.py        # Text chunking
 │   │   ├── memory/
-│   │   │   ├── vector_store.py # ChromaDB client
-│   │   │   └── retriever.py    # Evidence retrieval
-│   │   ├── models/             # SQLAlchemy models
-│   │   ├── database.py         # DB connection
-│   │   └── main.py             # FastAPI app
+│   │   │   ├── vector_store.py   # ChromaDB client
+│   │   │   └── retriever.py      # Evidence retrieval
+│   │   ├── models/               # SQLAlchemy models
+│   │   ├── database.py           # DB connection
+│   │   └── main.py               # FastAPI app
 │   ├── Dockerfile
 │   └── requirements.txt
 ├── frontend/
 │   ├── src/
 │   │   ├── app/
-│   │   │   └── page.tsx        # Main layout
+│   │   │   └── page.tsx              # Main layout
 │   │   └── components/
-│   │       ├── ChatInterface.tsx    # Chat UI
-│   │       ├── Header.tsx           # App header
+│   │       ├── ChatInterface.tsx     # Chat UI
+│   │       ├── Header.tsx            # App header
 │   │       └── ui/
-│   │           ├── CaseSidebar.tsx  # Case management
+│   │           ├── CaseSidebar.tsx   # Case management
 │   │           └── EvidencePanel.tsx # Suspects & entities
 │   └── package.json
 ├── docker-compose.yml
@@ -250,7 +252,7 @@ bakerStreet221B.ai/
 ### Prerequisites
 - Python 3.11+
 - Node.js 18+
-- PostgreSQL (or use SQLite fallback)
+- PostgreSQL (or uses SQLite fallback automatically)
 
 ### Backend Setup
 
@@ -341,20 +343,19 @@ Ensures consistent deployment across environments. The same Docker image runs id
 
 ### Backend (Render)
 ```
-Language: Docker
-Root Directory: backend
-Environment Variables: (see above)
+Language:          Docker
+Root Directory:    backend
+Environment Vars:  GROQ_API_KEY, DATABASE_URL, CHROMA_API_KEY, CHROMA_TENANT, CHROMA_DATABASE
 ```
 
 ### Frontend (Vercel)
 ```
-Framework: Next.js
-Root Directory: frontend
-Environment Variables:
-  NEXT_PUBLIC_BACKEND_URL=https://your-backend.onrender.com
+Framework:         Next.js
+Root Directory:    frontend
+Environment Vars:  NEXT_PUBLIC_BACKEND_URL
 ```
 
-Auto-deploys on every push to `main` branch.
+Auto-deploys on every push to `main` branch via GitHub integration.
 
 ---
 

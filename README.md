@@ -62,9 +62,11 @@ flowchart TD
     style Postgres fill:#1e293b,color:#f59e0b
     style Chroma fill:#1e293b,color:#f59e0b
 ```
+---
+
 ## 🧠 ReAct Agent Flow
+
 ```mermaid
-flowchart TD
 flowchart TD
     Start(["👤 User Query"])
     
@@ -135,10 +137,7 @@ flowchart TD
     style FinalAnswer fill:#14532d,color:#86efac
     style Chroma fill:#312e81,color:#a5b4fc
     style Evidence fill:#312e81,color:#a5b4fc
-```
-
----
-```
+``'
 ---
 
 ## 🛠️ Tech Stack

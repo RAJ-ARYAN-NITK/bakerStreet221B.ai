@@ -62,7 +62,83 @@ flowchart TD
     style Postgres fill:#1e293b,color:#f59e0b
     style Chroma fill:#1e293b,color:#f59e0b
 ```
+## 🧠 ReAct Agent Flow
+```mermaid
+flowchart TD
+flowchart TD
+    Start(["👤 User Query"])
+    
+    Reason["🧠 REASON NODE
+    Sherlock Analyzes Query"]
+    
+    Decision{{"Sufficient
+    Evidence?"}}
+    
+    Search["🔍 TOOL NODE
+    search_evidence"]
+    
+    Chroma[("📦 ChromaDB Cloud
+    Vector Store")]
+    
+    Evidence["📋 Evidence Retrieved
+    case_id filtered chunks"]
+    
+    Analyze["🧠 REASON NODE
+    Analyze Evidence"]
+    
+    Enough{{"Can Answer
+    Confidently?"}}
+    
+    AskUser["❓ TOOL NODE
+    ask_user
+    Request Clarification"]
+    
+    FinalAnswer["✅ TOOL NODE
+    final_answer"]
+    
+    UserReply(["👤 User Reply"])
+    Response(["💬 Response to User"])
+    
+    MaxIter{{"Iteration
+    >= 6?"}}
+    
+    Stop(["🛑 Safety Stop"])
 
+    Start --> Reason
+    Reason --> Decision
+    Decision -->|"No evidence yet"| Search
+    Decision -->|"Has evidence"| Analyze
+    Search --> Chroma
+    Chroma -->|"Top 5 chunks"| Evidence
+    Evidence --> Analyze
+    Analyze --> Enough
+    Enough -->|"Yes"| FinalAnswer
+    Enough -->|"Need more info"| AskUser
+    AskUser --> UserReply
+    UserReply --> Reason
+    FinalAnswer --> Response
+    Analyze --> MaxIter
+    MaxIter -->|"Yes"| Stop
+    MaxIter -->|"No"| Enough
+
+    style Start fill:#f59e0b,color:#000,rx:20
+    style Response fill:#f59e0b,color:#000,rx:20
+    style UserReply fill:#f59e0b,color:#000,rx:20
+    style Stop fill:#ef4444,color:#fff,rx:20
+    style Reason fill:#92400e,color:#fbbf24
+    style Analyze fill:#92400e,color:#fbbf24
+    style Decision fill:#1e3a5f,color:#60a5fa
+    style Enough fill:#1e3a5f,color:#60a5fa
+    style MaxIter fill:#1e3a5f,color:#60a5fa
+    style Search fill:#1e293b,color:#f59e0b
+    style AskUser fill:#1e293b,color:#f59e0b
+    style FinalAnswer fill:#14532d,color:#86efac
+    style Chroma fill:#312e81,color:#a5b4fc
+    style Evidence fill:#312e81,color:#a5b4fc
+```
+
+---
+```
 ---
 
 ## 🛠️ Tech Stack

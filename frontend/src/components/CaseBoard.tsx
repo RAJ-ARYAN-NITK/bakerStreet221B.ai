@@ -7,7 +7,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FileText, AudioLines, Image, MapPin, Users, Clock } from 'lucide-react';
 
-const BACKEND_URL = "http://localhost:8000"; // ⭐ NEW
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000";
 
 interface Clue {
   id: string;

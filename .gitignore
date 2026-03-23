@@ -28,7 +28,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files
 .env*
 **/.env
 **/.env.local
@@ -42,6 +42,7 @@ next-env.d.ts
 
 # Python
 __pycache__/
+**/__pycache__/        ← ADD THIS (covers nested folders)
 *.pyc
 *.pyo
 
@@ -51,3 +52,11 @@ backend/chroma/
 backend/uploads/
 *.bin
 *.sqlite3
+
+# Frontend build
+frontend/.next/        ← ADD THIS
+frontend/node_modules/ ← ADD THIS
+frontend/out/          ← ADD THIS
+
+# Mac
+**/.DS_Store           ← ADD THIS (covers all subfolders)

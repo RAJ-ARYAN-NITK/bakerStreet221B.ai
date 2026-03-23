@@ -42,7 +42,7 @@ next-env.d.ts
 
 # Python
 __pycache__/
-**/__pycache__/        ← ADD THIS (covers nested folders)
+**/__pycache__/        
 *.pyc
 *.pyo
 
@@ -54,9 +54,9 @@ backend/uploads/
 *.sqlite3
 
 # Frontend build
-frontend/.next/        ← ADD THIS
-frontend/node_modules/ ← ADD THIS
-frontend/out/          ← ADD THIS
+frontend/.next/        
+frontend/node_modules/ 
+frontend/out/         
 
 # Mac
-**/.DS_Store           ← ADD THIS (covers all subfolders)
+**/.DS_Store          

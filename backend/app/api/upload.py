@@ -21,7 +21,7 @@ async def upload_document(
     if not file.filename:
         raise HTTPException(status_code=400, detail="File must have a name")
 
-    # ✅ Keep original filename separate from disk filename
+    #  Keep original filename separate from disk filename
     original_filename = file.filename
     disk_filename = f"{uuid.uuid4()}_{file.filename}"
     file_path = UPLOAD_DIR / disk_filename
@@ -33,7 +33,7 @@ async def upload_document(
     # -----------------------------
     # Ingest document
     # -----------------------------
-    # ✅ Pass original filename so chunks are tagged correctly
+    #  Pass original filename so chunks are tagged correctly
     chunks = ingest_document(
         case_id, 
         str(file_path),

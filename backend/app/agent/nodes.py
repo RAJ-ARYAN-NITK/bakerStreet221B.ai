@@ -256,7 +256,7 @@ Respond ONLY in valid JSON with no markdown fences:
         tool       = decision.get("tool", "final_answer")
         tool_input = decision.get("tool_input", "")
 
-        # ✅ Safety check — reject heading-only answers
+        #  Safety check — reject heading-only answers
         is_heading = (
             len(tool_input.split()) < 6 or
             tool_input.strip().endswith(":") or

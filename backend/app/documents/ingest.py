@@ -1,4 +1,3 @@
-
 import uuid
 from datetime import datetime
 from pathlib import Path
@@ -23,7 +22,7 @@ def ingest_document(case_id: str, file_path: str, original_filename: Optional[st
     collection = get_case_collection(case_id)
     ids = [str(uuid.uuid4()) for _ in chunks]
 
-    # ✅ Use original filename if provided, fallback to disk name
+    #  Use original filename if provided, fallback to disk name
     display_filename = original_filename or Path(file_path).name
 
     collection.add(
@@ -33,7 +32,7 @@ def ingest_document(case_id: str, file_path: str, original_filename: Optional[st
             {
                 "case_id": case_id,
                 "source": file_path,
-                "filename": display_filename,      # ✅ "ticket.pdf" not UUID
+                "filename": display_filename,      # "ticket.pdf" not UUID
                 "timestamp": datetime.utcnow().isoformat(),
                 "type": "document_chunk",
             }

@@ -54,7 +54,7 @@ class ChatResponse(BaseModel):
 async def chat_endpoint(request: ChatRequest):
 
     # --------------------------------------------------
-    # 1️⃣ Ensure thread continuity
+    # 1️ Ensure thread continuity
     # --------------------------------------------------
     thread_id = request.thread_id or str(uuid.uuid4())
 
@@ -70,7 +70,7 @@ async def chat_endpoint(request: ChatRequest):
     user_message = HumanMessage(content=request.message)
 
     # --------------------------------------------------
-    # 2️⃣ Initial Agent State
+    #  Initial Agent State
     # --------------------------------------------------
     initial_state: AgentState = {
         "messages": [user_message],
@@ -90,7 +90,7 @@ async def chat_endpoint(request: ChatRequest):
     })
 
     # --------------------------------------------------
-    # 3️⃣ Run LangGraph Agent
+    #  Run LangGraph Agent
     # --------------------------------------------------
     try:
 
@@ -138,7 +138,7 @@ async def chat_endpoint(request: ChatRequest):
         })
 
     # --------------------------------------------------
-    # 4️⃣ Store SQL chat history
+    #  Store SQL chat history
     # --------------------------------------------------
     db: Session = SessionLocal()
 
@@ -168,7 +168,7 @@ async def chat_endpoint(request: ChatRequest):
         db.close()
 
     # --------------------------------------------------
-    # 5️⃣ Store semantic evidence (vector DB)
+    # Store semantic evidence (vector DB)
     # --------------------------------------------------
     try:
         add_evidence(
@@ -180,7 +180,7 @@ async def chat_endpoint(request: ChatRequest):
         pass
 
     # --------------------------------------------------
-    # 6️⃣ Return response
+    #  Return response
     # --------------------------------------------------
     return ChatResponse(
         response=final_message,

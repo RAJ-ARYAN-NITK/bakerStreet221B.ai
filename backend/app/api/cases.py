@@ -1,49 +1,10 @@
-# import uuid
-# from fastapi import APIRouter
-# from app.database import SessionLocal
-# from app.models.case import Case
-
-# router = APIRouter(prefix="/cases", tags=["cases"])
-
-
-# @router.post("/new")
-# def create_case():
-#     db = SessionLocal()
-
-#     case_id = str(uuid.uuid4())
-
-#     new_case = Case(id=case_id, title="New Investigation")
-#     db.add(new_case)
-#     db.commit()
-#     db.close()
-
-#     return {"case_id": case_id}
-
-
-# @router.get("/")
-# def list_cases():
-#     db = SessionLocal()
-
-#     cases = db.query(Case).order_by(Case.created_at.desc()).all()
-
-#     db.close()
-
-#     return [
-#         {
-#             "id": c.id,
-#             "title": c.title,
-#             "created_at": c.created_at,
-#         }
-#         for c in cases
-#     ]
-
 import uuid
 from fastapi import APIRouter, HTTPException
 from sqlalchemy.orm import Session
 
 from app.database import SessionLocal
 from app.models.case import Case
-from app.models.message import Message  # ⭐ needed for cascade delete
+from app.models.message import Message 
 
 router = APIRouter(prefix="/cases", tags=["cases"])
 
@@ -92,7 +53,7 @@ def list_cases():
 
 
 # ------------------------------------------------------------
-# DELETE CASE  ⭐ PHASE-5 REQUIRED
+# DELETE CASE  
 # ------------------------------------------------------------
 @router.delete("/{case_id}")
 def delete_case(case_id: str):
@@ -104,10 +65,10 @@ def delete_case(case_id: str):
         if not case:
             raise HTTPException(status_code=404, detail="Case not found")
 
-        # ⭐ delete all messages linked to this case
+        #  delete all messages linked to this case
         db.query(Message).filter(Message.case_id == case_id).delete()
 
-        # ⭐ delete the case itself
+        #  delete the case itself
         db.delete(case)
 
         db.commit()

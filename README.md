@@ -206,91 +206,25 @@ graph LR
 
 ### Backend Modules
 
-```mermaid
-graph TD
-    classDef module fill:#1e293b,stroke:#60a5fa,color:#dbeafe,rx:6
-    classDef func fill:#0f172a,stroke:#34d399,color:#d1fae5,rx:4
-
-    subgraph "main.py — App Bootstrap"
-        LIFE["lifespan():\n1. Open Postgres pool\n2. setup() checkpointer tables\n3. Yield (serve)\n4. Close pool on shutdown"]:::func
-        CORS["CORS middleware:\nlocalhost:3000\nlocalhost:3001"]:::func
-        ROUTES["Mount routers:\n/ health check\n/chat · /chat/stream\n/chat/history/{id}\n/upload"]:::func
-    end
-
-    subgraph "chat.py — Chat API"
-        SC["POST /chat\nJSON request/response\nFallback for non-SSE clients"]:::func
-        SS["POST /chat/stream\nServer-Sent Events\nastream_events() v2"]:::func
-        SH["GET /chat/history/{thread_id}\nPostgres → message list\nSkips ToolMessages"]:::func
-    end
-
-    subgraph "upload.py — Document Ingestion"
-        UPL["POST /upload\n1. Validate ext (pdf/txt/docx)\n2. Write temp file\n3. Parse with PyPDFLoader/TextLoader\n4. Chunk (1500 chars / 150 overlap)\n5. store_document_chunks(case_id)\n6. Invoke Sherlock for 5 questions\n7. Return questions + chunk count"]:::func
-    end
-
-    subgraph "graph.py — Agent Factory"
-        LLM2["Gemini 2.5 Flash\ntemp=0.2 · max_tokens=2048\nstreaming=True"]:::func
-        POOL["AsyncConnectionPool\nmin=1 · max=10\nautocommit=True"]:::func
-        CHP["AsyncPostgresSaver\nLangGraph checkpointer"]:::func
-        GA["get_agent_graph()\nDefault (no case scope)"]:::func
-        GCA["get_case_agent_graph(case_id)\nCase-scoped document_search\nNew graph per case_id"]:::func
-    end
-
-    subgraph "tools.py — Agent Tools"
-        WT["web_search(query)\nDuckDuckGo DDGS.text()\nmax_results=5\nNo API key required"]:::func
-        CT["calculator(expression)\nnumexpr primary\npython math fallback\nSafe regex sanitise"]:::func
-        DSF["make_document_search_tool(case_id)\nFactory — bakes case_id in\nKeyword scoring over chunks\nTop 5 matching excerpts"]:::func
-        STORE["_doc_store: Dict[str, List[str]]\nIn-memory · thread-safe lock\nPopulated by /upload endpoint"]:::func
-    end
-
-    subgraph "prompts.py — System Prompt"
-        SP["SHERLOCK_SYSTEM_PROMPT\nPersona · Tool descriptions\nReAct instructions · Rules\nNever break character"]:::func
-    end
-```
+| Module | Purpose | Key Functions / Components |
+|---|---|---|
+| `main.py` | App Bootstrap | • `lifespan()`: DB pool & checkpointer setup<br>• CORS Middleware<br>• Route mounting |
+| `chat.py` | Chat API | • `POST /chat`: JSON fallback<br>• `POST /chat/stream`: SSE streaming<br>• `GET /chat/history/{id}`: Postgres message restore |
+| `upload.py` | Document Ingestion | • `POST /upload`: Validates, parses, chunks text (1500 chars), stores in `_doc_store`, and asks Sherlock for 5 initial questions |
+| `graph.py` | Agent Factory | • Gemini 2.5 Flash LLM init<br>• `AsyncPostgresSaver` checkpointer<br>• `get_agent_graph()` / `get_case_agent_graph()` factories |
+| `tools.py` | Agent Tools | • `web_search()`: DuckDuckGo API<br>• `calculator()`: numexpr safe math<br>• `make_document_search_tool()`: Keyword scoring retrieval over `_doc_store` |
+| `prompts.py` | System Prompt | • `SHERLOCK_SYSTEM_PROMPT`: Enforces persona, tool rules, and ReAct loop |
 
 ---
 
 ## 🛠️ Tech Stack
 
-```mermaid
-graph LR
-    classDef fe fill:#7c3aed,stroke:#a78bfa,color:#ede9fe,rx:8
-    classDef be fill:#0e7490,stroke:#22d3ee,color:#cffafe,rx:8
-    classDef ai fill:#065f46,stroke:#34d399,color:#d1fae5,rx:8
-    classDef inf fill:#9a3412,stroke:#fb923c,color:#ffedd5,rx:8
-
-    subgraph "🖥️ Frontend"
-        NX["Next.js 16\nApp Router · Turbopack"]:::fe
-        TS["TypeScript\nStrict mode"]:::fe
-        TW2["Tailwind CSS v4"]:::fe
-        SUI["shadcn/ui\nCard · Badge · Tabs\nScrollArea"]:::fe
-        LI["Lucide React\nIcons"]:::fe
-        RM["react-markdown\nMarkdown rendering"]:::fe
-        WSA["Web Speech API\nVoice input"]:::fe
-    end
-
-    subgraph "⚙️ Backend"
-        FA["FastAPI 0.127\nAsync · Pydantic v2"]:::be
-        UV["Uvicorn\nASGI server"]:::be
-        LC["LangChain 1.2\nTool decorators"]:::be
-        LG["LangGraph 1.0\nReAct orchestration"]:::be
-        PS["psycopg3 + pool\nAsync Postgres driver"]:::be
-        PP["PyPDF + TextLoader\nDocument parsing"]:::be
-        DDG2["duckduckgo-search\nWeb search"]:::be
-        NE["numexpr\nSafe math eval"]:::be
-    end
-
-    subgraph "🧠 AI"
-        GM["Google Gemini 2.5 Flash\nlangchain-google-genai\n~1M tokens/day free"]:::ai
-        RA["ReAct Agent Pattern\ncreate_react_agent()"]:::ai
-        CHK["LangGraph Checkpointer\nConversation memory\nthread_id isolation"]:::ai
-    end
-
-    subgraph "🏗️ Infrastructure"
-        PG["PostgreSQL (pgvector)\nPort 5433\nDocker container"]:::inf
-        DC["Docker Compose\norchestration"]:::inf
-        ENV[".env config\nDATABASE_URL\nGOOGLE_API_KEY"]:::inf
-    end
-```
+| Category | Technologies |
+|---|---|
+| **🖥️ Frontend** | • **Framework:** Next.js 16 (App Router, Turbopack)<br>• **Language:** TypeScript (Strict mode)<br>• **Styling:** Tailwind CSS v4, shadcn/ui, Lucide React<br>• **Features:** react-markdown, Web Speech API (Voice input) |
+| **⚙️ Backend** | • **Framework:** FastAPI 0.127 (Async, Pydantic v2), Uvicorn<br>• **Orchestration:** LangChain 1.2, LangGraph 1.0<br>• **Database Driver:** psycopg3 + connection pool<br>• **Utilities:** PyPDF, TextLoader, duckduckgo-search, numexpr |
+| **🧠 AI** | • **Model:** Google Gemini 2.5 Flash (via `langchain-google-genai`)<br>• **Architecture:** ReAct Agent Pattern (`create_react_agent`)<br>• **Memory:** LangGraph Postgres Checkpointer (thread isolation) |
+| **🏗️ Infrastructure**| • **Database:** PostgreSQL (with `pgvector` extension) running in Docker<br>• **Deployment:** Docker Compose, `.env` config management |
 
 ---
 
@@ -407,48 +341,7 @@ graph LR
 
 ---
 
-## 🚀 What to Add Next
 
-```mermaid
-mindmap
-  root((BakerStreet\n221B.ai\nRoadmap))
-    Vector Search
-      Replace keyword scoring with pgvector embeddings
-      Semantic similarity chunks retrieval
-      langchain-postgres VectorStore
-    More Tools
-      🗄️ SQL query tool against structured data
-      🐍 Code execution sandbox
-      📊 Chart generation tool
-      🗺️ Location & maps API
-    Auth & Multi-user
-      Firebase Auth or Supabase
-      Per-user case isolation
-      Shared case collaboration
-    Persistence Upgrades
-      Persist _doc_store to Postgres
-      File upload history per case
-      Evidence panel saved to DB
-    Agent Upgrades
-      Multi-agent subgraph for specialised roles
-      Memory compression for long conversations
-      Agent self-reflection loop
-    UI Enhancements
-      Live reasoning trace / thought panel
-      Evidence timeline view
-      Interactive case board with drag-drop
-      Export case report as PDF
-    Deployment
-      Railway / Render one-click deploy
-      Docker multi-stage production build
-      Environment-based config management
-    Voice & Multimodal
-      Text-to-Speech for Sherlock responses
-      Image upload + vision analysis via Gemini
-      Audio evidence transcription
-```
-
----
 
 ## 🚦 Quick Start
 

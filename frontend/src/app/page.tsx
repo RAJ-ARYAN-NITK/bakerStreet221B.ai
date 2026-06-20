@@ -1,253 +1,199 @@
-// "use client";
-
-// import { useState } from "react";
-
-// export default function Home() {
-//   const [messages, setMessages] = useState([
-//     { role: "assistant", content: "I am Sherlock Holmes. State your mystery." },
-//   ]);
-//   const [input, setInput] = useState("");
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [threadId, setThreadId] = useState<string | null>(null);
-
-//   const sendMessage = async () => {
-//     if (!input.trim()) return;
-
-//     // 1. Save the message before clearing input
-//     const messageToSend = input.trim();
-    
-//     // 2. Add User Message to UI
-//     const userMessage = { role: "user", content: messageToSend };
-//     setMessages((prev) => [...prev, userMessage]);
-//     setInput("");
-//     setIsLoading(true);
-
-//     try {
-//       // 3. Send to Python Backend
-//       // CRITICAL: Must use absolute URL - Next.js intercepts relative URLs
-//       // Hardcode the backend URL to ensure it's always absolute
-//       const BACKEND_URL = "http://localhost:8000";
-//       const fullUrl = `${BACKEND_URL}/chat`;
-      
-//       console.log("=== API Request Debug ===");
-//       console.log("Backend URL (hardcoded):", BACKEND_URL);
-//       console.log("Full URL:", fullUrl);
-//       console.log("Request will go to:", fullUrl);
-//       console.log("========================");
-      
-//       const response = await fetch(fullUrl, {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify({ 
-//           message: messageToSend,
-//           thread_id: threadId 
-//         }),
-//       });
-
-//       console.log("Response status:", response.status);
-      
-//       if (!response.ok) {
-//         const errorText = await response.text();
-//         console.error("Error response:", errorText);
-//         throw new Error(`HTTP error! status: ${response.status}, message: ${errorText}`);
-//       }
-
-//       const data = await response.json();
-
-//       // 4. Save thread_id for conversation persistence
-//       if (data.thread_id) {
-//         setThreadId(data.thread_id);
-//       }
-
-//       // 5. Add Sherlock's Response to UI
-//       // Backend returns {"response": "...", "thread_id": "..."}
-//       const botMessage = { role: "assistant", content: data.response || data.reply || data.message || "I deduce nothing." };
-//       setMessages((prev) => [...prev, botMessage]);
-
-//     } catch (error) {
-//       console.error("Error:", error);
-//       setMessages((prev) => [
-//         ...prev,
-//         { role: "assistant", content: "My connection to the mind palace is severed. (Check Backend)" },
-//       ]);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
-
-//   return (
-//     <div className="flex flex-col h-screen bg-gray-900 text-gray-100 font-sans">
-//       {/* Header */}
-//       <header className="p-4 border-b border-gray-700 bg-gray-800 flex items-center justify-between">
-//         <h1 className="text-xl font-bold text-amber-500 tracking-wider">
-//           BAKER STREET 221B
-//         </h1>
-//         <span className="text-xs text-gray-400">AI Detective</span>
-//       </header>
-
-//       {/* Chat Area */}
-//       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-//         {messages.map((msg, index) => (
-//           <div
-//             key={index}
-//             className={`flex ${
-//               msg.role === "user" ? "justify-end" : "justify-start"
-//             }`}
-//           >
-//             <div
-//               className={`max-w-[80%] p-3 rounded-lg ${
-//                 msg.role === "user"
-//                   ? "bg-amber-600 text-white rounded-br-none"
-//                   : "bg-gray-700 text-gray-200 rounded-bl-none border border-gray-600"
-//               }`}
-//             >
-//               {msg.content}
-//             </div>
-//           </div>
-//         ))}
-//         {isLoading && (
-//           <div className="text-gray-500 text-sm animate-pulse">
-//             Sherlock is deducing...
-//           </div>
-//         )}
-//       </div>
-
-//       {/* Input Area */}
-//       <div className="p-4 bg-gray-800 border-t border-gray-700">
-//         <div className="flex gap-2 max-w-3xl mx-auto">
-//           <input
-//             type="text"
-//             value={input}
-//             onChange={(e) => setInput(e.target.value)}
-//             onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-//             placeholder="Describe your case..."
-//             className="flex-1 bg-gray-900 border border-gray-600 text-white px-4 py-2 rounded-md focus:outline-none focus:border-amber-500 transition-colors"
-//           />
-//           <button
-//             onClick={sendMessage}
-//             disabled={isLoading}
-//             className="bg-amber-600 hover:bg-amber-700 disabled:bg-gray-600 text-white px-6 py-2 rounded-md font-medium transition-colors"
-//           >
-//             {isLoading ? "..." : "Consult"}
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-// "use client";
-
-// import { useState } from "react";
-
-// import { Header } from "@/components/Header";
-// import { CaseBoard } from "@/components/CaseBoard";
-// import { ChatInterface } from "@/components/ChatInterface";
-
-// export default function Home() {
-//   const [activeCase, setActiveCase] = useState<string | null>(null);
-
-//   return (
-//     <div className="min-h-screen flex flex-col bg-background text-foreground">
-//       {/* Global Header */}
-//       <Header />
-
-//       {/* Main Application Layout */}
-//       <main className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-4 p-4">
-        
-//         {/* Left Panel — Case Board */}
-//         <section className="lg:col-span-1">
-//           <CaseBoard
-//             activeCase={activeCase}
-//             onCaseSelect={setActiveCase}
-//           />
-//         </section>
-
-//         {/* Right Panel — Chat Interface (BACKEND CONNECTED) */}
-//         <section className="lg:col-span-2">
-//           <ChatInterface activeCase={activeCase} />
-//         </section>
-
-//       </main>
-//     </div>
-//   );
-// }
-
-// 'use client';
-
-// import React, { useState } from 'react';
-// import { CaseBoard } from '@/components/CaseBoard';
-// import { ChatInterface } from '@/components/ChatInterface';
-// import { Header } from '@/components/Header';
-
-// export default function Home() {
-//   const [activeCase, setActiveCase] = useState<string | null>(null);
-
-//   return (
-//     <div className="min-h-screen bg-linear-to-br from-slate-900 via-amber-950 to-slate-900 relative overflow-hidden">
-//       {/* Victorian Background Pattern */}
-//       <div className="absolute inset-0 opacity-10">
-//         <div className="absolute inset-0" style={{
-//           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-//         }}/>
-//       </div>
-
-//       <div className="relative z-10">
-//         <Header />
-        
-//         <div className="container mx-auto px-4 py-6">
-//           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-//             {/* Left Sidebar - Case Board */}
-//             <div className="lg:col-span-1">
-//               <CaseBoard activeCase={activeCase} onCaseSelect={setActiveCase} />
-//             </div>
-
-//             {/* Main Chat Interface */}
-//             <section className="lg:col-span-2 flex flex-col min-h-0">
-//               <ChatInterface activeCase={activeCase} />
-//             </section>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 'use client';
 
-import React, { useState } from 'react';
-import { CaseBoard } from '@/components/CaseBoard';
+import React, { useState, useCallback } from 'react';
+import { CaseSidebar } from '@/components/ui/CaseSidebar';
 import { ChatInterface } from '@/components/ChatInterface';
 import { Header } from '@/components/Header';
+import { EvidencePanel, Suspect, Entity } from '@/components/ui/EvidencePanel';
+import { FolderOpen, MessageSquare, Shield } from 'lucide-react';
 
 export default function Home() {
-  const [activeCase, setActiveCase] = useState<string | null>(null);
+
+  const [activeCase, setActiveCase]         = useState<string | null>(null);
+  const [investigations, setInvestigations] = useState<string[]>([]);
+  const [pendingMessage, setPendingMessage] = useState<string | null>(null);
+  const [suspects, setSuspects]             = useState<Suspect[]>([]);
+  const [entities, setEntities]             = useState<Entity[]>([]);
+  const [mobileTab, setMobileTab] = useState<"cases" | "chat" | "evidence">("chat");
+
+  React.useEffect(() => {
+    const saved = localStorage.getItem("lastActiveCase");
+    if (saved) {
+      setActiveCase(saved);
+      const savedInv = localStorage.getItem(`investigations_${saved}`);
+      setInvestigations(savedInv ? JSON.parse(savedInv) : []);
+    }
+  }, []);
+
+  const handleSetActiveCase = (id: string | null) => {
+    setActiveCase(id);
+    if (id) {
+      localStorage.setItem("lastActiveCase", id);
+      const savedInv = localStorage.getItem(`investigations_${id}`);
+      setInvestigations(savedInv ? JSON.parse(savedInv) : []);
+    } else {
+      localStorage.removeItem("lastActiveCase");
+      setInvestigations([]);
+    }
+  };
+
+  const addSuspect    = (s: Omit<Suspect, "id">) =>
+    setSuspects((prev) => [...prev, { ...s, id: crypto.randomUUID() }]);
+  const deleteSuspect = (id: string) =>
+    setSuspects((prev) => prev.filter((s) => s.id !== id));
+  const addEntity     = (e: Omit<Entity, "id">) =>
+    setEntities((prev) => [...prev, { ...e, id: crypto.randomUUID() }]);
+  const deleteEntity  = (id: string) =>
+    setEntities((prev) => prev.filter((e) => e.id !== id));
+
+  const handleQuestionClick = useCallback((question: string) => {
+    setPendingMessage(question);
+    setMobileTab("chat");
+  }, []);
+
+  const clearPendingMessage = useCallback(() => setPendingMessage(null), []);
+
+  const InvestigationPills = () => (
+    <>
+      {investigations.length > 0 && (
+        <div className="border border-amber-900/30 bg-slate-900/60 rounded-xl px-4 py-3 mb-4">
+          <p className="text-xs text-amber-600 font-semibold uppercase tracking-widest mb-2">
+            Click to investigate →
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {investigations.map((q, i) => (
+              <button
+                key={i}
+                onClick={() => handleQuestionClick(q)}
+                title={q}
+                className="text-xs text-amber-200 bg-amber-900/30 border border-amber-800/50 hover:bg-amber-700/40 hover:border-amber-500 hover:text-amber-100 px-3 py-1.5 rounded-full transition-all duration-150 text-left max-w-xs truncate"
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+    </>
+  );
 
   return (
     <div className="h-screen flex flex-col bg-linear-to-br from-slate-900 via-amber-950 to-slate-900 overflow-hidden">
-      {/* Background */}
+
       <div className="absolute inset-0 opacity-10 pointer-events-none">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,...")`,
-          }}
-        />
+        <div className="absolute inset-0" style={{ backgroundImage: `url("data:image/svg+xml,...")` }} />
       </div>
 
       <div className="relative z-10 flex flex-col h-full overflow-hidden">
+
         <Header />
 
-        {/* 🔒 Height-locked content */}
-        <div className="flex-1 overflow-hidden px-4 py-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-full overflow-hidden">
-            <div className="lg:col-span-1 overflow-hidden">
-              <CaseBoard activeCase={activeCase} onCaseSelect={setActiveCase} />
-            </div>
+        {/* DESKTOP — original unchanged layout */}
+        <div className="hidden sm:flex flex-1 overflow-hidden">
 
-            <section className="lg:col-span-2 flex flex-col overflow-hidden min-h-0">
-              <ChatInterface activeCase={activeCase} />
-            </section>
+          <CaseSidebar
+            activeCase={activeCase}
+            setActiveCase={handleSetActiveCase}
+          />
+
+          <div className="flex flex-col flex-1 min-w-0 min-h-0 px-4 py-6">
+            <InvestigationPills />
+            <div className="flex-1 min-h-0">
+              <ChatInterface
+                activeCase={activeCase}
+                pendingMessage={pendingMessage}
+                onClearPendingMessage={clearPendingMessage}
+                onInvestigationsGenerated={(invs) => {
+                  setInvestigations(invs);
+                  if (activeCase) {
+                    localStorage.setItem(`investigations_${activeCase}`, JSON.stringify(invs));
+                  }
+                }}
+              />
+            </div>
           </div>
+
+          <div className="py-6 pr-4">
+            <EvidencePanel
+              suspects={suspects}
+              entities={entities}
+              onAddSuspect={addSuspect}
+              onDeleteSuspect={deleteSuspect}
+              onAddEntity={addEntity}
+              onDeleteEntity={deleteEntity}
+            />
+          </div>
+
         </div>
+
+        {/* MOBILE — tabbed layout */}
+        <div className="flex sm:hidden flex-1 overflow-hidden">
+
+          {mobileTab === "cases" && (
+            <div className="flex-1 overflow-y-auto p-3">
+              <CaseSidebar
+                activeCase={activeCase}
+                setActiveCase={(id) => { handleSetActiveCase(id); setMobileTab("chat"); }}
+              />
+            </div>
+          )}
+
+          {mobileTab === "chat" && (
+            <div className="flex flex-col flex-1 min-h-0 overflow-hidden px-2 py-3">
+              <InvestigationPills />
+              <div className="flex-1 min-h-0">
+                <ChatInterface
+                  activeCase={activeCase}
+                  pendingMessage={pendingMessage}
+                  onClearPendingMessage={clearPendingMessage}
+                  onInvestigationsGenerated={(invs) => {
+                    setInvestigations(invs);
+                    if (activeCase) {
+                      localStorage.setItem(`investigations_${activeCase}`, JSON.stringify(invs));
+                    }
+                  }}
+                />
+              </div>
+            </div>
+          )}
+
+          {mobileTab === "evidence" && (
+            <div className="flex-1 overflow-y-auto">
+              <EvidencePanel
+                suspects={suspects}
+                entities={entities}
+                onAddSuspect={addSuspect}
+                onDeleteSuspect={deleteSuspect}
+                onAddEntity={addEntity}
+                onDeleteEntity={deleteEntity}
+              />
+            </div>
+          )}
+
+        </div>
+
+        {/* Mobile bottom nav */}
+        <div className="flex sm:hidden border-t border-amber-900/40 bg-slate-950/90 shrink-0">
+          {([
+            { id: "cases",    label: "Cases",    Icon: FolderOpen    },
+            { id: "chat",     label: "Chat",     Icon: MessageSquare },
+            { id: "evidence", label: "Evidence", Icon: Shield        },
+          ] as const).map(({ id, label, Icon }) => (
+            <button
+              key={id}
+              onClick={() => setMobileTab(id)}
+              className={`flex-1 flex flex-col items-center gap-1 py-3 text-xs font-medium transition-colors ${
+                mobileTab === id
+                  ? "text-amber-400 border-t-2 border-amber-500 -mt-px"
+                  : "text-amber-800 hover:text-amber-600"
+              }`}
+            >
+              <Icon className="w-5 h-5" />
+              {label}
+            </button>
+          ))}
+        </div>
+
       </div>
     </div>
   );

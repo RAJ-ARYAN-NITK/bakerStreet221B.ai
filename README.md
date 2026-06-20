@@ -1,1 +1,551 @@
-# bakerStreet221B.ai
+# 🔍 BakerStreet221B.ai — Sherlock ReAct Detective Agent
+
+> *"Elementary, my dear Watson — Multimodal AI Mystery Solver"*
+
+A full-stack AI detective application powered by a **LangGraph ReAct agent** running **Google Gemini 2.5 Flash**, wrapped in a cinematic Sherlock Holmes–themed UI. Upload documents, interrogate evidence, search the web, and let the world's greatest consulting detective reason through your case — step by step, tool by tool.
+
+---
+
+## 🎯 Purpose of this Project
+
+BakerStreet221B.ai was built to demonstrate **agentic AI reasoning in action** — showing how a Large Language Model, combined with a graph-based orchestration layer, can autonomously:
+
+1. **Decide** which tool to call next based on context
+2. **Observe** the tool's result
+3. **Reason** about what it learned
+4. **Repeat** until it reaches a confident conclusion
+
+Unlike a simple chatbot, this agent is *not* just answering from training data. It actively searches the web, runs calculations, and searches through uploaded case files — all orchestrated transparently so the user can watch every tool invocation in real time.
+
+---
+
+## 🗺️ System Architecture Overview
+
+```mermaid
+graph TB
+    classDef frontend fill:#92400e,stroke:#d97706,color:#fef3c7,rx:8
+    classDef backend fill:#1e293b,stroke:#475569,color:#e2e8f0,rx:8
+    classDef agent fill:#065f46,stroke:#10b981,color:#d1fae5,rx:8
+    classDef db fill:#312e81,stroke:#818cf8,color:#e0e7ff,rx:8
+    classDef external fill:#7c2d12,stroke:#f97316,color:#fed7aa,rx:8
+
+    subgraph FE["🖥️  Frontend  (Next.js 16 · TypeScript · Tailwind)"]
+        H["🔍 Header\nAgent status indicator"]
+        CS["📁 CaseSidebar\nCase management"]
+        CI["💬 ChatInterface\nSSE streaming · Typewriter"]
+        IP["💡 InvestigationPills\nOne-click question starters"]
+        EP["🧾 EvidencePanel\nSuspects · Entities tracker"]
+    end
+
+    subgraph BE["⚙️  Backend  (FastAPI · Python 3.13)"]
+        MA["🚀 main.py\nLifespan · CORS · Routes"]
+        CA["📡 chat.py\nPOST /chat\nPOST /chat/stream (SSE)\nGET  /chat/history"]
+        UA["📎 upload.py\nPOST /upload\nPDF · TXT · DOCX ingestion"]
+    end
+
+    subgraph AG["🧠  ReAct Agent  (LangGraph)"]
+        GR["graph.py\ncreate_react_agent()"]
+        PR["prompts.py\nSherlock system prompt"]
+        ST["state.py\nAgentState schema"]
+        TO["tools.py\n🔍 web_search\n🧮 calculator\n📄 document_search"]
+    end
+
+    DB[("🗄️  PostgreSQL 5433\nLangGraph Checkpointer\nConversation memory")]:::db
+    DDG["🌐 DuckDuckGo\nWeb Search API"]:::external
+    GEM["✨ Gemini 2.5 Flash\nGoogle AI API"]:::external
+
+    H & CS & IP & EP --> CI
+    CI -->|"POST /chat/stream\nJSON body"| CA
+    CI -->|"POST /upload\nmultipart/form-data"| UA
+    CA --> GR
+    UA --> GR
+    GR --> PR
+    GR --> ST
+    GR --> TO
+    GR <-->|"astream_events()\nSSE frames"| CA
+    GR <-->|"Checkpoint read/write"| DB
+    TO -->|"DDGS().text()"| DDG
+    GR <-->|"LLM calls"| GEM
+
+    class H,CS,CI,IP,EP frontend
+    class MA,CA,UA backend
+    class GR,PR,ST,TO agent
+```
+
+---
+
+## 🔄 ReAct Agent Flow (Reasoning + Acting)
+
+The core of BakerStreet221B.ai is a **ReAct (Reason + Act)** loop. The LLM doesn't just answer — it thinks, picks a tool, observes the result, and thinks again. Here's how it works:
+
+```mermaid
+flowchart TD
+    classDef think fill:#065f46,stroke:#34d399,color:#d1fae5
+    classDef act fill:#7c2d12,stroke:#fb923c,color:#fed7aa
+    classDef observe fill:#1e1b4b,stroke:#a78bfa,color:#ede9fe
+    classDef decide fill:#1c1917,stroke:#d97706,color:#fef3c7
+    classDef done fill:#14532d,stroke:#4ade80,color:#dcfce7
+    classDef user fill:#0f172a,stroke:#38bdf8,color:#e0f2fe
+
+    U(["👤 User sends message\nor clicks Investigation Pill"]):::user
+    --> THINK["🧠 THINK\nSherlock reasons about\nthe question using the\nSystem Prompt context"]:::think
+
+    THINK --> DECIDE{{"🤔 Does Sherlock\nneed more info?"}}:::decide
+
+    DECIDE -->|"Yes — needs web info"| WS["🔍 ACT: web_search\nQuery DuckDuckGo\n5 results returned"]:::act
+    DECIDE -->|"Yes — needs calculation"| CALC["🧮 ACT: calculator\nnumexpr safe eval\nmath result returned"]:::act
+    DECIDE -->|"Yes — needs docs"| DS["📄 ACT: document_search\nKeyword-scored chunk\nretrieval from case store"]:::act
+    DECIDE -->|"No — sufficient context"| ANS["✅ FINAL ANSWER\nSherlock synthesises\nall gathered evidence"]:::done
+
+    WS --> OBS1["👁️ OBSERVE\nParse search results\nUpdate internal state"]:::observe
+    CALC --> OBS2["👁️ OBSERVE\nNumeric result received\nUpdate internal state"]:::observe
+    DS --> OBS3["👁️ OBSERVE\nDocument excerpts received\nUpdate internal state"]:::observe
+
+    OBS1 & OBS2 & OBS3 --> THINK2["🧠 THINK AGAIN\nIntegrate new evidence\nDecide next step"]:::think
+    THINK2 --> DECIDE
+
+    ANS --> STREAM["📡 Token streaming\nvia Server-Sent Events\nto frontend in real-time"]:::user
+```
+
+---
+
+## 📡 Real-Time Streaming & Tool Visibility
+
+The user always knows exactly what the agent is doing. The SSE stream emits typed events:
+
+```mermaid
+sequenceDiagram
+    participant U as 👤 User (Browser)
+    participant FE as 🖥️ ChatInterface.tsx
+    participant BE as ⚙️ chat.py /chat/stream
+    participant AG as 🧠 LangGraph Agent
+    participant LLM as ✨ Gemini 2.5 Flash
+    participant TL as 🔧 Tool
+
+    U->>FE: Send message / click pill
+    FE->>BE: POST /chat/stream (JSON)
+    BE->>AG: astream_events(messages, config)
+    AG->>LLM: Invoke with system prompt + history
+
+    Note over FE: 🔵 Thinking dots shown (●●●)
+
+    LLM-->>AG: Tool call decision
+    AG->>TL: Execute tool(input)
+
+    AG-->>BE: on_tool_start event
+    BE-->>FE: data: {"type":"tool","name":"web_search","input":"..."}
+    FE-->>U: 🔍 Wrench icon + "web search" badge (amber pulse)
+
+    TL-->>AG: Tool result
+    AG-->>BE: on_tool_end event
+    BE-->>FE: data: {"type":"tool_result","name":"web_search"}
+    FE-->>U: ✓ web search (green badge)
+
+    AG->>LLM: Continue with tool result
+    LLM-->>AG: Stream answer tokens
+
+    loop Token streaming
+        AG-->>BE: on_chat_model_stream
+        BE-->>FE: data: {"type":"token","content":"..."}
+        FE-->>U: Typewriter effect (~55 chars/sec)
+    end
+
+    AG-->>BE: done event
+    BE-->>FE: data: {"type":"done","thread_id":"..."}
+    FE-->>U: Tool badge cleared, message finalised
+```
+
+---
+
+## 🧩 Component Reference — Every Part Explained
+
+### Frontend Components
+
+```mermaid
+graph LR
+    classDef comp fill:#1e293b,stroke:#94a3b8,color:#e2e8f0,rx:6
+    classDef state fill:#292524,stroke:#d97706,color:#fef3c7,rx:6
+    classDef flow fill:#0f2027,stroke:#06b6d4,color:#cffafe,rx:6
+
+    subgraph "page.tsx — Root Orchestrator"
+        P["State manager:\nactiveCase · investigations\npendingMessage · suspects\nentities · mobileTab"]:::state
+    end
+
+    subgraph "Header.tsx"
+        HDR["Logo · Title · Subtitle\n🟢 Agent Active indicator\nPure presentational"]:::comp
+    end
+
+    subgraph "CaseSidebar (ui/CaseSidebar.tsx)"
+        SB["📁 Case list (localStorage)\n+ New Case button\nCase isolation per ID\nDate-stamped entries"]:::comp
+    end
+
+    subgraph "ChatInterface.tsx — Core Engine"
+        MSG["Message list\n(User bubbles · Agent bubbles)"]:::comp
+        TW["⌨️ Typewriter queue\n~55 chars/sec drain"]:::comp
+        SSE["📡 SSE reader\nfetch + ReadableStream\nline-by-line event parse"]:::comp
+        VIN["🎙️ Voice input\nWeb Speech API\ninterim results"]:::comp
+        FUP["📎 File upload\nmultipart POST /upload\nPDF·TXT·DOCX"]:::comp
+        TOOL["🔧 Tool badge\n🔍 amber pulse → ✓ green"]:::comp
+    end
+
+    subgraph "InvestigationPills (in page.tsx)"
+        IP["Clickable question buttons\nGenerated by Sherlock on upload\nSend as pendingMessage"]:::flow
+    end
+
+    subgraph "EvidencePanel (ui/EvidencePanel.tsx)"
+        EP["🎯 Suspects tab\nname · description · risk badge\n+ Entities tab\nname · type · notes\nAll in-memory (no persistence yet)"]:::comp
+    end
+
+    P -->|activeCase| SB
+    P -->|activeCase + pendingMessage| MSG
+    IP -->|onClick → setPendingMessage| P
+    P -->|suspects + entities| EP
+```
+
+---
+
+### Backend Modules
+
+```mermaid
+graph TD
+    classDef module fill:#1e293b,stroke:#60a5fa,color:#dbeafe,rx:6
+    classDef func fill:#0f172a,stroke:#34d399,color:#d1fae5,rx:4
+
+    subgraph "main.py — App Bootstrap"
+        LIFE["lifespan():\n1. Open Postgres pool\n2. setup() checkpointer tables\n3. Yield (serve)\n4. Close pool on shutdown"]:::func
+        CORS["CORS middleware:\nlocalhost:3000\nlocalhost:3001"]:::func
+        ROUTES["Mount routers:\n/ health check\n/chat · /chat/stream\n/chat/history/{id}\n/upload"]:::func
+    end
+
+    subgraph "chat.py — Chat API"
+        SC["POST /chat\nJSON request/response\nFallback for non-SSE clients"]:::func
+        SS["POST /chat/stream\nServer-Sent Events\nastream_events() v2"]:::func
+        SH["GET /chat/history/{thread_id}\nPostgres → message list\nSkips ToolMessages"]:::func
+    end
+
+    subgraph "upload.py — Document Ingestion"
+        UPL["POST /upload\n1. Validate ext (pdf/txt/docx)\n2. Write temp file\n3. Parse with PyPDFLoader/TextLoader\n4. Chunk (1500 chars / 150 overlap)\n5. store_document_chunks(case_id)\n6. Invoke Sherlock for 5 questions\n7. Return questions + chunk count"]:::func
+    end
+
+    subgraph "graph.py — Agent Factory"
+        LLM2["Gemini 2.5 Flash\ntemp=0.2 · max_tokens=2048\nstreaming=True"]:::func
+        POOL["AsyncConnectionPool\nmin=1 · max=10\nautocommit=True"]:::func
+        CHP["AsyncPostgresSaver\nLangGraph checkpointer"]:::func
+        GA["get_agent_graph()\nDefault (no case scope)"]:::func
+        GCA["get_case_agent_graph(case_id)\nCase-scoped document_search\nNew graph per case_id"]:::func
+    end
+
+    subgraph "tools.py — Agent Tools"
+        WT["web_search(query)\nDuckDuckGo DDGS.text()\nmax_results=5\nNo API key required"]:::func
+        CT["calculator(expression)\nnumexpr primary\npython math fallback\nSafe regex sanitise"]:::func
+        DSF["make_document_search_tool(case_id)\nFactory — bakes case_id in\nKeyword scoring over chunks\nTop 5 matching excerpts"]:::func
+        STORE["_doc_store: Dict[str, List[str]]\nIn-memory · thread-safe lock\nPopulated by /upload endpoint"]:::func
+    end
+
+    subgraph "prompts.py — System Prompt"
+        SP["SHERLOCK_SYSTEM_PROMPT\nPersona · Tool descriptions\nReAct instructions · Rules\nNever break character"]:::func
+    end
+```
+
+---
+
+## 🛠️ Tech Stack
+
+```mermaid
+graph LR
+    classDef fe fill:#7c3aed,stroke:#a78bfa,color:#ede9fe,rx:8
+    classDef be fill:#0e7490,stroke:#22d3ee,color:#cffafe,rx:8
+    classDef ai fill:#065f46,stroke:#34d399,color:#d1fae5,rx:8
+    classDef inf fill:#9a3412,stroke:#fb923c,color:#ffedd5,rx:8
+
+    subgraph "🖥️ Frontend"
+        NX["Next.js 16\nApp Router · Turbopack"]:::fe
+        TS["TypeScript\nStrict mode"]:::fe
+        TW2["Tailwind CSS v4"]:::fe
+        SUI["shadcn/ui\nCard · Badge · Tabs\nScrollArea"]:::fe
+        LI["Lucide React\nIcons"]:::fe
+        RM["react-markdown\nMarkdown rendering"]:::fe
+        WSA["Web Speech API\nVoice input"]:::fe
+    end
+
+    subgraph "⚙️ Backend"
+        FA["FastAPI 0.127\nAsync · Pydantic v2"]:::be
+        UV["Uvicorn\nASGI server"]:::be
+        LC["LangChain 1.2\nTool decorators"]:::be
+        LG["LangGraph 1.0\nReAct orchestration"]:::be
+        PS["psycopg3 + pool\nAsync Postgres driver"]:::be
+        PP["PyPDF + TextLoader\nDocument parsing"]:::be
+        DDG2["duckduckgo-search\nWeb search"]:::be
+        NE["numexpr\nSafe math eval"]:::be
+    end
+
+    subgraph "🧠 AI"
+        GM["Google Gemini 2.5 Flash\nlangchain-google-genai\n~1M tokens/day free"]:::ai
+        RA["ReAct Agent Pattern\ncreate_react_agent()"]:::ai
+        CHK["LangGraph Checkpointer\nConversation memory\nthread_id isolation"]:::ai
+    end
+
+    subgraph "🏗️ Infrastructure"
+        PG["PostgreSQL (pgvector)\nPort 5433\nDocker container"]:::inf
+        DC["Docker Compose\norchestration"]:::inf
+        ENV[".env config\nDATABASE_URL\nGOOGLE_API_KEY"]:::inf
+    end
+```
+
+---
+
+## 🗄️ Data Flow: Document Upload & Case Isolation
+
+```mermaid
+flowchart LR
+    classDef step fill:#1e293b,stroke:#60a5fa,color:#dbeafe,rx:6
+    classDef store fill:#292524,stroke:#d97706,color:#fef3c7,rx:6
+    classDef agent fill:#065f46,stroke:#34d399,color:#d1fae5,rx:6
+
+    FILE(["📎 User uploads\nPDF / TXT / DOCX"])
+    --> VAL["Validate extension\n& MIME type"]:::step
+    --> TMP["Write to tempfile\n(deleted after parse)"]:::step
+    --> PARSE["PyPDFLoader /\nTextLoader\n→ raw_text"]:::step
+    --> SPLIT["RecursiveCharacterTextSplitter\nchunk_size=1500\noverlap=150"]:::step
+    --> STORE[("_doc_store[case_id]\nIn-memory chunks\nThread-safe lock")]:::store
+
+    SPLIT --> EXCERPT["First 4000 chars\nas excerpt"]:::step
+    --> SHERLOCK["🔍 Sherlock agent\nanalyses excerpt\nGenerates 5 questions"]:::agent
+    --> PILLS["Investigation Pills\nshown above chat"]
+
+    STORE --> TOOL["document_search tool\nbaked with case_id\nKeyword scoring"]:::agent
+    TOOL --> RESULT["Top 5 chunk excerpts\nreturned to LLM"]:::agent
+```
+
+---
+
+## 💾 Memory & Persistence Architecture
+
+```mermaid
+flowchart TD
+    classDef short fill:#0f172a,stroke:#38bdf8,color:#e0f2fe,rx:6
+    classDef long fill:#292524,stroke:#d97706,color:#fef3c7,rx:6
+    classDef session fill:#1e1b4b,stroke:#a78bfa,color:#ede9fe,rx:6
+
+    subgraph "Short-Term (Session)"
+        LS1["localStorage:\nthread_id per case\nmessages per case\ninvestigations per case\nlastActiveCase"]:::short
+    end
+
+    subgraph "Long-Term (Persistent)"
+        PG2[("PostgreSQL\nLangGraph checkpoint tables\nFull message history\nper thread_id")]:::long
+    end
+
+    subgraph "In-Process (Runtime only)"
+        MEM["_doc_store dict\nDocument chunks\nCleared on server restart\n⚠️ Not persisted yet"]:::session
+    end
+
+    CI2["ChatInterface\non case switch"] --> LS1
+    LS1 -->|"thread_id found"| PG2
+    PG2 -->|"aget_state(config)"| HIST["GET /chat/history\nrestore messages"]
+    LS1 -->|"thread_id not found"| EMPTY["Empty chat\nNew conversation"]
+    UPL2["POST /upload"] --> MEM
+    MEM --> DS2["document_search tool"]
+```
+
+---
+
+## 📱 Responsive Layout
+
+```mermaid
+graph LR
+    classDef layout fill:#1e293b,stroke:#94a3b8,color:#e2e8f0,rx:6
+
+    subgraph "Desktop ≥640px (sm breakpoint)"
+        COL1["📁 CaseSidebar\n~250px fixed left"]:::layout
+        COL2["💡 InvestigationPills\n💬 ChatInterface\n(flex-1 center)"]:::layout
+        COL3["🧾 EvidencePanel\n~300px fixed right"]:::layout
+    end
+
+    subgraph "Mobile <640px"
+        TAB1["🗂️ Cases tab\nCaseSidebar"]:::layout
+        TAB2["💬 Chat tab\n(default)\nInvestigationPills\n+ ChatInterface"]:::layout
+        TAB3["🛡️ Evidence tab\nEvidencePanel"]:::layout
+        NAV["Bottom nav bar\nFolderOpen · MessageSquare · Shield"]:::layout
+    end
+```
+
+---
+
+## ⚠️ Problems Faced During Development
+
+| # | Problem | Root Cause | Solution Applied |
+|---|---------|-----------|-----------------|
+| 1 | **Postgres connection refused on startup** | Docker DB container not running before `uvicorn` | `docker compose up -d db` first; `connection_pool.open()` in lifespan |
+| 2 | **SSE streaming not working** | `Cache-Control` not disabled; Nginx buffering | Added `X-Accel-Buffering: no` header; set `Cache-Control: no-cache` |
+| 3 | **Case isolation broken** | `document_search` used a global store without scoping | `make_document_search_tool(case_id)` factory — bakes case_id into closure |
+| 4 | **Chat history lost on refresh** | No persistence layer initially | `localStorage` for messages + thread_id; Postgres checkpoint for LangGraph state |
+| 5 | **Tool name not visible to user** | SSE events emitted but UI had no indicator | `on_tool_start` → amber pulsing wrench badge; `on_tool_end` → green ✓ badge |
+| 6 | **Multiple Next.js dev servers conflict** | Port 3000 already occupied | Port auto-bumps to 3001; or `kill <PID>` to free 3000 |
+| 7 | **LLM breaking character** | No explicit persona enforcement | System prompt hardcodes Sherlock persona with *"Never break character"* rule |
+| 8 | **Typewriter effect janky** | Updating React state per token caused re-render storms | Queue-based typewriter: chars buffered, drained 2/tick on 18ms `setInterval` |
+| 9 | **document_search returning nothing** | `case_id` not passed on upload without active case | Fallback chain: `case_id → thread_id → "default"` in `store_document_chunks` |
+| 10 | **Port 5433 vs 5432 confusion** | Docker maps 5433→5432; local brew Postgres uses 5432 | `.env` uses 5433 (Docker host port); `docker-compose.yml` maps correctly |
+
+---
+
+## ✨ Current Features
+
+- 🧠 **ReAct Agent** — Multi-step Reason → Act → Observe loop via LangGraph
+- 💬 **Real-time Streaming** — Server-Sent Events, typewriter effect at ~55 chars/sec
+- 🔧 **Tool Visibility** — Amber pulsing badge shows active tool; green badge on completion
+- 🔍 **Web Search** — Live DuckDuckGo search, no API key required
+- 🧮 **Calculator** — Safe `numexpr` math + Python `math` fallback
+- 📄 **Document Search** — Upload PDF/TXT/DOCX; keyword-scored chunk retrieval per case
+- 📁 **Case Isolation** — Each case has its own doc store, thread_id, and localStorage
+- 🎙️ **Voice Input** — Web Speech API with interim results (Chrome/Edge)
+- 💾 **Persistent Memory** — LangGraph PostgreSQL checkpointer; session survives restarts
+- 💡 **Investigation Pills** — Sherlock auto-generates 5 clickable questions per upload
+- 🎭 **Sherlock Persona** — Fully in-character responses, deduction-style reasoning
+- 📱 **Responsive UI** — Desktop 3-column layout; mobile bottom-tab navigation
+- 🎨 **Dark Victorian Theme** — Amber/slate palette, glassmorphism, micro-animations
+- 🔄 **SSE → JSON Fallback** — Gracefully degrades if streaming unavailable
+
+---
+
+## 🚀 What to Add Next
+
+```mermaid
+mindmap
+  root((BakerStreet\n221B.ai\nRoadmap))
+    Vector Search
+      Replace keyword scoring with pgvector embeddings
+      Semantic similarity chunks retrieval
+      langchain-postgres VectorStore
+    More Tools
+      🗄️ SQL query tool against structured data
+      🐍 Code execution sandbox
+      📊 Chart generation tool
+      🗺️ Location & maps API
+    Auth & Multi-user
+      Firebase Auth or Supabase
+      Per-user case isolation
+      Shared case collaboration
+    Persistence Upgrades
+      Persist _doc_store to Postgres
+      File upload history per case
+      Evidence panel saved to DB
+    Agent Upgrades
+      Multi-agent subgraph for specialised roles
+      Memory compression for long conversations
+      Agent self-reflection loop
+    UI Enhancements
+      Live reasoning trace / thought panel
+      Evidence timeline view
+      Interactive case board with drag-drop
+      Export case report as PDF
+    Deployment
+      Railway / Render one-click deploy
+      Docker multi-stage production build
+      Environment-based config management
+    Voice & Multimodal
+      Text-to-Speech for Sherlock responses
+      Image upload + vision analysis via Gemini
+      Audio evidence transcription
+```
+
+---
+
+## 🚦 Quick Start
+
+### Prerequisites
+
+- Docker Desktop (for PostgreSQL)
+- Node.js 20+
+- Python 3.13
+- A [Google AI Studio API Key](https://aistudio.google.com/apikey)
+
+### 1. Clone & Configure
+
+```bash
+git clone <repo-url>
+cd bakerStreet221B.ai
+
+# Set your API key
+echo "GOOGLE_API_KEY=your_key_here" >> backend/.env
+```
+
+### 2. Start the Database
+
+```bash
+docker compose up -d db
+# Postgres starts on localhost:5433
+```
+
+### 3. Start the Backend
+
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+# API available at http://localhost:8000
+```
+
+### 4. Start the Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+# App available at http://localhost:3000
+```
+
+### 5. Start Investigating
+
+1. Click **+ New Case** in the sidebar
+2. Upload a PDF, TXT, or DOCX as evidence
+3. Watch Sherlock generate 5 investigation questions
+4. Click a pill or ask your own question
+5. Watch the **tool badge** to see which tool Sherlock is using
+
+---
+
+## 📁 Project Structure
+
+```
+bakerStreet221B.ai/
+├── docker-compose.yml          # PostgreSQL (pgvector) + services
+├── backend/
+│   ├── .env                    # DATABASE_URL · GOOGLE_API_KEY
+│   ├── requirements.txt        # All Python dependencies
+│   └── app/
+│       ├── main.py             # FastAPI app · lifespan · CORS · routes
+│       ├── database.py         # (reserved for future SQLAlchemy models)
+│       ├── agent/
+│       │   ├── graph.py        # LLM init · Postgres pool · agent factories
+│       │   ├── tools.py        # web_search · calculator · document_search
+│       │   ├── prompts.py      # Sherlock system prompt
+│       │   ├── state.py        # AgentState type definition
+│       │   └── nodes.py        # (reserved for custom nodes)
+│       └── api/
+│           ├── chat.py         # /chat · /chat/stream · /chat/history
+│           └── upload.py       # /upload — ingest + question generation
+└── frontend/
+    ├── src/
+    │   ├── app/
+    │   │   └── page.tsx        # Root page · state orchestrator
+    │   └── components/
+    │       ├── Header.tsx          # Top bar · logo · agent status
+    │       ├── ChatInterface.tsx   # Chat · SSE · typewriter · voice · upload
+    │       ├── CaseBoard.tsx       # (legacy clue/suspect display)
+    │       └── ui/
+    │           ├── CaseSidebar.tsx # Case list · create · localStorage
+    │           └── EvidencePanel.tsx # Suspects · Entities tracker
+    └── .env.local              # NEXT_PUBLIC_BACKEND_URL
+```
+
+---
+
+## 📜 License
+
+MIT — *"The game is afoot."*
+
+---
+
+> Built with 🔍 by Raj Aryan · Powered by Google Gemini 2.5 Flash · LangGraph · FastAPI · Next.js

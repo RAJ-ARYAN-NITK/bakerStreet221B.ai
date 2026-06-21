@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  Send, Mic, MicOff, Brain, User, Loader2, Paperclip, Wrench,
+  Send, Mic, MicOff, Brain, User, Loader2, Paperclip, Wrench, Volume2, VolumeX,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
@@ -23,11 +23,19 @@ interface Message {
   tool?:     string;   // name of tool being used, shown as a badge
 }
 
+export interface DetectedEntities {
+  suspects: string[];   // names detected as people
+  entities: { label: string; kind: "location" | "object" | "person" | "event" | "other" }[];
+}
+
 interface ChatInterfaceProps {
-  activeCase:               string | null;
-  pendingMessage?:          string | null;
-  onClearPendingMessage?:   () => void;
+  activeCase:                string | null;
+  pendingMessage?:           string | null;
+  onClearPendingMessage?:    () => void;
   onInvestigationsGenerated?: Dispatch<SetStateAction<string[]>>;
+  onEntitiesDetected?:       (detected: DetectedEntities) => void;
+  onFirstUpload?:            () => void;
+  onFirstMessage?:           () => void;
 }
 
 const BACKEND_URL =
@@ -54,6 +62,105 @@ declare global {
   }
 }
 
+// ─── NER (Named Entity Recognition) ──────────────────────────────────────────
+// Lightweight client-side heuristic NER — no API, no ML model needed.
+
+const KNOWN_LOCATIONS = new Set([
+  "baker street", "scotland yard", "westminster", "london", "victoria",
+  "whitechapel", "paddington", "oxford", "cambridge", "buckingham palace",
+  "the thames", "trafalgar square", "downing street", "fleet street",
+  "east india", "afghanistan", "watson", "moriarty",
+]);
+
+const TITLE_PREFIXES = [
+  "mr", "mrs", "ms", "miss", "dr", "sir", "lord", "lady",
+  "colonel", "colonel", "professor", "inspector", "sergeant",
+  "captain", "major", "general", "agent", "detective",
+];
+
+function extractEntities(text: string): DetectedEntities {
+  const suspects: string[] = [];
+  const entities: DetectedEntities["entities"] = [];
+  const seen = new Set<string>();
+
+  // Strip markdown symbols
+  const clean = text.replace(/[*_`#>\[\]()]/g, " ");
+
+  // ── People: "Title Firstname Lastname" or two consecutive Title-Case words
+  const titlePattern = new RegExp(
+    `(?:${TITLE_PREFIXES.join("|")})\\.?\\s+([A-Z][a-z]+(?:\\s+[A-Z][a-z]+)*)`,
+    "gi"
+  );
+  let m: RegExpExecArray | null;
+  while ((m = titlePattern.exec(clean)) !== null) {
+    const name = m[1].trim();
+    if (name.length > 2 && !seen.has(name.toLowerCase())) {
+      seen.add(name.toLowerCase());
+      suspects.push(name);
+    }
+  }
+
+  // ── Two consecutive Capitalised words (likely proper nouns / person names)
+  const properNounPattern = /\b([A-Z][a-z]{2,})\s+([A-Z][a-z]{2,})\b/g;
+  while ((m = properNounPattern.exec(clean)) !== null) {
+    const full = `${m[1]} ${m[2]}`;
+    const lower = full.toLowerCase();
+    if (!seen.has(lower) && !["The Game", "The Web", "Let Me"].includes(full)) {
+      seen.add(lower);
+      // Heuristic: if looks like a location keyword → location, else suspect
+      if (KNOWN_LOCATIONS.has(m[1].toLowerCase()) || KNOWN_LOCATIONS.has(m[2].toLowerCase())) {
+        entities.push({ label: full, kind: "location" });
+      } else {
+        suspects.push(full);
+      }
+    }
+  }
+
+  // ── Known locations (single word)
+  KNOWN_LOCATIONS.forEach((loc) => {
+    const regex = new RegExp(`\\b${loc}\\b`, "i");
+    if (regex.test(clean) && !seen.has(loc)) {
+      seen.add(loc);
+      // Title-case it
+      const label = loc.replace(/\b\w/g, (c) => c.toUpperCase());
+      entities.push({ label, kind: "location" });
+    }
+  });
+
+  // ── Date patterns  e.g. "January 15" / "15th March" / "1892"
+  const datePattern = /\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}(?:st|nd|rd|th)?\b|\b\d{1,2}(?:st|nd|rd|th)?\s+(?:of\s+)?(?:January|February|March|April|May|June|July|August|September|October|November|December)\b|\b1[6-9]\d{2}\b/g;
+  while ((m = datePattern.exec(clean)) !== null) {
+    const label = m[0].trim();
+    if (!seen.has(label.toLowerCase())) {
+      seen.add(label.toLowerCase());
+      entities.push({ label, kind: "event" });
+    }
+  }
+
+  // Deduplicate: remove from suspects if already in entities
+  const entityLabels = new Set(entities.map((e) => e.label.toLowerCase()));
+  const filteredSuspects = suspects.filter((s) => !entityLabels.has(s.toLowerCase()));
+
+  return {
+    suspects: filteredSuspects.slice(0, 8),   // max 8 suspects per response
+    entities: entities.slice(0, 10),          // max 10 entities per response
+  };
+}
+
+// ─── TTS helper ───────────────────────────────────────────────────────────────
+
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/#{1,6}\s/g, "")
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .replace(/_(.+?)_/g, "$1")
+    .replace(/`(.+?)`/g, "$1")
+    .replace(/\[(.+?)\]\(.+?\)/g, "$1")
+    .replace(/^[-*>]+\s/gm, "")
+    .replace(/\n{2,}/g, ". ");
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export function ChatInterface({
@@ -61,6 +168,9 @@ export function ChatInterface({
   pendingMessage,
   onClearPendingMessage,
   onInvestigationsGenerated,
+  onEntitiesDetected,
+  onFirstUpload,
+  onFirstMessage,
 }: ChatInterfaceProps) {
   const [mounted, setMounted]           = useState(false);
   const [messages, setMessages]         = useState<Message[]>([]);
@@ -70,14 +180,17 @@ export function ChatInterface({
   const [isRecording, setIsRecording]   = useState(false);
   const [voiceSupported, setVoiceSupported] = useState(false);
 
-  const scrollRef    = useRef<HTMLDivElement>(null);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const inputRef     = useRef<HTMLInputElement | null>(null);
+  // TTS state
+  const [speakingMsgId, setSpeakingMsgId] = useState<string | null>(null);
+  const [ttsSupported, setTtsSupported]   = useState(false);
+
+  const scrollRef      = useRef<HTMLDivElement>(null);
+  const fileInputRef   = useRef<HTMLInputElement | null>(null);
+  const inputRef       = useRef<HTMLInputElement | null>(null);
   const recognitionRef = useRef<any>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
 
   // ─── Typewriter queue ─────────────────────────────────────────────────────
-  // Chars buffered from SSE tokens, drained one-by-one on an interval
   const typewriterQueue = useRef<string[]>([]);
   const typewriterTimer = useRef<ReturnType<typeof setInterval> | null>(null);
   const typewriterText  = useRef<string>("");
@@ -91,18 +204,16 @@ export function ChatInterface({
 
     typewriterTimer.current = setInterval(() => {
       if (typewriterQueue.current.length === 0) return;
-      // Drain up to 2 chars per tick for a natural feel
       const chars = typewriterQueue.current.splice(0, 2).join("");
       typewriterText.current += chars;
       const snapshot = typewriterText.current;
       setMessages(prev =>
         prev.map(m => m.id === typewriterMsgId.current ? { ...m, content: snapshot } : m)
       );
-    }, 18); // ~55 chars/sec — feels like Claude/ChatGPT
+    }, 18);
   };
 
-  const stopTypewriter = (activeCase: string) => {
-    // Flush remaining queue immediately
+  const stopTypewriter = (activeCaseId: string) => {
     if (typewriterTimer.current) {
       clearInterval(typewriterTimer.current);
       typewriterTimer.current = null;
@@ -114,7 +225,7 @@ export function ChatInterface({
       const id = typewriterMsgId.current;
       setMessages(prev => {
         const updated = prev.map(m => m.id === id ? { ...m, content: snapshot } : m);
-        saveMessages(activeCase, updated);
+        saveMessages(activeCaseId, updated);
         return updated;
       });
     }
@@ -125,14 +236,15 @@ export function ChatInterface({
 
   useEffect(() => {
     setMounted(true);
-    // Detect Web Speech API support
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
     setVoiceSupported(!!SpeechRecognition);
+    setTtsSupported(!!window.speechSynthesis);
 
     return () => {
       abortControllerRef.current?.abort();
       if (typewriterTimer.current) clearInterval(typewriterTimer.current);
+      window.speechSynthesis?.cancel();
     };
   }, []);
 
@@ -141,6 +253,8 @@ export function ChatInterface({
   useEffect(() => {
     abortControllerRef.current?.abort();
     setIsProcessing(false);
+    window.speechSynthesis?.cancel();
+    setSpeakingMsgId(null);
 
     if (!activeCase) { setMessages([]); setThreadId(null); return; }
 
@@ -151,7 +265,7 @@ export function ChatInterface({
     if (cached.length > 0) {
       setMessages(cached);
     } else if (savedThread) {
-      setMessages([]); // Clear immediately while loading
+      setMessages([]);
 
       const controller = new AbortController();
       abortControllerRef.current = controller;
@@ -163,9 +277,7 @@ export function ChatInterface({
           });
           if (!res.ok) throw new Error("Failed to load history");
           const data = await res.json();
-          
           if (controller.signal.aborted) return;
-
           const msgs: Message[] = (data.messages ?? []).map((m: any) => ({
             id: crypto.randomUUID(), role: m.role,
             content: m.content, type: m.type ?? "text",
@@ -174,9 +286,7 @@ export function ChatInterface({
           setMessages(msgs);
           saveMessages(activeCase, msgs);
         } catch (err: any) {
-          if (err.name !== "AbortError") {
-            setMessages([]);
-          }
+          if (err.name !== "AbortError") setMessages([]);
         }
       })();
     } else {
@@ -200,12 +310,56 @@ export function ChatInterface({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pendingMessage]);
 
+  // ─── TTS ─────────────────────────────────────────────────────────────────────
+
+  const speakMessage = useCallback((text: string, msgId: string) => {
+    if (!ttsSupported) return;
+
+    if (speakingMsgId === msgId) {
+      window.speechSynthesis.cancel();
+      setSpeakingMsgId(null);
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(stripMarkdown(text));
+    utterance.lang  = "en-GB";
+    utterance.rate  = 0.88;
+    utterance.pitch = 0.82;
+
+    // Pick the best British male voice available
+    const pickVoice = () => {
+      const voices = window.speechSynthesis.getVoices();
+      const british = voices.find(v => v.lang === "en-GB" && /daniel|george|male/i.test(v.name))
+        ?? voices.find(v => v.lang === "en-GB")
+        ?? voices.find(v => v.lang.startsWith("en"))
+        ?? voices[0];
+      if (british) utterance.voice = british;
+    };
+
+    if (window.speechSynthesis.getVoices().length > 0) {
+      pickVoice();
+    } else {
+      window.speechSynthesis.onvoiceschanged = pickVoice;
+    }
+
+    utterance.onend   = () => setSpeakingMsgId(null);
+    utterance.onerror = () => setSpeakingMsgId(null);
+
+    setSpeakingMsgId(msgId);
+    window.speechSynthesis.speak(utterance);
+  }, [speakingMsgId, ttsSupported]);
+
   // ─── SSE streaming send ──────────────────────────────────────────────────────
 
   const sendMessage = useCallback(async (text: string) => {
     if (!text.trim() || isProcessing || !activeCase) return;
     setInput("");
     inputRef.current?.blur();
+
+    // Fire onboarding callback on first message
+    onFirstMessage?.();
 
     abortControllerRef.current?.abort();
     const controller = new AbortController();
@@ -217,7 +371,6 @@ export function ChatInterface({
       timestamp: new Date().toISOString(),
     };
 
-    // Add user message
     setMessages(prev => {
       const updated = [...prev, userMsg];
       saveMessages(activeCase, updated);
@@ -225,7 +378,6 @@ export function ChatInterface({
     });
     setIsProcessing(true);
 
-    // Create streaming agent message placeholder
     const agentId = crypto.randomUUID();
     const agentMsg: Message = {
       id: agentId, role: "agent", content: "", type: "text",
@@ -249,7 +401,6 @@ export function ChatInterface({
 
       if (!res.ok || !res.body) throw new Error("Stream failed");
 
-      // Read the new thread_id from response header immediately
       const newThread = res.headers.get("X-Thread-Id");
       if (newThread) {
         setThreadId(newThread);
@@ -260,7 +411,6 @@ export function ChatInterface({
       const decoder = new TextDecoder();
       let buffer    = "";
 
-      // Start the typewriter animator for this message
       startTypewriter(agentId);
 
       while (true) {
@@ -277,17 +427,14 @@ export function ChatInterface({
             const event = JSON.parse(line.slice(6));
 
             if (event.type === "token") {
-              // Push every character onto the typewriter queue
               typewriterQueue.current.push(...event.content.split(""));
             } else if (event.type === "tool") {
-              // Show which tool is being called
               setMessages(prev =>
                 prev.map(m =>
                   m.id === agentId ? { ...m, tool: `🔍 ${event.name.replace(/_/g, " ")}` } : m
                 )
               );
             } else if (event.type === "tool_result") {
-              // Tool completed — update badge
               setMessages(prev =>
                 prev.map(m =>
                   m.id === agentId ? { ...m, tool: `✓ ${event.name.replace(/_/g, " ")}` } : m
@@ -304,7 +451,6 @@ export function ChatInterface({
                 setThreadId(event.thread_id);
                 localStorage.setItem(`thread_${activeCase}`, event.thread_id);
               }
-              // Clear tool badge on completion
               setMessages(prev =>
                 prev.map(m =>
                   m.id === agentId ? { ...m, tool: undefined } : m
@@ -315,7 +461,6 @@ export function ChatInterface({
         }
       }
 
-      // Wait for the typewriter to finish draining, then stop it
       await new Promise<void>(resolve => {
         const checkDone = setInterval(() => {
           if (typewriterQueue.current.length === 0) {
@@ -326,8 +471,16 @@ export function ChatInterface({
       });
       stopTypewriter(activeCase);
 
-      // Persist final state
+      // ── NER: extract entities from final agent response ──────────────────
       setMessages(prev => {
+        const finalMsg = prev.find(m => m.id === agentId);
+        if (finalMsg?.content && onEntitiesDetected) {
+          const detected = extractEntities(finalMsg.content);
+          if (detected.suspects.length > 0 || detected.entities.length > 0) {
+            // Defer to avoid state update during render
+            setTimeout(() => onEntitiesDetected(detected), 0);
+          }
+        }
         saveMessages(activeCase, prev);
         return prev;
       });
@@ -344,7 +497,6 @@ export function ChatInterface({
         });
         if (!res.ok) throw new Error("Chat failed");
         const data = await res.json();
-        
         if (controller.signal.aborted) return;
 
         if (data.thread_id) {
@@ -357,6 +509,13 @@ export function ChatInterface({
             m.id === agentId ? { ...m, content: fallbackContent } : m
           );
           saveMessages(activeCase, updated);
+          // NER on fallback too
+          if (onEntitiesDetected) {
+            const detected = extractEntities(fallbackContent);
+            if (detected.suspects.length > 0 || detected.entities.length > 0) {
+              setTimeout(() => onEntitiesDetected(detected), 0);
+            }
+          }
           return updated;
         });
       } catch (fallbackErr: any) {
@@ -375,7 +534,7 @@ export function ChatInterface({
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCase, threadId, isProcessing]);
+  }, [activeCase, threadId, isProcessing, onEntitiesDetected, onFirstMessage]);
 
   // ─── Voice input via Web Speech API ─────────────────────────────────────────
 
@@ -415,11 +574,8 @@ export function ChatInterface({
     recognition.onend = () => {
       setIsRecording(false);
       recognitionRef.current = null;
-      // Auto-send if transcript has content
       setInput(prev => {
-        if (prev.trim()) {
-          setTimeout(() => inputRef.current?.focus(), 50);
-        }
+        if (prev.trim()) setTimeout(() => inputRef.current?.focus(), 50);
         return prev;
       });
     };
@@ -433,6 +589,9 @@ export function ChatInterface({
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !activeCase) return;
+
+    // Fire onboarding callback on first upload
+    onFirstUpload?.();
 
     abortControllerRef.current?.abort();
     const controller = new AbortController();
@@ -452,17 +611,15 @@ export function ChatInterface({
     setIsProcessing(true);
 
     try {
-      const res  = await fetch(`${BACKEND_URL}/upload`, { 
-        method: "POST", 
+      const res  = await fetch(`${BACKEND_URL}/upload`, {
+        method: "POST",
         body: formData,
         signal: controller.signal,
       });
       if (!res.ok) throw new Error("Upload failed");
       const data = await res.json();
-
       if (controller.signal.aborted) return;
 
-      // Update thread_id if returned
       if (data.thread_id && !threadId) {
         setThreadId(data.thread_id);
         localStorage.setItem(`thread_${activeCase}`, data.thread_id);
@@ -614,10 +771,31 @@ export function ChatInterface({
                     </div>
                   )}
 
+                  {/* Footer row: timestamp + TTS button */}
                   {mounted && (
-                    <p className="mt-1.5 text-xs text-amber-700">
-                      {new Date(m.timestamp).toLocaleTimeString()}
-                    </p>
+                    <div className="mt-1.5 flex items-center justify-between gap-2">
+                      <p className="text-xs text-amber-700">
+                        {new Date(m.timestamp).toLocaleTimeString()}
+                      </p>
+
+                      {/* TTS button — only on completed agent messages */}
+                      {m.role === "agent" && m.content && ttsSupported && (
+                        <button
+                          onClick={() => speakMessage(m.content, m.id)}
+                          title={speakingMsgId === m.id ? "Stop speaking" : "Read aloud (British voice)"}
+                          className={`p-1 rounded-md transition-all duration-200 ${
+                            speakingMsgId === m.id
+                              ? "text-amber-400 bg-amber-900/40 animate-pulse"
+                              : "text-amber-800 hover:text-amber-500 hover:bg-amber-900/30"
+                          }`}
+                        >
+                          {speakingMsgId === m.id
+                            ? <VolumeX className="w-3 h-3" />
+                            : <Volume2 className="w-3 h-3" />
+                          }
+                        </button>
+                      )}
+                    </div>
                   )}
                 </div>
 
@@ -642,7 +820,7 @@ export function ChatInterface({
           <button
             onClick={() => fileInputRef.current?.click()}
             className="text-amber-400 hover:bg-amber-900/30 p-2 rounded-lg shrink-0 transition-colors"
-            title="Upload document"
+            title="Upload document (PDF, DOCX, TXT)"
           >
             <Paperclip size={16} className="sm:w-[18px] sm:h-[18px]" />
           </button>
@@ -655,7 +833,7 @@ export function ChatInterface({
             accept=".pdf,.docx,.txt"
           />
 
-          {/* Mic button — real voice if supported, dimmed stub if not */}
+          {/* Mic button */}
           <button
             onClick={toggleRecording}
             className={`p-2 rounded-lg shrink-0 transition-colors ${

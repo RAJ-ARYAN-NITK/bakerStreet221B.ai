@@ -1,11 +1,18 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { CaseSidebar } from '@/components/ui/CaseSidebar';
-import { ChatInterface } from '@/components/ChatInterface';
+import { ChatInterface, DetectedEntities } from '@/components/ChatInterface';
 import { Header } from '@/components/Header';
 import { EvidencePanel, Suspect, Entity } from '@/components/ui/EvidencePanel';
+import { WelcomeModal } from '@/components/WelcomeModal';
+import { OnboardingSteps } from '@/components/OnboardingSteps';
 import { FolderOpen, MessageSquare, Shield } from 'lucide-react';
+
+// ─── Onboarding localStorage keys ─────────────────────────────────────────────
+const KEY_WELCOMED    = "sherlock_welcomed";
+const KEY_UPLOADED    = (id: string) => `sherlock_uploaded_${id}`;
+const KEY_CHATTED     = (id: string) => `sherlock_chatted_${id}`;
 
 export default function Home() {
 
@@ -14,38 +21,95 @@ export default function Home() {
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
   const [suspects, setSuspects]             = useState<Suspect[]>([]);
   const [entities, setEntities]             = useState<Entity[]>([]);
-  const [mobileTab, setMobileTab] = useState<"cases" | "chat" | "evidence">("chat");
+  const [mobileTab, setMobileTab]           = useState<"cases" | "chat" | "evidence">("chat");
 
-  React.useEffect(() => {
+  // ─── Onboarding state ────────────────────────────────────────────────────────
+  const [showWelcome, setShowWelcome]   = useState(false);
+  const [hasUploaded, setHasUploaded]   = useState(false);
+  const [hasChatted, setHasChatted]     = useState(false);
+
+  // ─── On mount: check if first visit ──────────────────────────────────────────
+  useEffect(() => {
+    const welcomed = localStorage.getItem(KEY_WELCOMED);
+    if (!welcomed) setShowWelcome(true);
+
     const saved = localStorage.getItem("lastActiveCase");
     if (saved) {
       setActiveCase(saved);
       const savedInv = localStorage.getItem(`investigations_${saved}`);
       setInvestigations(savedInv ? JSON.parse(savedInv) : []);
+      setHasUploaded(!!localStorage.getItem(KEY_UPLOADED(saved)));
+      setHasChatted(!!localStorage.getItem(KEY_CHATTED(saved)));
     }
   }, []);
 
+  // ─── Case management ─────────────────────────────────────────────────────────
   const handleSetActiveCase = (id: string | null) => {
     setActiveCase(id);
+    setSuspects([]);
+    setEntities([]);
     if (id) {
       localStorage.setItem("lastActiveCase", id);
       const savedInv = localStorage.getItem(`investigations_${id}`);
       setInvestigations(savedInv ? JSON.parse(savedInv) : []);
+      setHasUploaded(!!localStorage.getItem(KEY_UPLOADED(id)));
+      setHasChatted(!!localStorage.getItem(KEY_CHATTED(id)));
     } else {
       localStorage.removeItem("lastActiveCase");
       setInvestigations([]);
+      setHasUploaded(false);
+      setHasChatted(false);
     }
   };
 
+  // ─── Evidence management ──────────────────────────────────────────────────────
   const addSuspect    = (s: Omit<Suspect, "id">) =>
-    setSuspects((prev) => [...prev, { ...s, id: crypto.randomUUID() }]);
+    setSuspects((prev) => {
+      // Deduplicate by name (case-insensitive)
+      if (prev.some(p => p.name.toLowerCase() === s.name.toLowerCase())) return prev;
+      return [...prev, { ...s, id: crypto.randomUUID() }];
+    });
   const deleteSuspect = (id: string) =>
     setSuspects((prev) => prev.filter((s) => s.id !== id));
   const addEntity     = (e: Omit<Entity, "id">) =>
-    setEntities((prev) => [...prev, { ...e, id: crypto.randomUUID() }]);
+    setEntities((prev) => {
+      // Deduplicate by label (case-insensitive)
+      if (prev.some(p => p.label.toLowerCase() === e.label.toLowerCase())) return prev;
+      return [...prev, { ...e, id: crypto.randomUUID() }];
+    });
   const deleteEntity  = (id: string) =>
     setEntities((prev) => prev.filter((e) => e.id !== id));
 
+  // ─── NER callback: auto-populate Evidence Panel ───────────────────────────────
+  const handleEntitiesDetected = useCallback((detected: DetectedEntities) => {
+    detected.suspects.forEach((name) => {
+      addSuspect({ name, threat: "medium", autoDetected: true });
+    });
+    detected.entities.forEach(({ label, kind }) => {
+      addEntity({ label, kind, autoDetected: true });
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ─── Onboarding callbacks ─────────────────────────────────────────────────────
+  const handleFirstUpload = useCallback(() => {
+    if (!activeCase || hasUploaded) return;
+    setHasUploaded(true);
+    localStorage.setItem(KEY_UPLOADED(activeCase), "1");
+  }, [activeCase, hasUploaded]);
+
+  const handleFirstMessage = useCallback(() => {
+    if (!activeCase || hasChatted) return;
+    setHasChatted(true);
+    localStorage.setItem(KEY_CHATTED(activeCase), "1");
+  }, [activeCase, hasChatted]);
+
+  const handleWelcomeDismiss = () => {
+    localStorage.setItem(KEY_WELCOMED, "1");
+    setShowWelcome(false);
+  };
+
+  // ─── Investigation pills ──────────────────────────────────────────────────────
   const handleQuestionClick = useCallback((question: string) => {
     setPendingMessage(question);
     setMobileTab("chat");
@@ -84,11 +148,14 @@ export default function Home() {
         <div className="absolute inset-0" style={{ backgroundImage: `url("data:image/svg+xml,...")` }} />
       </div>
 
+      {/* Welcome modal — shown only on first visit */}
+      {showWelcome && <WelcomeModal onDismiss={handleWelcomeDismiss} />}
+
       <div className="relative z-10 flex flex-col h-full overflow-hidden">
 
         <Header />
 
-        {/* DESKTOP — original unchanged layout */}
+        {/* DESKTOP layout */}
         <div className="hidden sm:flex flex-1 overflow-hidden">
 
           <CaseSidebar
@@ -96,8 +163,17 @@ export default function Home() {
             setActiveCase={handleSetActiveCase}
           />
 
-          <div className="flex flex-col flex-1 min-w-0 min-h-0 px-4 py-6">
+          <div className="flex flex-col flex-1 min-w-0 min-h-0 px-4 py-4">
+
+            {/* Onboarding step tracker */}
+            <OnboardingSteps
+              hasCase={!!activeCase}
+              hasUploaded={hasUploaded}
+              hasChatted={hasChatted}
+            />
+
             <InvestigationPills />
+
             <div className="flex-1 min-h-0">
               <ChatInterface
                 activeCase={activeCase}
@@ -109,11 +185,14 @@ export default function Home() {
                     localStorage.setItem(`investigations_${activeCase}`, JSON.stringify(invs));
                   }
                 }}
+                onEntitiesDetected={handleEntitiesDetected}
+                onFirstUpload={handleFirstUpload}
+                onFirstMessage={handleFirstMessage}
               />
             </div>
           </div>
 
-          <div className="py-6 pr-4">
+          <div className="py-4 pr-4">
             <EvidencePanel
               suspects={suspects}
               entities={entities}
@@ -126,7 +205,7 @@ export default function Home() {
 
         </div>
 
-        {/* MOBILE — tabbed layout */}
+        {/* MOBILE layout */}
         <div className="flex sm:hidden flex-1 overflow-hidden">
 
           {mobileTab === "cases" && (
@@ -140,6 +219,11 @@ export default function Home() {
 
           {mobileTab === "chat" && (
             <div className="flex flex-col flex-1 min-h-0 overflow-hidden px-2 py-3">
+              <OnboardingSteps
+                hasCase={!!activeCase}
+                hasUploaded={hasUploaded}
+                hasChatted={hasChatted}
+              />
               <InvestigationPills />
               <div className="flex-1 min-h-0">
                 <ChatInterface
@@ -152,6 +236,9 @@ export default function Home() {
                       localStorage.setItem(`investigations_${activeCase}`, JSON.stringify(invs));
                     }
                   }}
+                  onEntitiesDetected={handleEntitiesDetected}
+                  onFirstUpload={handleFirstUpload}
+                  onFirstMessage={handleFirstMessage}
                 />
               </div>
             </div>

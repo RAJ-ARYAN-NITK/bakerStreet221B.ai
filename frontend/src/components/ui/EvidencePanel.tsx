@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Users, Tag, Plus, Trash2, Shield, X } from "lucide-react";
+import { Users, Tag, Plus, Shield, X, Bot } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -11,6 +11,7 @@ export interface Suspect {
   name: string;
   threat: "high" | "medium" | "low";
   note?: string;
+  autoDetected?: boolean;  // true = added by NER from agent response
 }
 
 export interface Entity {
@@ -18,6 +19,7 @@ export interface Entity {
   label: string;
   kind: "location" | "object" | "person" | "event" | "other";
   note?: string;
+  autoDetected?: boolean;  // true = added by NER from agent response
 }
 
 interface EvidencePanelProps {
@@ -219,11 +221,22 @@ export function EvidencePanel({
             {suspects.map((s) => (
               <div
                 key={s.id}
-                className="group flex items-start gap-2 rounded-lg border border-amber-900/30 bg-slate-900/50 px-3 py-2.5 hover:border-amber-800/50 transition-colors"
+                className={`group flex items-start gap-2 rounded-lg border px-3 py-2.5 transition-colors ${
+                  s.autoDetected
+                    ? "border-amber-700/40 bg-amber-900/10 hover:border-amber-600/50"
+                    : "border-amber-900/30 bg-slate-900/50 hover:border-amber-800/50"
+                }`}
               >
                 <Users className="w-3.5 h-3.5 text-amber-600 mt-0.5 shrink-0" />
                 <div className="flex-1 min-w-0 space-y-1">
-                  <p className="text-sm text-amber-100 truncate font-medium">{s.name}</p>
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-sm text-amber-100 truncate font-medium">{s.name}</p>
+                    {s.autoDetected && (
+                      <span className="inline-flex items-center gap-0.5 text-[9px] px-1 py-0 rounded-full bg-amber-900/50 border border-amber-700/40 text-amber-500 shrink-0">
+                        <Bot className="w-2 h-2" /> AI
+                      </span>
+                    )}
+                  </div>
                   {s.note && <p className="text-xs text-amber-700 truncate">{s.note}</p>}
                   <span className={`inline-block text-[10px] px-1.5 py-0 rounded-full border ${THREAT_STYLES[s.threat]}`}>
                     {s.threat}
@@ -263,11 +276,22 @@ export function EvidencePanel({
             {entities.map((e) => (
               <div
                 key={e.id}
-                className="group flex items-start gap-2 rounded-lg border border-amber-900/30 bg-slate-900/50 px-3 py-2.5 hover:border-amber-800/50 transition-colors"
+                className={`group flex items-start gap-2 rounded-lg border px-3 py-2.5 transition-colors ${
+                  e.autoDetected
+                    ? "border-amber-700/40 bg-amber-900/10 hover:border-amber-600/50"
+                    : "border-amber-900/30 bg-slate-900/50 hover:border-amber-800/50"
+                }`}
               >
                 <Tag className="w-3.5 h-3.5 text-amber-600 mt-0.5 shrink-0" />
                 <div className="flex-1 min-w-0 space-y-1">
-                  <p className="text-sm text-amber-100 truncate font-medium">{e.label}</p>
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-sm text-amber-100 truncate font-medium">{e.label}</p>
+                    {e.autoDetected && (
+                      <span className="inline-flex items-center gap-0.5 text-[9px] px-1 py-0 rounded-full bg-amber-900/50 border border-amber-700/40 text-amber-500 shrink-0">
+                        <Bot className="w-2 h-2" /> AI
+                      </span>
+                    )}
+                  </div>
                   {e.note && <p className="text-xs text-amber-700 truncate">{e.note}</p>}
                   <span className="text-[10px] text-amber-800">{KIND_LABELS[e.kind]}</span>
                 </div>

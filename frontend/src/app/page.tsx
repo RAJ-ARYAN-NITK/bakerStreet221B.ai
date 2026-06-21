@@ -8,6 +8,8 @@ import { EvidencePanel, Suspect, Entity } from '@/components/ui/EvidencePanel';
 import { WelcomeModal } from '@/components/WelcomeModal';
 import { OnboardingSteps } from '@/components/OnboardingSteps';
 import { FolderOpen, MessageSquare, Shield } from 'lucide-react';
+import { exportAsMarkdown, exportAsPDF, CaseExportData } from '@/lib/exportCase';
+import { GraphEdge } from '@/components/ui/RelationshipGraph';
 
 // ─── Onboarding localStorage keys ─────────────────────────────────────────────
 const KEY_WELCOMED    = "sherlock_welcomed";
@@ -21,6 +23,7 @@ export default function Home() {
   const [pendingMessage, setPendingMessage] = useState<string | null>(null);
   const [suspects, setSuspects]             = useState<Suspect[]>([]);
   const [entities, setEntities]             = useState<Entity[]>([]);
+  const [relationships, setRelationships]   = useState<GraphEdge[]>([]);
   const [mobileTab, setMobileTab]           = useState<"cases" | "chat" | "evidence">("chat");
 
   // ─── Onboarding state ────────────────────────────────────────────────────────
@@ -90,6 +93,80 @@ export default function Home() {
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Compute co-occurrence relationships whenever suspects/entities update
+  useEffect(() => {
+    if (!activeCase) {
+      setRelationships([]);
+      return;
+    }
+    try {
+      const rawMsgs = localStorage.getItem(`messages_${activeCase}`);
+      if (!rawMsgs) return;
+      const msgs = JSON.parse(rawMsgs);
+      
+      // All known entity names (suspects + entities) mapped to their IDs
+      const nameToId = new Map<string, string>();
+      suspects.forEach(s => nameToId.set(s.name.toLowerCase(), s.id));
+      entities.forEach(e => nameToId.set(e.label.toLowerCase(), e.id));
+
+      const edgeMap = new Map<string, GraphEdge>();
+
+      msgs.forEach((msg: any) => {
+        if (msg.role !== "agent" || !msg.content) return;
+        const text = msg.content.toLowerCase();
+        
+        // Find which known entities appear in this message
+        const presentIds: string[] = [];
+        for (const [name, id] of nameToId.entries()) {
+          if (text.includes(name)) presentIds.push(id);
+        }
+
+        // Add an edge for every pair present in the same message
+        for (let i = 0; i < presentIds.length; i++) {
+          for (let j = i + 1; j < presentIds.length; j++) {
+            const id1 = presentIds[i];
+            const id2 = presentIds[j];
+            const key = id1 < id2 ? `${id1}::${id2}` : `${id2}::${id1}`;
+            const existing = edgeMap.get(key);
+            if (existing) {
+              existing.weight += 1;
+            } else {
+              edgeMap.set(key, { source: id1, target: id2, weight: 1 });
+            }
+          }
+        }
+      });
+
+      setRelationships(Array.from(edgeMap.values()));
+    } catch (e) {
+      // ignore parse errors
+    }
+  }, [activeCase, suspects, entities]);
+
+  // ─── Export handlers ────────────────────────────────────────────────────────
+  const handleExport = useCallback((format: "markdown" | "pdf") => {
+    if (!activeCase) return;
+    try {
+      const rawMsgs = localStorage.getItem(`messages_${activeCase}`);
+      const msgs = rawMsgs ? JSON.parse(rawMsgs) : [];
+      const data: CaseExportData = {
+        caseName: "Case " + activeCase.slice(0, 8),
+        caseId: activeCase,
+        messages: msgs,
+        suspects,
+        entities,
+        investigations
+      };
+      if (format === "markdown") {
+        exportAsMarkdown(data);
+      } else {
+        exportAsPDF(data);
+      }
+    } catch (e) {
+      console.error("Export failed", e);
+    }
+  }, [activeCase, suspects, entities, investigations]);
 
   // ─── Onboarding callbacks ─────────────────────────────────────────────────────
   const handleFirstUpload = useCallback(() => {
@@ -188,6 +265,7 @@ export default function Home() {
                 onEntitiesDetected={handleEntitiesDetected}
                 onFirstUpload={handleFirstUpload}
                 onFirstMessage={handleFirstMessage}
+                onExport={handleExport}
               />
             </div>
           </div>
@@ -200,6 +278,7 @@ export default function Home() {
               onDeleteSuspect={deleteSuspect}
               onAddEntity={addEntity}
               onDeleteEntity={deleteEntity}
+              relationships={relationships}
             />
           </div>
 
@@ -239,6 +318,7 @@ export default function Home() {
                   onEntitiesDetected={handleEntitiesDetected}
                   onFirstUpload={handleFirstUpload}
                   onFirstMessage={handleFirstMessage}
+                  onExport={handleExport}
                 />
               </div>
             </div>
@@ -253,6 +333,7 @@ export default function Home() {
                 onDeleteSuspect={deleteSuspect}
                 onAddEntity={addEntity}
                 onDeleteEntity={deleteEntity}
+                relationships={relationships}
               />
             </div>
           )}

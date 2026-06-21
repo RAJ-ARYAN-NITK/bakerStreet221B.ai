@@ -7,8 +7,8 @@
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](#)
 [![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](#)
-[![LangGraph](https://img.shields.io/badge/LangGraph-🦜🕸️-blue?style=for-the-badge)](#)
-[![Gemini](https://img.shields.io/badge/Gemini_2.5_Flash-8E75B2?style=for-the-badge&logo=googlebard&logoColor=white)](#)
+[![LangGraph](https://img.shields.io/badge/LangGraph-🦜🕸️-1C3C3C?style=for-the-badge)](#)
+[![Gemini](https://img.shields.io/badge/Gemini_2.5_Flash-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)](#)
 
 </div>
 
@@ -147,12 +147,12 @@ bakerStreet221B.ai/
 │       ├── main.py          # FastAPI application entry point
 │       ├── database.py      # SQLAlchemy & pgvector connection setup
 │       ├── models/          # DB schemas (Cases, Users)
-│       ├── api/             # API routes (auth, chat, upload, cases)
-│       ├── agent/           # LangGraph ReAct implementation
+│       ├── api/              # API routes (auth, chat, upload, cases)
+│       ├── agent/            # LangGraph ReAct implementation
 │       │   ├── graph.py     # StateGraph definition and compiled workflow
 │       │   ├── state.py     # AgentState TypedDict
 │       │   └── tools.py     # web_search, document_search, calculator
-│       └── documents/       # PDF parsing and ingestion logic
+│       └── documents/        # PDF parsing and ingestion logic
 └── frontend/                # Next.js 14 Web Application
     ├── package.json
     ├── tailwind.config.ts
@@ -161,12 +161,12 @@ bakerStreet221B.ai/
         │   ├── layout.tsx   # Root layout and global fonts
         │   ├── globals.css  # Tailwind entry and custom utility classes
         │   └── page.tsx     # Main application view (Chat, Sidebar, Evidence)
-        ├── components/      # React UI components
+        ├── components/       # React UI components
         │   ├── ChatInterface.tsx
         │   ├── AuthModal.tsx
         │   ├── WelcomeModal.tsx
-        │   └── ui/          # EvidencePanel, RelationshipGraph, badges, cards
-        └── lib/             # API helpers and Markdown/PDF export utilities
+        │   └── ui/            # EvidencePanel, RelationshipGraph, badges, cards
+        └── lib/               # API helpers and Markdown/PDF export utilities
 ```
 
 ---

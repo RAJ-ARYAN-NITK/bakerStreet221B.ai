@@ -32,41 +32,39 @@ BakerStreet221B.ai was built to demonstrate **agentic AI reasoning in action**. 
 Instead of a basic "Reason-Act-Observe" cycle, BakerStreet221B utilizes a highly structured **LangGraph StateGraph**. This compiles into a cyclic, stateful workflow where the agent makes deterministic routing decisions based on its generated reasoning.
 
 ```mermaid
-stateDiagram-v2
-    direction TB
+graph TD
+    A[👤 User Case Query] --> B(🧠 LangGraph Agent)
     
-    [*] --> AgentNode : 👤 User Submits Case Query
+    B --> C{🔀 Conditional Router}
     
-    state "🧠 Agent Node (Gemini 2.5 Flash)" as AgentNode {
-        direction TB
-        [*] --> SystemPrompt : Injects Sherlock Persona
-        SystemPrompt --> Context : Hydrates Chat History (pgvector)
-        Context --> Reason : CoT Reasoning (Does this need external data?)
-        Reason --> ActionDecision : Binds tools / Formulates plan
-    }
+    C -->|Decision: Needs Data| D[🛠️ Execute Tool]
     
-    state "🔀 Conditional Router" as Router <<choice>>
+    subgraph Tool Node
+        D --> E[web_search]
+        D --> F[document_search]
+        D --> G[calculator]
+    end
     
-    AgentNode --> Router : LLM Generation Complete
+    E --> H[🔄 Return Observation]
+    F --> H
+    G --> H
     
-    Router --> ToolsNode : 🔧 Action Needed (Needs Tools)
-    Router --> [*] : ✍️ Synthesis (Final Answer Streamed via SSE)
+    H -.->|State Updated| B
     
-    state "🛠️ Tool Execution Node" as ToolsNode {
-        direction LR
-        WebSearch[web_search: DuckDuckGo]
-        DocSearch[document_search: pgvector RAG]
-        Calc[calculator: Safe MathEval]
-    }
-    
-    ToolsNode --> AgentNode : 🔄 Return Observation (Loop continues)
-    
-    %% Styling
-    classDef agentStyle fill:#2d3748,stroke:#f6ad55,stroke-width:2px,color:#fbd38d
-    classDef toolStyle fill:#1a365d,stroke:#63b3ed,stroke-width:2px,color:#bee3f8
-    
-    class AgentNode agentStyle
-    class ToolsNode toolStyle
+    C -->|Decision: Answer Ready| I[✍️ Stream Final Synthesis via SSE]
+
+    classDef userStyle fill:#85B7EB,stroke:#0C447C,color:#042C53,stroke-width:2px
+    classDef agentStyle fill:#F0997B,stroke:#712B13,color:#4A1B0C,stroke-width:2px
+    classDef routerStyle fill:#AFA9EC,stroke:#3C3489,color:#26215C,stroke-width:2px
+    classDef toolStyle fill:#FAC775,stroke:#854F0B,color:#412402,stroke-width:2px
+    classDef obsStyle fill:#5DCAA5,stroke:#085041,color:#04342C,stroke-width:2px
+
+    class A userStyle
+    class B agentStyle
+    class C routerStyle
+    class D,E,F,G toolStyle
+    class H obsStyle
+    class I agentStyle
 ```
 
 ### 🌐 Full System Architecture Flow

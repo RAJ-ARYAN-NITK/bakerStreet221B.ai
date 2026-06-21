@@ -150,6 +150,41 @@ npm run dev
 
 ---
 
+## 📂 Folder Structure
+
+```text
+bakerStreet221B.ai/
+├── docker-compose.yml       # Provisions PostgreSQL + pgvector
+├── backend/                 # FastAPI & LangGraph Agent
+│   ├── requirements.txt
+│   └── app/
+│       ├── main.py          # FastAPI application entry point
+│       ├── database.py      # SQLAlchemy & pgvector connection setup
+│       ├── models/          # DB schemas (Cases, Users)
+│       ├── api/             # API routes (auth, chat, upload, cases)
+│       ├── agent/           # LangGraph ReAct implementation
+│       │   ├── graph.py     # StateGraph definition and compiled workflow
+│       │   ├── state.py     # AgentState TypedDict
+│       │   └── tools.py     # web_search, document_search, calculator
+│       └── documents/       # PDF parsing and ingestion logic
+└── frontend/                # Next.js 14 Web Application
+    ├── package.json
+    ├── tailwind.config.ts
+    └── src/
+        ├── app/
+        │   ├── layout.tsx   # Root layout and global fonts
+        │   ├── globals.css  # Tailwind entry and custom utility classes
+        │   └── page.tsx     # Main application view (Chat, Sidebar, Evidence)
+        ├── components/      # React UI components
+        │   ├── ChatInterface.tsx
+        │   ├── AuthModal.tsx
+        │   ├── WelcomeModal.tsx
+        │   └── ui/          # EvidencePanel, RelationshipGraph, badges, cards
+        └── lib/             # API helpers and Markdown/PDF export utilities
+```
+
+---
+
 ## 📄 License
 
 MIT License - Created for demonstrating Advanced Agentic Coding patterns.

@@ -60,3 +60,7 @@ frontend/out/
 
 # Mac
 **/.DS_Store          
+
+# IDEs
+.cursor/
+.vscode/

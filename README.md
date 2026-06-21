@@ -6,59 +6,104 @@ A full-stack AI detective application powered by a **LangGraph ReAct agent** run
 
 ---
 
-## 🎯 Purpose of this Project
+## 🎯 Purpose & Impact
 
-BakerStreet221B.ai was built to demonstrate **agentic AI reasoning in action** — showing how a Large Language Model, combined with a graph-based orchestration layer, can autonomously:
+BakerStreet221B.ai was built to demonstrate **agentic AI reasoning in action**. Rather than a traditional chatbot that generates a single response, this application functions as a reasoning engine designed to process complex, multi-stage investigations autonomously.
 
-1. **Decide** which tool to call next based on context
-2. **Execute** the tool (e.g., search the web, read a document, calculate a timeline)
-3. **Observe** the result and iterate until the case is solved.
+**Project Impact:**
+- **Cognitive Offloading**: Automates the laborious task of cross-referencing timelines, parsing long police reports, and mapping out suspect relationships.
+- **Transparent AI Reasoning**: Exposes the "thought process" of the LLM via real-time tool execution streaming, establishing trust with the user.
+- **Enterprise-Ready Architecture**: Demonstrates production-ready patterns including streaming architectures (SSE), JWT authentication, stateful graph orchestration, and observability (LangSmith).
 
-It's not just a chatbot; it's a reasoning engine designed to process complex, multi-stage investigations.
+---
+
+## 🏗️ Architecture & Flows
+
+### The ReAct (Reason-Act-Observe) Loop
+The core intelligence of Sherlock is built on the ReAct prompting framework, orchestrated by LangGraph.
+
+```mermaid
+stateDiagram-v2
+    direction LR
+    [*] --> Reason: User Input / Prompt
+    Reason --> Action: Decision to use tool
+    Action --> Observation: Tool execution
+    Observation --> Reason: Context injection
+    Reason --> [*]: Final Synthesis
+```
+
+### System Architecture Flow
+```mermaid
+graph TD
+    A[Investigator] -->|Authenticates JWT| B(Next.js Frontend)
+    B -->|Uploads Docs| C[FastAPI Backend]
+    B -->|Sends Queries SSE| C
+    
+    subgraph Data Layer
+        D[(PostgreSQL)]
+        D1[pgvector schema] --- D
+        D2[LangGraph checkpointer] --- D
+    end
+
+    C -->|Stores/Retrieves Embeddings| D1
+    C -->|Persists Thread State| D2
+    
+    subgraph Agentic Orchestration
+        E{LangGraph ReAct Agent}
+        E -->|Reasoning Engine| F[Gemini 2.5 Flash]
+        E -->|Tool: web_search| G[DuckDuckGo]
+        E -->|Tool: document_search| D1
+        E -->|Tool: calculator| H[Math Evaluator]
+    end
+
+    C -->|Orchestrates| E
+    E -.->|Telemetry & Tracing| I[LangSmith]
+```
+
+---
+
+## 🛠️ Tech Stack & Tools
+
+### Frontend
+| Technology | Purpose |
+|------------|---------|
+| **Next.js 14** | React framework with Turbopack for rapid compilation and App Router. |
+| **Tailwind CSS** | Utility-first styling for the cinematic, glassmorphic UI. |
+| **Lucide React** | Consistent, crisp line icons across the interface. |
+| **React Hooks/SSE** | Custom streaming parsers to handle real-time Server-Sent Events. |
+| **React-Ref** | Powering the custom physics engine for the dynamic relationship graph without bloated external libraries. |
+
+### Backend & AI
+| Technology | Purpose |
+|------------|---------|
+| **FastAPI** | High-performance Python web framework handling async streaming and endpoints. |
+| **LangGraph** | Cyclic graph orchestration for the agent's ReAct loop and state management. |
+| **Gemini 2.5 Flash** | Core LLM reasoning engine (fast, multimodal, 1M+ token context). |
+| **PostgreSQL / pgvector**| Relational database extended for highly efficient semantic vector search (RAG). |
+| **SQLAlchemy / asyncpg**| Asynchronous database ORM mapping and connection pooling. |
+| **bcrypt / python-jose**| Secure password hashing and stateless JWT authentication. |
+| **LangSmith** | Deep observability, token tracking, and debugging for the agentic workflows. |
 
 ---
 
 ## 🌟 Key Features
 
-### 🕵️‍♂️ Agentic Intelligence (Backend)
-- **ReAct Architecture**: Built with LangGraph, the agent uses the Reason-Act-Observe loop to systematically solve user queries.
-- **Gemini 2.5 Flash**: Leverages Google's state-of-the-art multimodal model for lightning-fast reasoning and massive context windows (1M+ tokens).
-- **Tool-Calling Ecosystem**:
-  - `web_search`: Live internet access via DuckDuckGo.
-  - `document_search`: RAG (Retrieval-Augmented Generation) using `pgvector` for semantic search with keyword fallback.
-  - `calculator`: Safe mathematical evaluation for timelines and alibis.
-- **Stateful Memory**: PostgreSQL-backed LangGraph checkpointer maintains thread history across sessions.
-- **LangSmith Tracing**: Full observability into the agent's thought process, tool execution, latency, and token usage via LangSmith.
-
-### 💼 Investigator Experience (Frontend)
-- **Mandatory JWT Authentication**: Secure user management with JWT tokens and direct `bcrypt` password hashing ensuring your case files are private.
-- **Glassmorphic Cinematic UI**: A highly polished, responsive Next.js/Tailwind UI designed to feel like a modern detective's mind palace.
-- **Real-time SSE Streaming**: Watch Sherlock think in real-time. Tool executions (e.g., *🔍 Searching the web*) are streamed transparently to the user before the final deduction is typed out.
-- **Multi-File Ingestion**: Upload multiple PDFs, Word docs, and text files. Real-time streaming progress shows parsing and chunking stages.
-- **Persistent Evidence Board**: A heuristic Named Entity Recognition (NER) system automatically extracts suspects, locations, and events from Sherlock's deductions and builds a case board that perfectly persists across sessions via local storage.
-- **Dynamic Relationship Graph**: A custom SVG physics engine visualises co-occurrences of suspects and entities in a dynamic network graph that reconstructs itself instantly on reload.
-- **Voice Interrogation**: Web Speech API integration allows hands-free voice dictation to Sherlock.
-- **British TTS**: Sherlock reads out his deductions using browser-native Text-to-Speech (TTS) with a British accent.
-- **Case Export**: Export full investigations as structured Markdown or cleanly formatted PDF documents.
+- **Agentic Intelligence**: Built with LangGraph, utilizing the ReAct loop to call web searches, semantic document searches, and mathematical evaluators dynamically.
+- **Glassmorphic Cinematic UI**: A highly polished, responsive UI designed to feel like a modern detective's mind palace.
+- **Real-time SSE Streaming**: Watch Sherlock think in real-time. Tool executions (*e.g., 🔍 Searching the web*) are streamed transparently before the final deduction.
+- **Mandatory JWT Authentication**: Secure user management with JWT tokens and direct `bcrypt` password hashing.
+- **Persistent Evidence Board**: A heuristic Named Entity Recognition (NER) system extracts suspects, locations, and events, perfectly persisting across sessions via local storage.
+- **Dynamic Relationship Graph**: A custom SVG physics engine visualises co-occurrences of suspects and entities in a dynamic network graph.
+- **Voice Interrogation & TTS**: Hands-free voice dictation to Sherlock, and browser-native Text-to-Speech (TTS) deductions with a British accent.
 
 ---
 
-## 🛠️ Tech Stack
+## 💡 Key Learnings
 
-### Frontend
-- **Framework**: Next.js 14 (React / Turbopack)
-- **Styling**: Tailwind CSS + Lucide Icons
-- **State/Network**: React Hooks + native `fetch` (Server-Sent Events)
-- **Graph Visualization**: Custom React-Ref physics engine (no heavy external libraries)
-
-### Backend
-- **Framework**: FastAPI (Python 3.10+)
-- **AI/Agent Orchestration**: LangGraph + LangChain
-- **LLM**: Google GenAI (`gemini-2.5-flash`) + `text-embedding-004`
-- **Database**: PostgreSQL with `pgvector` extension
-- **ORM**: SQLAlchemy + asyncpg
-- **Authentication**: JWT (python-jose, bcrypt)
-- **Observability**: LangSmith
+1. **Streaming Complex State**: Orchestrating Server-Sent Events (SSE) that contain both text tokens *and* structural tool-call metadata required building a robust client-side parser to differentiate between a "thought", a "tool execution", and the "final response".
+2. **Deterministic Agent Memory**: Integrating LangGraph's PostgreSQL checkpointer taught me how to persist conversational AI state seamlessly, allowing the agent to remember context from a thread even after a hard server reset.
+3. **Optimizing Client-Side Compute**: Rather than relying on expensive LLM calls to extract Named Entities (NER) for the relationship graph, I learned how to build a highly optimized, heuristic-based client-side regex/pattern matcher. This drastically reduced latency and API costs while keeping the evidence board instantly reactive.
+4. **Vector DB Integration**: Leveraging `pgvector` inside an existing PostgreSQL instance demonstrated how to achieve powerful RAG semantic search without needing to spin up a dedicated, isolated vector database like Pinecone.
 
 ---
 
@@ -102,20 +147,6 @@ npm install
 npm run dev
 ```
 *Frontend runs on `http://localhost:3000`.*
-
----
-
-## 🧠 The Agentic Flow (How it Works)
-
-1. **Input**: User signs in, uploads a police report and asks, *"Does the suspect's alibi hold up?"*
-2. **Graph Trigger**: FastAPI streams the request to the LangGraph compiled workflow.
-3. **Reasoning**: Gemini decides it needs to verify the timeline in the document and calculate travel times.
-4. **Action**: The agent yields a tool call for `document_search`.
-5. **Observation**: `pgvector` returns the semantic match.
-6. **Action 2**: The agent yields a tool call for `calculator` to calculate the distance/time.
-7. **Deduction**: The agent streams the final synthesis back to the user via SSE.
-8. **Extraction**: The frontend runs lightweight NER to extract new entities and updates the persistent Relationship Graph.
-9. **Observability**: The entire workflow is traced and logged in LangSmith for debugging and performance monitoring.
 
 ---
 

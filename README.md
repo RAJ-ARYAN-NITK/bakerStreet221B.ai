@@ -1,6 +1,16 @@
-# 🔍 BakerStreet221B.ai — Sherlock ReAct Detective Agent
+<div align="center">
+  
+# 🕵️‍♂️ BakerStreet221B.ai 
+### *Sherlock ReAct Detective Agent*
 
-> *"Elementary, my dear Watson — Multimodal AI Mystery Solver"*
+> *"Elementary, my dear Watson — A Multimodal AI Mystery Solver."*
+
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](#)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](#)
+[![LangGraph](https://img.shields.io/badge/LangGraph-🦜🕸️-blue?style=for-the-badge)](#)
+[![Gemini](https://img.shields.io/badge/Gemini_2.5_Flash-8E75B2?style=for-the-badge&logo=googlebard&logoColor=white)](#)
+
+</div>
 
 A full-stack AI detective application powered by a **LangGraph ReAct agent** running **Google Gemini 2.5 Flash**, wrapped in a cinematic Sherlock Holmes–themed UI. Upload documents, interrogate evidence, search the web, and let the world's greatest consulting detective reason through your case — step by step, tool by tool.
 
@@ -10,35 +20,62 @@ A full-stack AI detective application powered by a **LangGraph ReAct agent** run
 
 BakerStreet221B.ai was built to demonstrate **agentic AI reasoning in action**. Rather than a traditional chatbot that generates a single response, this application functions as a reasoning engine designed to process complex, multi-stage investigations autonomously.
 
-**Project Impact:**
-- **Cognitive Offloading**: Automates the laborious task of cross-referencing timelines, parsing long police reports, and mapping out suspect relationships.
-- **Transparent AI Reasoning**: Exposes the "thought process" of the LLM via real-time tool execution streaming, establishing trust with the user.
-- **Enterprise-Ready Architecture**: Demonstrates production-ready patterns including streaming architectures (SSE), JWT authentication, stateful graph orchestration, and observability (LangSmith).
+### ✨ Project Impact
+- 🧠 **Cognitive Offloading**: Automates the laborious task of cross-referencing timelines, parsing long police reports, and mapping out suspect relationships.
+- 🔍 **Transparent AI Reasoning**: Exposes the "thought process" of the LLM via real-time tool execution streaming, establishing trust with the user.
+- 🏗️ **Enterprise-Ready Architecture**: Demonstrates production-ready patterns including streaming architectures (SSE), JWT authentication, stateful graph orchestration, and observability (LangSmith).
 
 ---
 
-## 🏗️ Architecture & Flows
+## 🧭 The LangGraph ReAct Architecture
 
-### The ReAct (Reason-Act-Observe) Loop
-The core intelligence of Sherlock is built on the ReAct prompting framework, orchestrated by LangGraph.
+Instead of a basic "Reason-Act-Observe" cycle, BakerStreet221B utilizes a highly structured **LangGraph StateGraph**. This compiles into a cyclic, stateful workflow where the agent makes deterministic routing decisions based on its generated reasoning.
 
 ```mermaid
 stateDiagram-v2
-    direction LR
-    [*] --> Reason: User Input / Prompt
-    Reason --> Action: Decision to use tool
-    Action --> Observation: Tool execution
-    Observation --> Reason: Context injection
-    Reason --> [*]: Final Synthesis
+    direction TB
+    
+    [*] --> AgentNode : 👤 User Submits Case Query
+    
+    state "🧠 Agent Node (Gemini 2.5 Flash)" as AgentNode {
+        direction TB
+        [*] --> SystemPrompt : Injects Sherlock Persona
+        SystemPrompt --> Context : Hydrates Chat History (pgvector)
+        Context --> Reason : CoT Reasoning (Does this need external data?)
+        Reason --> ActionDecision : Binds tools / Formulates plan
+    }
+    
+    state "🔀 Conditional Router" as Router <<choice>>
+    
+    AgentNode --> Router : LLM Generation Complete
+    
+    Router --> ToolsNode : 🔧 Action Needed (Needs Tools)
+    Router --> [*] : ✍️ Synthesis (Final Answer Streamed via SSE)
+    
+    state "🛠️ Tool Execution Node" as ToolsNode {
+        direction LR
+        WebSearch[web_search: DuckDuckGo]
+        DocSearch[document_search: pgvector RAG]
+        Calc[calculator: Safe MathEval]
+    }
+    
+    ToolsNode --> AgentNode : 🔄 Return Observation (Loop continues)
+    
+    %% Styling
+    classDef agentStyle fill:#2d3748,stroke:#f6ad55,stroke-width:2px,color:#fbd38d
+    classDef toolStyle fill:#1a365d,stroke:#63b3ed,stroke-width:2px,color:#bee3f8
+    
+    class AgentNode agentStyle
+    class ToolsNode toolStyle
 ```
 
-### System Architecture Flow
+### 🌐 Full System Architecture Flow
 ```mermaid
 graph TD
     A[Investigator] -->|Authenticates JWT| B(Next.js Frontend)
     B -->|Uploads Docs| C[FastAPI Backend]
     B -->|Sends Queries SSE| C
-    
+
     subgraph Data Layer
         D[(PostgreSQL)]
         D1[pgvector schema] --- D
@@ -47,7 +84,7 @@ graph TD
 
     C -->|Stores/Retrieves Embeddings| D1
     C -->|Persists Thread State| D2
-    
+
     subgraph Agentic Orchestration
         E{LangGraph ReAct Agent}
         E -->|Reasoning Engine| F[Gemini 2.5 Flash]
@@ -58,31 +95,81 @@ graph TD
 
     C -->|Orchestrates| E
     E -.->|Telemetry & Tracing| I[LangSmith]
+
+    classDef userStyle fill:#85B7EB,stroke:#0C447C,color:#042C53
+    classDef appStyle fill:#AFA9EC,stroke:#3C3489,color:#26215C
+    classDef dataStyle fill:#5DCAA5,stroke:#085041,color:#04342C
+    classDef agentStyle fill:#F0997B,stroke:#712B13,color:#4A1B0C
+    classDef toolStyle fill:#FAC775,stroke:#854F0B,color:#412402
+    classDef obsStyle fill:#B4B2A9,stroke:#444441,color:#2C2C2A
+
+    class A userStyle
+    class B appStyle
+    class C appStyle
+    class D,D1,D2 dataStyle
+    class E agentStyle
+    class F,G,H toolStyle
+    class I obsStyle
 ```
 
 ---
 
 ## 🛠️ Tech Stack & Tools
 
-### Frontend
+### 🎨 Frontend
 | Technology | Purpose |
-|------------|---------|
+|---|---|
 | **Next.js 14** | React framework with Turbopack for rapid compilation and App Router. |
 | **Tailwind CSS** | Utility-first styling for the cinematic, glassmorphic UI. |
 | **Lucide React** | Consistent, crisp line icons across the interface. |
 | **React Hooks/SSE** | Custom streaming parsers to handle real-time Server-Sent Events. |
 | **React-Ref** | Powering the custom physics engine for the dynamic relationship graph without bloated external libraries. |
 
-### Backend & AI
+### ⚙️ Backend & AI
 | Technology | Purpose |
-|------------|---------|
+|---|---|
 | **FastAPI** | High-performance Python web framework handling async streaming and endpoints. |
 | **LangGraph** | Cyclic graph orchestration for the agent's ReAct loop and state management. |
 | **Gemini 2.5 Flash** | Core LLM reasoning engine (fast, multimodal, 1M+ token context). |
-| **PostgreSQL / pgvector**| Relational database extended for highly efficient semantic vector search (RAG). |
-| **SQLAlchemy / asyncpg**| Asynchronous database ORM mapping and connection pooling. |
-| **bcrypt / python-jose**| Secure password hashing and stateless JWT authentication. |
+| **PostgreSQL / pgvector** | Relational database extended for highly efficient semantic vector search (RAG). |
+| **SQLAlchemy / asyncpg** | Asynchronous database ORM mapping and connection pooling. |
+| **bcrypt / python-jose** | Secure password hashing and stateless JWT authentication. |
 | **LangSmith** | Deep observability, token tracking, and debugging for the agentic workflows. |
+
+---
+
+## 📂 Project Structure
+
+```text
+bakerStreet221B.ai/
+├── docker-compose.yml       # Provisions PostgreSQL + pgvector
+├── backend/                 # FastAPI & LangGraph Agent
+│   ├── requirements.txt
+│   └── app/
+│       ├── main.py          # FastAPI application entry point
+│       ├── database.py      # SQLAlchemy & pgvector connection setup
+│       ├── models/          # DB schemas (Cases, Users)
+│       ├── api/             # API routes (auth, chat, upload, cases)
+│       ├── agent/           # LangGraph ReAct implementation
+│       │   ├── graph.py     # StateGraph definition and compiled workflow
+│       │   ├── state.py     # AgentState TypedDict
+│       │   └── tools.py     # web_search, document_search, calculator
+│       └── documents/       # PDF parsing and ingestion logic
+└── frontend/                # Next.js 14 Web Application
+    ├── package.json
+    ├── tailwind.config.ts
+    └── src/
+        ├── app/
+        │   ├── layout.tsx   # Root layout and global fonts
+        │   ├── globals.css  # Tailwind entry and custom utility classes
+        │   └── page.tsx     # Main application view (Chat, Sidebar, Evidence)
+        ├── components/      # React UI components
+        │   ├── ChatInterface.tsx
+        │   ├── AuthModal.tsx
+        │   ├── WelcomeModal.tsx
+        │   └── ui/          # EvidencePanel, RelationshipGraph, badges, cards
+        └── lib/             # API helpers and Markdown/PDF export utilities
+```
 
 ---
 
@@ -90,17 +177,17 @@ graph TD
 
 - **Agentic Intelligence**: Built with LangGraph, utilizing the ReAct loop to call web searches, semantic document searches, and mathematical evaluators dynamically.
 - **Glassmorphic Cinematic UI**: A highly polished, responsive UI designed to feel like a modern detective's mind palace.
-- **Real-time SSE Streaming**: Watch Sherlock think in real-time. Tool executions (*e.g., 🔍 Searching the web*) are streamed transparently before the final deduction.
+- **Real-time SSE Streaming**: Watch Sherlock think in real-time. Tool executions (e.g. searching the web) are streamed transparently before the final deduction.
 - **Mandatory JWT Authentication**: Secure user management with JWT tokens and direct `bcrypt` password hashing.
 - **Persistent Evidence Board**: A heuristic Named Entity Recognition (NER) system extracts suspects, locations, and events, perfectly persisting across sessions via local storage.
-- **Dynamic Relationship Graph**: A custom SVG physics engine visualises co-occurrences of suspects and entities in a dynamic network graph.
+- **Dynamic Relationship Graph**: A custom SVG physics engine visualizes co-occurrences of suspects and entities in a dynamic network graph.
 - **Voice Interrogation & TTS**: Hands-free voice dictation to Sherlock, and browser-native Text-to-Speech (TTS) deductions with a British accent.
 
 ---
 
 ## 💡 Key Learnings
 
-1. **Streaming Complex State**: Orchestrating Server-Sent Events (SSE) that contain both text tokens *and* structural tool-call metadata required building a robust client-side parser to differentiate between a "thought", a "tool execution", and the "final response".
+1. **Streaming Complex State**: Orchestrating Server-Sent Events (SSE) that contain both text tokens *and* structural tool-call metadata required building a robust client-side parser to differentiate between a "thought," a "tool execution," and the "final response."
 2. **Deterministic Agent Memory**: Integrating LangGraph's PostgreSQL checkpointer taught me how to persist conversational AI state seamlessly, allowing the agent to remember context from a thread even after a hard server reset.
 3. **Optimizing Client-Side Compute**: Rather than relying on expensive LLM calls to extract Named Entities (NER) for the relationship graph, I learned how to build a highly optimized, heuristic-based client-side regex/pattern matcher. This drastically reduced latency and API costs while keeping the evidence board instantly reactive.
 4. **Vector DB Integration**: Leveraging `pgvector` inside an existing PostgreSQL instance demonstrated how to achieve powerful RAG semantic search without needing to spin up a dedicated, isolated vector database like Pinecone.
@@ -147,41 +234,6 @@ npm install
 npm run dev
 ```
 *Frontend runs on `http://localhost:3000`.*
-
----
-
-## 📂 Folder Structure
-
-```text
-bakerStreet221B.ai/
-├── docker-compose.yml       # Provisions PostgreSQL + pgvector
-├── backend/                 # FastAPI & LangGraph Agent
-│   ├── requirements.txt
-│   └── app/
-│       ├── main.py          # FastAPI application entry point
-│       ├── database.py      # SQLAlchemy & pgvector connection setup
-│       ├── models/          # DB schemas (Cases, Users)
-│       ├── api/             # API routes (auth, chat, upload, cases)
-│       ├── agent/           # LangGraph ReAct implementation
-│       │   ├── graph.py     # StateGraph definition and compiled workflow
-│       │   ├── state.py     # AgentState TypedDict
-│       │   └── tools.py     # web_search, document_search, calculator
-│       └── documents/       # PDF parsing and ingestion logic
-└── frontend/                # Next.js 14 Web Application
-    ├── package.json
-    ├── tailwind.config.ts
-    └── src/
-        ├── app/
-        │   ├── layout.tsx   # Root layout and global fonts
-        │   ├── globals.css  # Tailwind entry and custom utility classes
-        │   └── page.tsx     # Main application view (Chat, Sidebar, Evidence)
-        ├── components/      # React UI components
-        │   ├── ChatInterface.tsx
-        │   ├── AuthModal.tsx
-        │   ├── WelcomeModal.tsx
-        │   └── ui/          # EvidencePanel, RelationshipGraph, badges, cards
-        └── lib/             # API helpers and Markdown/PDF export utilities
-```
 
 ---
 

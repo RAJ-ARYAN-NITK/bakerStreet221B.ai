@@ -6,6 +6,7 @@ import { ChatInterface, DetectedEntities } from '@/components/ChatInterface';
 import { Header } from '@/components/Header';
 import { EvidencePanel, Suspect, Entity } from '@/components/ui/EvidencePanel';
 import { WelcomeModal } from '@/components/WelcomeModal';
+import { AuthModal } from '@/components/AuthModal';
 import { OnboardingSteps } from '@/components/OnboardingSteps';
 import { FolderOpen, MessageSquare, Shield } from 'lucide-react';
 import { exportAsMarkdown, exportAsPDF, CaseExportData } from '@/lib/exportCase';
@@ -26,40 +27,77 @@ export default function Home() {
   const [relationships, setRelationships]   = useState<GraphEdge[]>([]);
   const [mobileTab, setMobileTab]           = useState<"cases" | "chat" | "evidence">("chat");
 
-  // ─── Onboarding state ────────────────────────────────────────────────────────
+  // ─── Onboarding and Auth state ───────────────────────────────────────────────
   const [showWelcome, setShowWelcome]   = useState(false);
   const [hasUploaded, setHasUploaded]   = useState(false);
   const [hasChatted, setHasChatted]     = useState(false);
+  
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true); // start true to avoid flash
+  const [showAuthGate, setShowAuthGate]       = useState<boolean>(false);
 
-  // ─── On mount: check if first visit ──────────────────────────────────────────
+  // ─── On mount: check auth & first visit ──────────────────────────────────────
   useEffect(() => {
     const welcomed = localStorage.getItem(KEY_WELCOMED);
     if (!welcomed) setShowWelcome(true);
+
+    const token = localStorage.getItem('sherlock_token');
+    const email = localStorage.getItem('sherlock_email');
+    setIsAuthenticated(!!(token && email));
 
     const saved = localStorage.getItem("lastActiveCase");
     if (saved) {
       setActiveCase(saved);
       const savedInv = localStorage.getItem(`investigations_${saved}`);
       setInvestigations(savedInv ? JSON.parse(savedInv) : []);
+      
+      const savedSuspects = localStorage.getItem(`suspects_${saved}`);
+      setSuspects(savedSuspects ? JSON.parse(savedSuspects) : []);
+      
+      const savedEntities = localStorage.getItem(`entities_${saved}`);
+      setEntities(savedEntities ? JSON.parse(savedEntities) : []);
+
       setHasUploaded(!!localStorage.getItem(KEY_UPLOADED(saved)));
       setHasChatted(!!localStorage.getItem(KEY_CHATTED(saved)));
     }
   }, []);
 
+  // Listen for auth events
+  useEffect(() => {
+    const handleAuthReq = () => setIsAuthenticated(false);
+    window.addEventListener('sherlock:auth:required', handleAuthReq);
+    return () => window.removeEventListener('sherlock:auth:required', handleAuthReq);
+  }, []);
+
+  // Control AuthGate visibility: show if not welcome screen and not authenticated
+  useEffect(() => {
+    if (!showWelcome && !isAuthenticated) {
+      setShowAuthGate(true);
+    } else {
+      setShowAuthGate(false);
+    }
+  }, [showWelcome, isAuthenticated]);
+
   // ─── Case management ─────────────────────────────────────────────────────────
   const handleSetActiveCase = (id: string | null) => {
     setActiveCase(id);
-    setSuspects([]);
-    setEntities([]);
     if (id) {
       localStorage.setItem("lastActiveCase", id);
       const savedInv = localStorage.getItem(`investigations_${id}`);
       setInvestigations(savedInv ? JSON.parse(savedInv) : []);
+      
+      const savedSuspects = localStorage.getItem(`suspects_${id}`);
+      setSuspects(savedSuspects ? JSON.parse(savedSuspects) : []);
+      
+      const savedEntities = localStorage.getItem(`entities_${id}`);
+      setEntities(savedEntities ? JSON.parse(savedEntities) : []);
+      
       setHasUploaded(!!localStorage.getItem(KEY_UPLOADED(id)));
       setHasChatted(!!localStorage.getItem(KEY_CHATTED(id)));
     } else {
       localStorage.removeItem("lastActiveCase");
       setInvestigations([]);
+      setSuspects([]);
+      setEntities([]);
       setHasUploaded(false);
       setHasChatted(false);
     }
@@ -68,20 +106,30 @@ export default function Home() {
   // ─── Evidence management ──────────────────────────────────────────────────────
   const addSuspect    = (s: Omit<Suspect, "id">) =>
     setSuspects((prev) => {
-      // Deduplicate by name (case-insensitive)
       if (prev.some(p => p.name.toLowerCase() === s.name.toLowerCase())) return prev;
-      return [...prev, { ...s, id: crypto.randomUUID() }];
+      const next = [...prev, { ...s, id: crypto.randomUUID() }];
+      if (activeCase) localStorage.setItem(`suspects_${activeCase}`, JSON.stringify(next));
+      return next;
     });
   const deleteSuspect = (id: string) =>
-    setSuspects((prev) => prev.filter((s) => s.id !== id));
+    setSuspects((prev) => {
+      const next = prev.filter((s) => s.id !== id);
+      if (activeCase) localStorage.setItem(`suspects_${activeCase}`, JSON.stringify(next));
+      return next;
+    });
   const addEntity     = (e: Omit<Entity, "id">) =>
     setEntities((prev) => {
-      // Deduplicate by label (case-insensitive)
       if (prev.some(p => p.label.toLowerCase() === e.label.toLowerCase())) return prev;
-      return [...prev, { ...e, id: crypto.randomUUID() }];
+      const next = [...prev, { ...e, id: crypto.randomUUID() }];
+      if (activeCase) localStorage.setItem(`entities_${activeCase}`, JSON.stringify(next));
+      return next;
     });
   const deleteEntity  = (id: string) =>
-    setEntities((prev) => prev.filter((e) => e.id !== id));
+    setEntities((prev) => {
+      const next = prev.filter((e) => e.id !== id);
+      if (activeCase) localStorage.setItem(`entities_${activeCase}`, JSON.stringify(next));
+      return next;
+    });
 
   // ─── NER callback: auto-populate Evidence Panel ───────────────────────────────
   const handleEntitiesDetected = useCallback((detected: DetectedEntities) => {
@@ -201,13 +249,13 @@ export default function Home() {
           <p className="text-xs text-amber-600 font-semibold uppercase tracking-widest mb-2">
             Click to investigate →
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex overflow-x-auto pb-2 gap-3 snap-x scrollbar-thin scrollbar-thumb-amber-900/50 scrollbar-track-transparent">
             {investigations.map((q, i) => (
               <button
                 key={i}
                 onClick={() => handleQuestionClick(q)}
                 title={q}
-                className="text-xs text-amber-200 bg-amber-900/30 border border-amber-800/50 hover:bg-amber-700/40 hover:border-amber-500 hover:text-amber-100 px-3 py-1.5 rounded-full transition-all duration-150 text-left max-w-xs truncate"
+                className="shrink-0 w-[280px] sm:w-[320px] snap-start text-xs text-amber-200 bg-amber-900/30 border border-amber-800/50 hover:bg-amber-700/40 hover:border-amber-500 hover:text-amber-100 px-3 py-2 rounded-xl transition-all duration-150 text-left line-clamp-2 leading-tight"
               >
                 {q}
               </button>
@@ -228,6 +276,16 @@ export default function Home() {
       {/* Welcome modal — shown only on first visit */}
       {showWelcome && <WelcomeModal onDismiss={handleWelcomeDismiss} />}
 
+      {/* Mandatory Auth Gate */}
+      {showAuthGate && (
+        <AuthModal
+          onSuccess={(email) => {
+            setIsAuthenticated(true);
+            window.dispatchEvent(new Event('sherlock:auth:success'));
+          }}
+        />
+      )}
+
       <div className="relative z-10 flex flex-col h-full overflow-hidden">
 
         <Header />
@@ -235,10 +293,12 @@ export default function Home() {
         {/* DESKTOP layout */}
         <div className="hidden sm:flex flex-1 overflow-hidden">
 
-          <CaseSidebar
-            activeCase={activeCase}
-            setActiveCase={handleSetActiveCase}
-          />
+          <div className="border-r border-slate-800/60 bg-slate-900/20">
+            <CaseSidebar
+              activeCase={activeCase}
+              setActiveCase={handleSetActiveCase}
+            />
+          </div>
 
           <div className="flex flex-col flex-1 min-w-0 min-h-0 px-4 py-4">
 

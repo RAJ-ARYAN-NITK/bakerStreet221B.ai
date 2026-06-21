@@ -8,9 +8,11 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
-  Send, Mic, MicOff, Brain, User, Loader2, Paperclip, Wrench, Volume2, VolumeX,
+  Send, Mic, MicOff, Brain, User, Loader2, Paperclip, Wrench, Volume2, VolumeX, Download, FileDown, FileText
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { apiFetch } from "@/lib/api";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -36,6 +38,7 @@ interface ChatInterfaceProps {
   onEntitiesDetected?:       (detected: DetectedEntities) => void;
   onFirstUpload?:            () => void;
   onFirstMessage?:           () => void;
+  onExport?:                 (format: "markdown" | "pdf") => void;
 }
 
 const BACKEND_URL =
@@ -171,6 +174,7 @@ export function ChatInterface({
   onEntitiesDetected,
   onFirstUpload,
   onFirstMessage,
+  onExport,
 }: ChatInterfaceProps) {
   const [mounted, setMounted]           = useState(false);
   const [messages, setMessages]         = useState<Message[]>([]);
@@ -179,6 +183,7 @@ export function ChatInterface({
   const [threadId, setThreadId]         = useState<string | null>(null);
   const [isRecording, setIsRecording]   = useState(false);
   const [voiceSupported, setVoiceSupported] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<{stage: string, message: string} | null>(null);
 
   // TTS state
   const [speakingMsgId, setSpeakingMsgId] = useState<string | null>(null);
@@ -388,7 +393,7 @@ export function ChatInterface({
     const t_id = threadId || undefined;
 
     try {
-      const res = await fetch(`${BACKEND_URL}/chat/stream`, {
+      const res = await apiFetch("/chat/stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -489,7 +494,7 @@ export function ChatInterface({
       if (err.name === "AbortError") return;
       // SSE failed — fall back to regular JSON endpoint
       try {
-        const res  = await fetch(`${BACKEND_URL}/chat`, {
+        const res  = await apiFetch("/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: text.trim(), thread_id: t_id, case_id: activeCase }),
@@ -587,85 +592,129 @@ export function ChatInterface({
   // ─── File upload ──────────────────────────────────────────────────────────────
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file || !activeCase) return;
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0 || !activeCase) return;
 
-    // Fire onboarding callback on first upload
     onFirstUpload?.();
 
     abortControllerRef.current?.abort();
     const controller = new AbortController();
     abortControllerRef.current = controller;
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("case_id", activeCase);
-    if (threadId) formData.append("thread_id", threadId);
-
-    const ingestMsg: Message = {
-      id: crypto.randomUUID(), role: "agent",
-      content: `📄 Ingesting **"${file.name}"** — Sherlock is analyzing the evidence…`,
-      type: "text", timestamp: new Date().toISOString(),
-    };
-    setMessages(prev => { const u = [...prev, ingestMsg]; saveMessages(activeCase, u); return u; });
     setIsProcessing(true);
+    let currentThreadId = threadId;
+    let allInvestigations: string[] = [];
 
-    try {
-      const res  = await fetch(`${BACKEND_URL}/upload`, {
-        method: "POST",
-        body: formData,
-        signal: controller.signal,
-      });
-      if (!res.ok) throw new Error("Upload failed");
-      const data = await res.json();
-      if (controller.signal.aborted) return;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("case_id", activeCase);
+      if (currentThreadId) formData.append("thread_id", currentThreadId);
 
-      if (data.thread_id && !threadId) {
-        setThreadId(data.thread_id);
-        localStorage.setItem(`thread_${activeCase}`, data.thread_id);
-      }
-
-      const successMsg: Message = {
+      const ingestMsg: Message = {
         id: crypto.randomUUID(), role: "agent",
-        content: `📄 **"${data.filename}"** ingested — ${data.chunks} chunks indexed.`,
+        content: `📄 Ingesting **"${file.name}"** (${i+1}/${files.length}) — Sherlock is analyzing…`,
         type: "text", timestamp: new Date().toISOString(),
       };
+      setMessages(prev => { const u = [...prev, ingestMsg]; saveMessages(activeCase, u); return u; });
+      setUploadProgress({ stage: "init", message: "Initialising…" });
 
-      const cleanQuestions: string[] = (data.investigations ?? []).map((q: string) =>
-        q.replace(/[*]/g, "").replace(/question\s*\d+:/i, "").trim()
-      );
+      try {
+        const res = await apiFetch("/upload", {
+          method: "POST",
+          body: formData,
+          signal: controller.signal,
+        });
 
-      const analysisText =
-        cleanQuestions.length > 0
-          ? `**Investigation leads detected:**\n\n${cleanQuestions.map(q => `- ${q}`).join("\n")}`
-          : "Evidence ingested. Ask Sherlock questions about it.";
+        if (!res.ok || !res.body) throw new Error("Upload failed");
 
-      const analysisMsg: Message = {
-        id: crypto.randomUUID(), role: "agent",
-        content: analysisText, type: "analysis",
-        timestamp: new Date().toISOString(),
-      };
+        const newThread = res.headers.get("X-Thread-Id");
+        if (newThread && !currentThreadId) {
+          currentThreadId = newThread;
+          setThreadId(newThread);
+          localStorage.setItem(`thread_${activeCase}`, newThread);
+        }
 
-      setMessages(prev => {
-        const updated = [...prev, successMsg, analysisMsg];
-        saveMessages(activeCase, updated);
-        return updated;
-      });
-      onInvestigationsGenerated?.(cleanQuestions);
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = "";
+        let isDone = false;
 
-    } catch (err: any) {
-      if (err.name === "AbortError") return;
-      const errMsg: Message = {
-        id: crypto.randomUUID(), role: "agent",
-        content: "⚠️ Failed to upload document.", type: "text",
-        timestamp: new Date().toISOString(),
-      };
-      setMessages(prev => [...prev, errMsg]);
-    } finally {
-      if (!controller.signal.aborted) {
-        setIsProcessing(false);
-        e.target.value = "";
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n\n");
+          buffer = lines.pop() ?? "";
+
+          for (const line of lines) {
+            if (!line.startsWith("data: ")) continue;
+            try {
+              const event = JSON.parse(line.slice(6));
+              
+              if (event.stage === "error") {
+                throw new Error(event.message);
+              }
+              
+              setUploadProgress({ stage: event.stage, message: event.message });
+
+              if (event.stage === "done") {
+                isDone = true;
+                const cleanQuestions: string[] = (event.investigations ?? []).map((q: string) =>
+                  q.replace(/[*]/g, "").replace(/question\\s*\\d+:/i, "").trim()
+                );
+                allInvestigations.push(...cleanQuestions);
+
+                const successMsg: Message = {
+                  id: crypto.randomUUID(), role: "agent",
+                  content: `📄 **"${event.filename}"** ingested — ${event.chunks} chunks indexed.`,
+                  type: "text", timestamp: new Date().toISOString(),
+                };
+                setMessages(prev => {
+                  const updated = [...prev, successMsg];
+                  saveMessages(activeCase, updated);
+                  return updated;
+                });
+              }
+            } catch {}
+          }
+        }
+        
+        if (!isDone) throw new Error("Stream ended prematurely");
+        setUploadProgress(null);
+
+      } catch (err: any) {
+        if (err.name === "AbortError") return;
+        const errMsg: Message = {
+          id: crypto.randomUUID(), role: "agent",
+          content: `⚠️ Failed to upload **"${file.name}"**: ${err.message}`, type: "text",
+          timestamp: new Date().toISOString(),
+        };
+        setMessages(prev => [...prev, errMsg]);
+        setUploadProgress(null);
       }
+    }
+
+    if (!controller.signal.aborted) {
+      if (allInvestigations.length > 0) {
+        const uniqueQuestions = Array.from(new Set(allInvestigations));
+        const analysisText = `**Investigation leads detected:**\n\n${uniqueQuestions.map(q => `- ${q}`).join("\n")}`;
+        const analysisMsg: Message = {
+          id: crypto.randomUUID(), role: "agent",
+          content: analysisText, type: "analysis",
+          timestamp: new Date().toISOString(),
+        };
+        setMessages(prev => {
+          const updated = [...prev, analysisMsg];
+          saveMessages(activeCase, updated);
+          return updated;
+        });
+        onInvestigationsGenerated?.(uniqueQuestions);
+      }
+      setIsProcessing(false);
+      e.target.value = "";
     }
   };
 
@@ -688,20 +737,42 @@ export function ChatInterface({
 
       {/* Header */}
       <CardHeader className="border-b border-amber-900/30 px-3 sm:px-6 py-3">
-        <CardTitle className="text-amber-100 flex items-center gap-2">
-          <Brain className="w-5 h-5 text-amber-500 shrink-0" />
-          <span className="text-sm sm:text-base">Detective Analysis Chamber</span>
-          <span className="ml-auto text-xs text-amber-700 font-normal hidden sm:block">
-            Tools: 🔍 Search · 🧮 Calculator · 📄 Docs
-          </span>
+        <CardTitle className="text-amber-100 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Brain className="w-5 h-5 text-amber-500 shrink-0" />
+            <span className="text-sm sm:text-base">Detective Analysis Chamber</span>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <span className="hidden md:block text-xs text-slate-500 font-normal">
+              Tools: 🔍 Search · 🧮 Calculator · 📄 Docs
+            </span>
+            
+            {onExport && messages.length > 0 && (
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs font-medium text-amber-700 hover:text-amber-400 hover:bg-amber-900/20 transition-colors border border-transparent hover:border-amber-900/40">
+                  <Download className="w-3.5 h-3.5" />
+                  Export Case
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="bg-slate-900 border-amber-900/50 text-amber-100 min-w-[140px]">
+                  <DropdownMenuItem onClick={() => onExport("markdown")} className="focus:bg-amber-900/40 focus:text-amber-50 cursor-pointer text-xs flex items-center gap-2 py-2">
+                    <FileText className="w-3.5 h-3.5 text-amber-500" /> Markdown (.md)
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => onExport("pdf")} className="focus:bg-amber-900/40 focus:text-amber-50 cursor-pointer text-xs flex items-center gap-2 py-2">
+                    <FileDown className="w-3.5 h-3.5 text-amber-500" /> PDF Document
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+          </div>
         </CardTitle>
       </CardHeader>
 
       <CardContent className="flex flex-col flex-1 min-h-0 p-0">
 
         {/* Messages */}
-        <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 sm:px-8 py-4 sm:py-6">
-          <div className="mx-auto max-w-3xl space-y-4 sm:space-y-6">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto px-3 sm:px-6 py-4 sm:py-4">
+          <div className="mx-auto max-w-2xl space-y-3 sm:space-y-4">
 
             {messages.length === 0 && (
               <div className="text-center text-amber-700 text-sm py-8">
@@ -709,37 +780,41 @@ export function ChatInterface({
               </div>
             )}
 
-            {messages.map((m) => (
+            {messages.map((m, idx) => {
+              const showAvatar = idx === 0 || messages[idx - 1].role !== m.role;
+              return (
               <div
                 key={m.id}
                 className={`flex items-start gap-2 ${m.role === "user" ? "justify-end" : "justify-start"}`}
               >
                 {m.role === "agent" && (
-                  <Brain className="hidden sm:block mt-1 w-5 h-5 sm:w-6 sm:h-6 text-amber-500 shrink-0" />
+                  <div className="hidden sm:block mt-1 w-5 sm:w-6 shrink-0">
+                    {showAvatar && <Brain className="w-5 h-5 sm:w-6 sm:h-6 text-amber-500" />}
+                  </div>
                 )}
 
                 <div className={`
-                  rounded-xl sm:rounded-lg border p-3 sm:p-4
+                  rounded-xl sm:rounded-lg border px-4 py-2.5
                   ${m.role === "user"
-                    ? "max-w-[85%] sm:max-w-[75%] bg-amber-900/30 border-amber-700/50"
+                    ? "max-w-[85%] sm:max-w-[75%] bg-blue-600/20 border-blue-500/50 text-blue-100"
                     : "max-w-[90%] sm:max-w-[80%] bg-slate-900/80 border-amber-900/30"
                   }
                 `}>
 
                   {m.type === "analysis" && (
-                    <Badge className="mb-2 text-xs">Analysis</Badge>
+                    <Badge className="mb-2 text-xs rounded-full px-2.5 py-0.5 font-medium border-amber-500/30 bg-amber-500/10 text-amber-400">Analysis</Badge>
                   )}
 
                   {/* Tool-use indicator */}
                   {m.tool && (
-                    <div className={`flex items-center gap-1.5 mb-2 text-xs ${m.tool.startsWith("✓") ? "text-green-500" : "text-amber-600 animate-pulse"}`}>
+                    <div className={`flex items-center gap-1.5 mb-2 text-xs ${m.tool.startsWith("✓") ? "text-slate-400" : "text-slate-500 animate-pulse"}`}>
                       <Wrench className="w-3 h-3" />
                       <span>{m.tool.startsWith("✓") || m.tool.startsWith("🔍") ? m.tool : `Using: ${m.tool}`}</span>
                     </div>
                   )}
 
                   {m.role === "user" ? (
-                    <p className="text-amber-100 text-sm sm:text-base whitespace-pre-wrap">
+                    <p className="text-sm sm:text-base whitespace-pre-wrap">
                       {m.content}
                     </p>
                   ) : (
@@ -774,7 +849,7 @@ export function ChatInterface({
                   {/* Footer row: timestamp + TTS button */}
                   {mounted && (
                     <div className="mt-1.5 flex items-center justify-between gap-2">
-                      <p className="text-xs text-amber-700">
+                      <p className="text-[11px] text-slate-500">
                         {new Date(m.timestamp).toLocaleTimeString()}
                       </p>
 
@@ -800,10 +875,12 @@ export function ChatInterface({
                 </div>
 
                 {m.role === "user" && (
-                  <User className="hidden sm:block mt-1 w-5 h-5 sm:w-6 sm:h-6 text-slate-300 shrink-0" />
+                  <div className="hidden sm:block mt-1 w-5 sm:w-6 shrink-0">
+                    {showAvatar && <User className="w-5 h-5 sm:w-6 sm:h-6 text-slate-500" />}
+                  </div>
                 )}
               </div>
-            ))}
+            )})}
 
             {isProcessing && messages[messages.length - 1]?.role !== "agent" && (
               <div className="flex items-center gap-2 text-amber-300 text-sm">
@@ -815,23 +892,36 @@ export function ChatInterface({
         </div>
 
         {/* Input bar */}
-        <div className="border-t border-amber-900/30 px-2 sm:px-4 py-2 sm:py-3 flex gap-1.5 sm:gap-2 items-center">
-
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className="text-amber-400 hover:bg-amber-900/30 p-2 rounded-lg shrink-0 transition-colors"
-            title="Upload document (PDF, DOCX, TXT)"
-          >
-            <Paperclip size={16} className="sm:w-[18px] sm:h-[18px]" />
-          </button>
+        <div className="relative border-t border-amber-900/30 px-2 sm:px-4 py-2 sm:py-3 flex gap-1.5 sm:gap-2 items-center">
+          {isProcessing && uploadProgress && (
+            <div className="absolute -top-7 left-3 text-[10px] text-amber-600 flex items-center gap-1.5 bg-slate-950/80 px-2 py-0.5 rounded-t-md border border-b-0 border-amber-900/30">
+              <Loader2 className="w-3 h-3 animate-spin" />
+              {uploadProgress.message}
+            </div>
+          )}
+          {isProcessing && !uploadProgress && (
+            <div className="absolute -top-7 left-3 text-[10px] text-amber-600 flex items-center gap-1.5 bg-slate-950/80 px-2 py-0.5 rounded-t-md border border-b-0 border-amber-900/30">
+              <Loader2 className="w-3 h-3 animate-spin" />
+              Sherlock is thinking...
+            </div>
+          )}
 
           <input
             type="file"
+            className="hidden"
             ref={fileInputRef}
             onChange={handleFileChange}
-            className="hidden"
             accept=".pdf,.docx,.txt"
+            multiple
           />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={isProcessing}
+            className="p-2.5 sm:p-3 text-amber-700 hover:text-amber-500 hover:bg-amber-900/20 rounded-xl transition-all disabled:opacity-50 shrink-0"
+            title="Upload evidence (PDF, TXT)"
+          >
+            <Paperclip className="w-4 h-4 sm:w-5 sm:h-5" />
+          </button>
 
           {/* Mic button */}
           <button

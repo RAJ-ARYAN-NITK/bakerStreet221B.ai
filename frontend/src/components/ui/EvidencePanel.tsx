@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Users, Tag, Plus, Shield, X, Bot } from "lucide-react";
+import { Users, Tag, Plus, Shield, X, Bot, Network } from "lucide-react";
+import { RelationshipGraph, GraphEdge, GraphNode } from "./RelationshipGraph";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -29,14 +30,15 @@ interface EvidencePanelProps {
   onDeleteSuspect: (id: string) => void;
   onAddEntity: (e: Omit<Entity, "id">) => void;
   onDeleteEntity: (id: string) => void;
+  relationships: GraphEdge[];
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 const THREAT_STYLES: Record<Suspect["threat"], string> = {
-  high:   "bg-red-900/40 text-red-300 border-red-700/60",
-  medium: "bg-amber-900/40 text-amber-300 border-amber-700/60",
-  low:    "bg-green-900/40 text-green-300 border-green-700/60",
+  high:   "bg-red-500/10 text-red-400 border-red-500/30",
+  medium: "bg-amber-500/10 text-amber-400 border-amber-500/30",
+  low:    "bg-green-500/10 text-green-400 border-green-500/30",
 };
 
 const KIND_LABELS: Record<Entity["kind"], string> = {
@@ -152,10 +154,21 @@ export function EvidencePanel({
   onDeleteSuspect,
   onAddEntity,
   onDeleteEntity,
+  relationships,
 }: EvidencePanelProps) {
   const [addingSuspect, setAddingSuspect] = useState(false);
   const [addingEntity,  setAddingEntity]  = useState(false);
-  const [tab, setTab] = useState<"suspects" | "entities">("suspects");
+  const [tab, setTab] = useState<"suspects" | "entities" | "graph">("suspects");
+
+  // Derive graph nodes from suspects and entities
+  const nodes: GraphNode[] = [
+    ...suspects.map((s) => ({ id: s.id, name: s.name, type: "suspect" as const })),
+    ...entities.map((e) => ({
+      id: e.id,
+      name: e.label,
+      type: (e.kind === "location" || e.kind === "event") ? e.kind : "other" as const,
+    })),
+  ];
 
   return (
     <aside className="w-64 shrink-0 flex flex-col h-full rounded-xl border border-amber-900/40 bg-slate-950/60 backdrop-blur-sm overflow-hidden">
@@ -170,7 +183,7 @@ export function EvidencePanel({
 
       {/* ── Tabs ───────────────────────────────────────────────────────────── */}
       <div className="flex border-b border-amber-900/30">
-        {(["suspects", "entities"] as const).map((t) => (
+        {(["suspects", "entities", "graph"] as const).map((t) => (
           <button
             key={t}
             onClick={() => setTab(t)}
@@ -180,8 +193,10 @@ export function EvidencePanel({
                 : "text-amber-800 hover:text-amber-600"
             }`}
           >
-            {t === "suspects" ? <Users className="w-3.5 h-3.5" /> : <Tag className="w-3.5 h-3.5" />}
-            {t === "suspects" ? "Suspects" : "Entities"}
+            {t === "suspects" && <Users className="w-3.5 h-3.5" />}
+            {t === "entities" && <Tag className="w-3.5 h-3.5" />}
+            {t === "graph" && <Network className="w-3.5 h-3.5" />}
+            {t.charAt(0).toUpperCase() + t.slice(1)}
             {t === "suspects" && suspects.length > 0 && (
               <span className="ml-0.5 px-1 py-0 text-[10px] rounded-full bg-amber-900/60 text-amber-400">
                 {suspects.length}
@@ -215,7 +230,10 @@ export function EvidencePanel({
             )}
 
             {suspects.length === 0 && !addingSuspect && (
-              <p className="text-center text-xs text-amber-900 py-6">No suspects tracked yet.</p>
+              <div className="flex flex-col items-center justify-center gap-2 py-10 px-4 text-center border-2 border-dashed border-slate-800/60 rounded-xl">
+                <Users className="w-8 h-8 text-slate-700" />
+                <p className="text-xs text-slate-500 font-medium">No suspects tracked yet.</p>
+              </div>
             )}
 
             {suspects.map((s) => (
@@ -223,22 +241,22 @@ export function EvidencePanel({
                 key={s.id}
                 className={`group flex items-start gap-2 rounded-lg border px-3 py-2.5 transition-colors ${
                   s.autoDetected
-                    ? "border-amber-700/40 bg-amber-900/10 hover:border-amber-600/50"
-                    : "border-amber-900/30 bg-slate-900/50 hover:border-amber-800/50"
+                    ? "border-rose-900/30 bg-rose-950/20 hover:border-rose-800/50"
+                    : "border-slate-800 bg-slate-900/50 hover:border-slate-700/80"
                 }`}
               >
-                <Users className="w-3.5 h-3.5 text-amber-600 mt-0.5 shrink-0" />
+                <Users className="w-3.5 h-3.5 text-rose-600 mt-0.5 shrink-0" />
                 <div className="flex-1 min-w-0 space-y-1">
                   <div className="flex items-center gap-1.5">
-                    <p className="text-sm text-amber-100 truncate font-medium">{s.name}</p>
+                    <p className="text-sm text-slate-200 truncate font-medium">{s.name}</p>
                     {s.autoDetected && (
-                      <span className="inline-flex items-center gap-0.5 text-[9px] px-1 py-0 rounded-full bg-amber-900/50 border border-amber-700/40 text-amber-500 shrink-0">
-                        <Bot className="w-2 h-2" /> AI
+                      <span className="inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[9px] font-medium border border-rose-500/30 bg-rose-500/10 text-rose-400 shrink-0 uppercase tracking-wider">
+                        <Bot className="w-2.5 h-2.5" /> AI
                       </span>
                     )}
                   </div>
-                  {s.note && <p className="text-xs text-amber-700 truncate">{s.note}</p>}
-                  <span className={`inline-block text-[10px] px-1.5 py-0 rounded-full border ${THREAT_STYLES[s.threat]}`}>
+                  {s.note && <p className="text-xs text-slate-500 truncate">{s.note}</p>}
+                  <span className={`inline-block text-[10px] px-2 py-0.5 font-medium rounded-full border uppercase tracking-wider ${THREAT_STYLES[s.threat]}`}>
                     {s.threat}
                   </span>
                 </div>
@@ -270,7 +288,10 @@ export function EvidencePanel({
             )}
 
             {entities.length === 0 && !addingEntity && (
-              <p className="text-center text-xs text-amber-900 py-6">No entities tracked yet.</p>
+              <div className="flex flex-col items-center justify-center gap-2 py-10 px-4 text-center border-2 border-dashed border-slate-800/60 rounded-xl">
+                <Tag className="w-8 h-8 text-slate-700" />
+                <p className="text-xs text-slate-500 font-medium">No entities tracked yet.</p>
+              </div>
             )}
 
             {entities.map((e) => (
@@ -278,22 +299,22 @@ export function EvidencePanel({
                 key={e.id}
                 className={`group flex items-start gap-2 rounded-lg border px-3 py-2.5 transition-colors ${
                   e.autoDetected
-                    ? "border-amber-700/40 bg-amber-900/10 hover:border-amber-600/50"
-                    : "border-amber-900/30 bg-slate-900/50 hover:border-amber-800/50"
+                    ? "border-teal-900/30 bg-teal-950/20 hover:border-teal-800/50"
+                    : "border-slate-800 bg-slate-900/50 hover:border-slate-700/80"
                 }`}
               >
-                <Tag className="w-3.5 h-3.5 text-amber-600 mt-0.5 shrink-0" />
+                <Tag className="w-3.5 h-3.5 text-teal-600 mt-0.5 shrink-0" />
                 <div className="flex-1 min-w-0 space-y-1">
                   <div className="flex items-center gap-1.5">
-                    <p className="text-sm text-amber-100 truncate font-medium">{e.label}</p>
+                    <p className="text-sm text-slate-200 truncate font-medium">{e.label}</p>
                     {e.autoDetected && (
-                      <span className="inline-flex items-center gap-0.5 text-[9px] px-1 py-0 rounded-full bg-amber-900/50 border border-amber-700/40 text-amber-500 shrink-0">
-                        <Bot className="w-2 h-2" /> AI
+                      <span className="inline-flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[9px] font-medium border border-teal-500/30 bg-teal-500/10 text-teal-400 shrink-0 uppercase tracking-wider">
+                        <Bot className="w-2.5 h-2.5" /> AI
                       </span>
                     )}
                   </div>
-                  {e.note && <p className="text-xs text-amber-700 truncate">{e.note}</p>}
-                  <span className="text-[10px] text-amber-800">{KIND_LABELS[e.kind]}</span>
+                  {e.note && <p className="text-xs text-slate-500 truncate">{e.note}</p>}
+                  <span className="text-[10px] text-slate-500 uppercase tracking-wider">{KIND_LABELS[e.kind]}</span>
                 </div>
                 <button
                   onClick={() => onDeleteEntity(e.id)}
@@ -304,6 +325,13 @@ export function EvidencePanel({
                 </button>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* GRAPH TAB */}
+        {tab === "graph" && (
+          <div className="py-2">
+            <RelationshipGraph nodes={nodes} edges={relationships} />
           </div>
         )}
       </ScrollArea>

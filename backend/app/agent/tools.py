@@ -5,6 +5,9 @@ Tools available:
   1. web_search      — DuckDuckGo search (no API key required)
   2. calculator      — Safe math evaluation via numexpr
   3. document_search — Search text previously uploaded for this case
+                       Now ASYNC: tries pgvector semantic search first,
+                       falls back to keyword-frequency scoring if no
+                       embeddings exist yet (e.g., first upload).
 
 NOTE: document_search is created via make_document_search_tool(case_id) so that
 the correct case_id is always used without requiring the LLM to pass it.
@@ -17,6 +20,7 @@ from langchain_core.tools import tool
 
 # ─── In-memory document store (case_id → list of text chunks) ────────────────
 # Populated by the /upload endpoint.  Thread-safe via a lock.
+# Kept as a keyword-search fallback if pgvector is unavailable.
 _doc_store: Dict[str, List[str]] = {}
 _lock = threading.Lock()
 
@@ -74,12 +78,10 @@ def calculator(expression: str) -> str:
     """
     try:
         import numexpr
-        # Strip any non-math characters for safety
         safe = re.sub(r"[^0-9+\-*/().,\s%^a-zA-Z_]", "", expression)
         result = numexpr.evaluate(safe)
         return str(float(result))
     except Exception:
-        # Fallback: pure Python eval with a restricted namespace
         try:
             import math
             allowed = {k: getattr(math, k) for k in dir(math) if not k.startswith("_")}
@@ -97,24 +99,37 @@ def calculator(expression: str) -> str:
 def make_document_search_tool(case_id: str):
     """
     Returns a document_search tool pre-bound to the given case_id.
-    This ensures the LLM never needs to pass case_id — it's baked in.
+    Priority: pgvector semantic search → keyword frequency fallback.
+    The LLM never needs to pass case_id — it's baked in via closure.
     """
 
     @tool
-    def document_search(query: str) -> str:
+    async def document_search(query: str) -> str:
         """
-        Search through documents that were uploaded for the current case.
+        Search through documents uploaded for the current case using semantic similarity.
         Use this when the user references evidence, a file, or asks questions
         that may be answered by previously uploaded documents.
         Input: a search query string describing what you're looking for.
         Output: the most relevant text excerpts from uploaded documents.
         """
+        # ── 1. Try pgvector semantic search (Feature 4) ───────────────────────
+        try:
+            from app.agent.embeddings import semantic_search, has_embeddings
+            if await has_embeddings(case_id):
+                results = await semantic_search(query, case_id)
+                if results:
+                    excerpts = "\n\n---\n\n".join(results)
+                    return f"Relevant document excerpts (semantic search):\n\n{excerpts}"
+        except Exception as sem_err:
+            # Non-fatal: fall through to keyword search
+            pass
+
+        # ── 2. Keyword-frequency fallback ─────────────────────────────────────
         chunks = get_document_chunks(case_id)
         if not chunks:
             return "No documents have been uploaded for this case yet."
 
         query_lower = query.lower()
-        # Keyword scoring — count query word hits per chunk
         query_words = set(re.findall(r"\w+", query_lower))
 
         scored = []
@@ -124,16 +139,13 @@ def make_document_search_tool(case_id: str):
             scored.append((score, chunk))
 
         scored.sort(key=lambda x: x[0], reverse=True)
-
-        # Get top chunks that have at least 1 keyword match
         top = [chunk for score, chunk in scored[:5] if score > 0]
 
         if not top:
-            # Return first 3 chunks if nothing scored (broad fallback)
             top = chunks[:3]
 
         excerpts = "\n\n---\n\n".join(top)
-        return f"Relevant document excerpts:\n\n{excerpts}"
+        return f"Relevant document excerpts (keyword search):\n\n{excerpts}"
 
     return document_search
 

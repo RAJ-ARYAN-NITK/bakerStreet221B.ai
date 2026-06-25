@@ -15,6 +15,10 @@ from app.api.auth import router as auth_router
 logger = logging.getLogger(__name__)
 
 
+import os
+from langchain_mcp_adapters.client import MultiServerMCPClient
+import app.agent.tools as agent_tools
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # ── Startup ──────────────────────────────────────────────────────────────
@@ -45,6 +49,20 @@ async def lifespan(app: FastAPI):
     except Exception as e:
         logger.warning(f"SQLAlchemy table setup warning: {e}")
 
+    logger.info("Starting MCP Client...")
+    mcp_script_path = os.path.join(os.path.dirname(__file__), "..", "mcp_server.py")
+    mcp_client_manager = MultiServerMCPClient({
+        "scotland_yard": {
+            "transport": "stdio",
+            "command": "python",
+            "args": [mcp_script_path],
+        }
+    })
+
+    mcp_tools = await mcp_client_manager.get_tools()
+    agent_tools.mcp_tools.extend(mcp_tools)
+    logger.info(f"Loaded MCP Tools: {[t.name for t in mcp_tools]}")
+    
     yield
 
     # ── Shutdown ─────────────────────────────────────────────────────────────

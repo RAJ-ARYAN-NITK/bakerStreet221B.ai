@@ -745,7 +745,7 @@ export function ChatInterface({
           
           <div className="flex items-center gap-4">
             <span className="hidden md:block text-xs text-slate-500 font-normal">
-              Tools: 🔍 Search · 🧮 Calculator · 📄 Docs
+              Tools: 🔍 Search · 🧮 Calculator · 📄 Docs · 🏛️ Scotland Yard · 🔬 Forensics
             </span>
             
             {onExport && messages.length > 0 && (

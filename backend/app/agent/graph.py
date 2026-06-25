@@ -58,9 +58,10 @@ def get_agent_graph():
     """Returns the default agent graph (no case-specific document search)."""
     global agent_graph
     if agent_graph is None:
+        from app.agent.tools import mcp_tools
         agent_graph = create_react_agent(
             model=llm,
-            tools=SHERLOCK_TOOLS,
+            tools=SHERLOCK_TOOLS + mcp_tools,
             prompt=SHERLOCK_SYSTEM_PROMPT,
             checkpointer=get_checkpointer(),
         )
@@ -74,8 +75,9 @@ def get_case_agent_graph(case_id: str):
     Each call creates a new graph with a case-bound tool — the checkpointer
     is shared, so conversation memory is preserved across tool variants.
     """
+    from app.agent.tools import mcp_tools
     case_document_search = make_document_search_tool(case_id)
-    tools = [web_search, calculator, case_document_search]
+    tools = [web_search, calculator, case_document_search] + mcp_tools
     return create_react_agent(
         model=llm,
         tools=tools,

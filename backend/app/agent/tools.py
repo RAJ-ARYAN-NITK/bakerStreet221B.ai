@@ -164,5 +164,7 @@ def document_search(query: str) -> str:
     """
     return "No case context available. Please start a case first."
 
+# List to dynamically hold tools loaded from the MCP server
+mcp_tools = []
 
 SHERLOCK_TOOLS = [web_search, calculator, document_search]

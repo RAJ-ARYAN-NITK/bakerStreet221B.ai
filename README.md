@@ -43,11 +43,13 @@ graph TD
         D --> E[web_search]
         D --> F[document_search]
         D --> G[calculator]
+        D --> J[mcp_tools]
     end
     
     E --> H[🔄 Return Observation]
     F --> H
     G --> H
+    J --> H
     
     H -.->|State Updated| B
     
@@ -62,7 +64,7 @@ graph TD
     class A userStyle
     class B agentStyle
     class C routerStyle
-    class D,E,F,G toolStyle
+    class D,E,F,G,J toolStyle
     class H obsStyle
     class I agentStyle
 ```
@@ -83,12 +85,19 @@ graph TD
     C -->|Stores/Retrieves Embeddings| D1
     C -->|Persists Thread State| D2
 
+    subgraph MCP Ecosystem
+        J[MCP Server: Scotland Yard]
+        K[MCP Server: Forensics Lab]
+    end
+
     subgraph Agentic Orchestration
         E{LangGraph ReAct Agent}
         E -->|Reasoning Engine| F[Gemini 2.5 Flash]
         E -->|Tool: web_search| G[DuckDuckGo]
         E -->|Tool: document_search| D1
         E -->|Tool: calculator| H[Math Evaluator]
+        E <-->|Tool: query_police_database| J
+        E <-->|Tool: analyze_physical_evidence| K
     end
 
     C -->|Orchestrates| E
@@ -100,6 +109,7 @@ graph TD
     classDef agentStyle fill:#F0997B,stroke:#712B13,color:#4A1B0C
     classDef toolStyle fill:#FAC775,stroke:#854F0B,color:#412402
     classDef obsStyle fill:#B4B2A9,stroke:#444441,color:#2C2C2A
+    classDef mcpStyle fill:#F3A6C4,stroke:#9C1E55,color:#5A0B2C
 
     class A userStyle
     class B appStyle
@@ -108,6 +118,7 @@ graph TD
     class E agentStyle
     class F,G,H toolStyle
     class I obsStyle
+    class J,K mcpStyle
 ```
 
 ---
